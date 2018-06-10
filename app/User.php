@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function frames()
+    {
+        return $this->hasManyThrough(Frame::class, Game::class);
+    }
+
+    public function games()
+    {
+        return $this->hasMany(Game::class);
+    }
 }

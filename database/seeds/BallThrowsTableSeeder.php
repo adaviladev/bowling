@@ -18,7 +18,7 @@ class BallThrowsTableSeeder extends Seeder
 
         foreach ($games as $game) {
             foreach ($game->frames as $frame) {
-                $index = random_int(1, \count($this->scores) - 1);
+                $index = random_int(0, \count($this->scores) - 1);
                 $score1 = $this->scores[$index];
                 $score2 = $this->getSecondScore($score1);
                 factory(\App\BallThrow::class)->create([

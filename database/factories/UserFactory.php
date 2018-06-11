@@ -24,9 +24,11 @@ $factory->define(App\User::class, function (Faker $faker) {
 });
 
 $factory->define(App\Game::class, function (Faker $faker) {
-    $user = factory(App\User::class)->create();
     return [
-        'user_id' => $user->id,
+        'user_id' => function () {
+            return App\User::inRandomOrder()
+                           ->first()->id;
+        },
     ];
 });
 

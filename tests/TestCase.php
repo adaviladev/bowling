@@ -3,9 +3,11 @@
 namespace Tests;
 
 use App\Exceptions\Handler;
+use App\User as Bowler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Symfony\Component\HttpKernel\EventListener\ExceptionListener;
+use Tests\Unit\User;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -44,5 +46,16 @@ abstract class TestCase extends BaseTestCase
         $this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);
 
         return $this;
+    }
+
+    /**
+     * @param string $relation
+     * @return mixed
+     */
+    protected function randomUser($relation = 'games')
+    {
+        return Bowler::with($relation)
+                     ->inRandomOrder()
+                     ->first();
     }
 }

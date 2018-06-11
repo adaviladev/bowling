@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{{ auth()->user()->full_name }}'s Games</h1>
+            </div>
+        </div>
         @forelse($games as $game)
             <div id="game-{{ $game->id }}" class="row">
                 <div class="col-1">{{ $game->id }}</div>
@@ -12,5 +17,11 @@
         @empty
             No games
         @endforelse
+
+        <div class="row">
+            <div class="col">
+                {{ $games->links() }}
+            </div>
+        </div>
     </div>
 @endsection

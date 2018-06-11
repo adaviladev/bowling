@@ -20,7 +20,7 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $games = Auth::user()->games;
+        $games = Auth::user()->games()->paginate();
 
         return view('games.index', compact('games'));
     }
@@ -56,12 +56,14 @@ class GamesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param \App\Game $game
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Game $game)
     {
-        //
+        $game->load(['frames.ballThrows']);
+
+        return view('games.show', compact('game'));
     }
 
     /**

@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Game;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GamesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,9 @@ class GamesController extends Controller
      */
     public function index()
     {
-        //
+        $games = Auth::user()->games;
+
+        return view('games.index', compact('games'));
     }
 
     /**
@@ -34,7 +43,14 @@ class GamesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateGame();
+        Game::create([
+            'user_id' => $request->get('user_id')
+        ]);
+
+        return response([
+            'status' => 'Game created.'
+        ]);
     }
 
     /**
@@ -80,5 +96,15 @@ class GamesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function validateGame()
+    {
+        $this->validate(
+          request(),
+          [
+              'user_id' => 'exists:users,id'
+          ]
+        );
     }
 }

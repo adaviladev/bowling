@@ -23,6 +23,8 @@ class CreateBallThrowsTable extends Migration
             $table->string('score')
                   ->nullable();
             $table->timestamps();
+
+            $table->unique(['frame_id', 'index']);
         });
     }
 
@@ -33,6 +35,9 @@ class CreateBallThrowsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('throws');
+        Schema::table('ball_throws', function (Blueprint $table) {
+            $table->dropForeign(['frame_id']);
+        });
+        Schema::dropIfExists('ball_throws');
     }
 }

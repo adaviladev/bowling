@@ -30,6 +30,9 @@ class CreateFramesTableAndWithGameIdConstraint extends Migration
      */
     public function down()
     {
+        Schema::table('frames', function (Blueprint $table) {
+            $table->dropForeign(['game_id']);
+        });
         Schema::dropIfExists('frames');
     }
 }

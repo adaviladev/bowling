@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($game) {
+            $game->frames->each->delete();
+        });
+    }
+
     protected $fillable = [
         'user_id'
     ];
@@ -18,6 +27,11 @@ class Game extends Model
     public function frames()
     {
         return $this->hasMany(Frame::class);
+    }
+
+    public function path()
+    {
+        return "/games/{$this->id}";
     }
 
     public function user()

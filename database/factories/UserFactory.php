@@ -42,13 +42,12 @@ $factory->define(App\Frame::class, function (Faker $faker) {
 });
 
 $factory->define(App\BallThrow::class, function (Faker $faker) {
-    $scores = ['-', 1, 2, 3, 4, 5, 6, 7, 8, 9, 'X', '/'];
     return [
         'frame_id' => function () {
             return App\Frame::inRandomOrder()
                            ->first()->id;
         },
-        'index' => $faker->numberBetween(1,10),
+        'index' => $faker->numberBetween(1,2),
         'score' => $faker->numberBetween(1, 9)
     ];
 });

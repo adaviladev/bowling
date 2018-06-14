@@ -92,12 +92,14 @@ class GamesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Game $game
+     *
+     * @return void
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Game $game)
     {
-        //
+        $game->delete();
     }
 
     private function validateGame()

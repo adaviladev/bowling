@@ -13,13 +13,6 @@ class GameTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->user = create(User::class);
-    }
-
     /** @test */
     public function an_authenticated_user_should_be_able_to_see_all_of_their_own_games(): void
     {
@@ -75,25 +68,32 @@ class GameTest extends TestCase
     {
         $this->signIn($this->user);
         $game = $this->buildBowlingGame();
-        $response = $this->get("/games/{$game->id}");
+        $response = $this->get($game->path());
         foreach ($game->frames as $frame) {
             $response->assertSee("score-{$frame->ballThrows[0]->score}");
             $response->assertSee("score-{$frame->ballThrows[1]->score}");
         }
     }
 
-    /**
-     * @return Game
-     */
-    protected function buildBowlingGame(): Game
+    /** @test */
+    function a_user_should_be_able_to_delete_his_own_game()
     {
-        $game = create(Game::class, ['user_id' => $this->user->id]);
-        $frames = create(Frame::class, ['game_id' => $game->id], 10);
+        $this->signIn($this->user);
+        $game = $this->buildBowlingGame();
 
-        foreach ($frames as $frame) {
-            create(BallThrow::class, ['frame_id' => $frame->id], 2);
-        }
+        $this->delete($game->path());
 
-        return $game->load(['frames.ballThrows']);
+        $this->assertDatabaseMissing('games', ['id' => $game->id]);
+    }
+
+    /** @test */
+    function when_a_game_is_deleted_all_of_its_frame_and_ball_throw_data_should_also_be_deleted()
+    {
+        $this->signIn($this->user);
+        $game = $this->buildBowlingGame();
+
+        $this->delete($game->path());
+
+        $this->assertDatabaseMissing('frames', ['game_id' => $game->id]);
     }
 }

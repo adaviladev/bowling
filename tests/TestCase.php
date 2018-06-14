@@ -2,7 +2,10 @@
 
 namespace Tests;
 
+use App\BallThrow;
 use App\Exceptions\Handler;
+use App\Frame;
+use App\Game;
 use App\User as Bowler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -18,6 +21,8 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->disableExceptionHandling();
+
+        $this->user = create(Bowler::class);
     }
 
     protected function signIn($user = null){
@@ -57,5 +62,40 @@ abstract class TestCase extends BaseTestCase
         return Bowler::with($relation)
                      ->inRandomOrder()
                      ->first();
+    }
+
+    /**
+     * @return Game
+     */
+    protected function buildBowlingGame(): Game
+    {
+        $game = create(Game::class, ['user_id' => $this->user->id]);
+        $frames = create(Frame::class, ['game_id' => $game->id], 10);
+
+        $scores = ['-', 1, 2, 3, 4, 5, 6, 7, 8, 9, 'X', '/'];
+
+        foreach ($frames as $frame) {
+            $index = random_int(0, \count(BallThrow::$scores) - 1);
+            $score1 = BallThrow::$scores[$index];
+            $score2 = BallThrow::getSecondScore($score1);
+            create(
+                BallThrow::class,
+                [
+                    'frame_id' => $frame->id,
+                    'index' => 1,
+                    'score' => $score1
+                ]
+            );
+            create(
+                BallThrow::class,
+                [
+                    'frame_id' => $frame->id,
+                    'index' => 2,
+                    'score' => $score2
+                ]
+            );
+        }
+
+        return $game->load(['frames.ballThrows']);
     }
 }

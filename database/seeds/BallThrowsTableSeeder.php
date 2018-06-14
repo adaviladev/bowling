@@ -1,12 +1,10 @@
 <?php
 
+use App\BallThrow;
 use Illuminate\Database\Seeder;
 
 class BallThrowsTableSeeder extends Seeder
 {
-    protected $scores = [
-        '-', 1, 2, 3, 4, 5, 6, 7, 8, 9, '/', 'X'
-    ];
     /**
      * Run the database seeds.
      *
@@ -18,9 +16,9 @@ class BallThrowsTableSeeder extends Seeder
 
         foreach ($games as $game) {
             foreach ($game->frames as $frame) {
-                $index = random_int(0, \count($this->scores) - 1);
-                $score1 = $this->scores[$index];
-                $score2 = $this->getSecondScore($score1);
+                $index = random_int(0, \count(BallThrow::$scores) - 1);
+                $score1 = BallThrow::$scores[$index];
+                $score2 = BallThrow::getSecondScore($score1);
                 factory(\App\BallThrow::class)->create([
                     'frame_id' => $frame->id,
                     'index' => 1,
@@ -33,15 +31,5 @@ class BallThrowsTableSeeder extends Seeder
                 ]);
             }
         }
-    }
-
-    private function getSecondScore($score1)
-    {
-        $score = null;
-        if($score1 === 'X') {
-            return null;
-        }
-
-        return $this->scores[random_int(0, \count($this->scores) - 2)];
     }
 }

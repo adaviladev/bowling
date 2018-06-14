@@ -15,7 +15,7 @@ class GamesTableSeeder extends Seeder
         $users = User::all();
 
         foreach ($users as $user) {
-            factory(\App\Game::class, 10)->create(['user_id' => $user->id]);
+            factory(\App\Game::class, 5)->create(['user_id' => $user->id]);
         }
     }
 }

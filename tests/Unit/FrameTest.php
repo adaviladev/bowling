@@ -17,7 +17,7 @@ class FrameTest extends TestCase
 	{
         $this->signIn($this->user);
 
-        $game = $this->buildBowlingGame();
+        $game = $this->buildGame();
         $frames = $game->frames;
 
         $game->delete();
@@ -30,9 +30,9 @@ class FrameTest extends TestCase
 	/** @test */
 	function a_user_can_update_ball_throws()
 	{
-        $game = $this->buildBowlingGame();
+        $game = $this->buildGame();
 
-        $score       = 8;
+        $pins       = 8;
         $index       = 1;
         $frame_index = 0;
 
@@ -42,14 +42,14 @@ class FrameTest extends TestCase
             $frame->path(),
             [
                 'index' => $index,
-                'score' => $score,
+                'pins' => $pins,
             ]
         );
 
         $this->assertDatabaseHas('ball_throws', [
             'frame_id' => $frame->id,
             'index' => $index,
-            'score' => $score
+            'pins' => $pins
         ]);
 	}
 

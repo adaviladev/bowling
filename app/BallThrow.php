@@ -12,7 +12,7 @@ class BallThrow extends Model
     protected $fillable = [
         'frame_id',
         'index',
-        'score'
+        'pins'
     ];
 
     public function frame()

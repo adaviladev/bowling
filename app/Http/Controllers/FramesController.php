@@ -80,7 +80,7 @@ class FramesController extends Controller
                      ->first();
             $ball_throw->update(
                          [
-                             'score' => $request->get('score'),
+                             'pins' => $request->get('pins'),
                          ]
                      );
         }

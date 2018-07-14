@@ -12,17 +12,37 @@
             <div class="col-12">
                 <h2>Frames</h2>
             </div>
-            @foreach($game->frames as $frame)
-                <div class="col-1">
-                    @foreach($frame->ballThrows as $ballThrow)
-                        <span class="score-{{ $ballThrow->score }}">{{ $ballThrow->score }}</span>
-                    @endforeach
-                </div>
-            @endforeach
+            <table class="table game-{{ $game->id }}">
+                <thead>
+                    <tr class="text-center">
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                        <th>9</th>
+                        <th>10</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @foreach($game->frames as $frame)
+                        <td>
+                            @foreach($frame->ballThrows as $ballThrow)
+                                <span class="p0 col-6 score-{{ $ballThrow->pins }}">{{ $ballThrow->pins }}</span>
+                            @endforeach
+                        </td>
+                        @endforeach
+                    </tr>
+                </tbody>
+            </table>
             <div class="col-2">
-                {{ $game->created_at->diffForHumans() }}
+                {{ $game->created_at->toFormattedDateString() }}
             </div>
-            <!-- /.col-2 -->
         </div>
 
     </div>

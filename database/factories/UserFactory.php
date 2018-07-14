@@ -29,6 +29,7 @@ $factory->define(App\Game::class, function (Faker $faker) {
             return App\User::inRandomOrder()
                            ->first()->id;
         },
+        'score' => $faker->numberBetween(0, 300)
     ];
 });
 
@@ -48,6 +49,6 @@ $factory->define(App\BallThrow::class, function (Faker $faker) {
                            ->first()->id;
         },
         'index' => $faker->numberBetween(1,2),
-        'score' => $faker->numberBetween(1, 9)
+        'pins' => $faker->numberBetween(1, 9)
     ];
 });

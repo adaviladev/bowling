@@ -6,11 +6,9 @@ use App\BallThrow;
 use App\Exceptions\Handler;
 use App\Frame;
 use App\Game;
-use App\User as Bowler;
+use App\User;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Symfony\Component\HttpKernel\EventListener\ExceptionListener;
-use Tests\Unit\User;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -22,11 +20,11 @@ abstract class TestCase extends BaseTestCase
 
         $this->disableExceptionHandling();
 
-        $this->user = create(Bowler::class);
+        $this->user = create(User::class);
     }
 
     protected function signIn($user = null){
-        $user = $user ?: create('App\User');
+        $user = $user ?: create(User::class);
 
         $this->actingAs($user);
 
@@ -48,7 +46,10 @@ abstract class TestCase extends BaseTestCase
 
     protected function withExceptionHandling()
     {
-        $this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);
+        $this->app->instance(
+            ExceptionHandler::class,
+            $this->oldExceptionHandler
+        );
 
         return $this;
     }
@@ -59,31 +60,43 @@ abstract class TestCase extends BaseTestCase
      */
     protected function randomUser($relation = 'games')
     {
-        return Bowler::with($relation)
+        return User::with($relation)
                      ->inRandomOrder()
                      ->first();
     }
 
+    public function buildGames(int $times = 1, User $user = null)
+    {
+        $bowler = $user ?? $this->user;
+        $games = [];
+        for ($i = 0; $i < $times; $i++) {
+            $games[] = $this->buildGame($bowler);
+        }
+
+        return collect($games);
+    }
+
     /**
+     * @param User|null $user
+     *
      * @return Game
      */
-    protected function buildBowlingGame(): Game
+    protected function buildGame(User $user = null): Game
     {
-        $game = create(Game::class, ['user_id' => $this->user->id]);
+        $bowler = $user ?? $this->user;
+        $game = create(Game::class, ['user_id' => $bowler->id]);
         $frames = create(Frame::class, ['game_id' => $game->id], 10);
-
-        $scores = ['-', 1, 2, 3, 4, 5, 6, 7, 8, 9, 'X', '/'];
 
         foreach ($frames as $frame) {
             $index = random_int(0, \count(BallThrow::$scores) - 1);
-            $score1 = BallThrow::$scores[$index];
-            $score2 = BallThrow::getSecondScore($score1);
+            $pins1 = BallThrow::$scores[$index];
+            $pins2 = BallThrow::getSecondScore($pins1);
             create(
                 BallThrow::class,
                 [
                     'frame_id' => $frame->id,
                     'index' => 1,
-                    'score' => $score1
+                    'pins' => $pins1
                 ]
             );
             create(
@@ -91,7 +104,7 @@ abstract class TestCase extends BaseTestCase
                 [
                     'frame_id' => $frame->id,
                     'index' => 2,
-                    'score' => $score2
+                    'pins' => $pins2
                 ]
             );
         }

@@ -38,4 +38,10 @@ class Game extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function score()
+    {
+        $this->score = $this->ballThrows->pluck('pins')->sum();
+        $this->save();
+    }
 }

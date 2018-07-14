@@ -11,6 +11,7 @@ class GamesController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
+        $this->middleware(['game.owner'])->except(['index', 'create', 'store']);
     }
 
     /**
@@ -43,7 +44,6 @@ class GamesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateGame();
         Game::create([
             'user_id' => $request->get('user_id')
         ]);
@@ -100,15 +100,5 @@ class GamesController extends Controller
     public function destroy(Game $game)
     {
         $game->delete();
-    }
-
-    private function validateGame()
-    {
-        $this->validate(
-          request(),
-          [
-              'user_id' => 'exists:users,id'
-          ]
-        );
     }
 }

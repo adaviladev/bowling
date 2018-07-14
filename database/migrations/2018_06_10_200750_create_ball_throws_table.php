@@ -20,7 +20,7 @@ class CreateBallThrowsTable extends Migration
                   ->references('id')
                   ->on('frames');
             $table->unsignedInteger('index');
-            $table->string('score')
+            $table->string('pins')
                   ->nullable();
             $table->timestamps();
 

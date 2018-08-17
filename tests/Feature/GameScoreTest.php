@@ -57,4 +57,12 @@ class GameScoreTest extends TestCase
         $this->assertEquals($finalScore, $this->game->score);
     }
 
+<<<<<<< HEAD
+=======
+    /** test */
+    // function it_should_give_a_two_roll_bonus_for_strikes()
+    // {
+    //
+    // }
+>>>>>>> 660a86d55d448498440526ae9bd25ea0eb6a11f1
 }

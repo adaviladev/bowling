@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\BallThrow;
+use App\Roll;
 use App\Frame;
 use App\Game;
 use App\User;
@@ -71,8 +71,8 @@ class GameTest extends TestCase
         $game = $this->buildGame();
         $response = $this->get($game->path());
         foreach ($game->frames as $frame) {
-            $response->assertSee("score-{$frame->ballThrows[0]->score}");
-            $response->assertSee("score-{$frame->ballThrows[1]->score}");
+            $response->assertSee("score-{$frame->rolls[0]->score}");
+            $response->assertSee("score-{$frame->rolls[1]->score}");
         }
     }
 

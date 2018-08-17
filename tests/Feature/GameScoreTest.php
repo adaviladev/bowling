@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\BallThrow;
+use App\Roll;
 use App\Frame;
 use App\Game;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -29,9 +29,9 @@ class GameScoreTest extends TestCase
     {
         /** Game $game */
         $game = $this->game;
-        $game->ballThrows->each(function (BallThrow $ballThrow) {
-            $ballThrow->pins = 0;
-            $ballThrow->save();
+        $game->rolls->each(function (Roll $roll) {
+            $roll->pins = 0;
+            $roll->save();
         });
 
         $game->score();
@@ -47,9 +47,9 @@ class GameScoreTest extends TestCase
 
         /** Game $game */
         $game = $this->game;
-        $game->ballThrows->each(function (BallThrow $ballThrow) use ($pinCount) {
-            $ballThrow->pins = $pinCount;
-            $ballThrow->save();
+        $game->rolls->each(function (Roll $roll) use ($pinCount) {
+            $roll->pins = $pinCount;
+            $roll->save();
         });
 
         $game->score();
@@ -57,9 +57,4 @@ class GameScoreTest extends TestCase
         $this->assertEquals($finalScore, $this->game->score);
     }
 
-    /** @test */
-    function it_should_give_a_two_roll_bonus_for_strikes()
-    {
-
-    }
 }

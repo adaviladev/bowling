@@ -61,7 +61,7 @@ class GamesController extends Controller
      */
     public function show(Game $game)
     {
-        $game->load(['frames.ballThrows']);
+        $game->load(['frames.rolls']);
 
         return view('games.show', compact('game'));
     }

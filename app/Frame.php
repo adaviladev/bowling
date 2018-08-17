@@ -11,7 +11,7 @@ class Frame extends Model
         parent::boot();
 
         static::deleting(function ($frame) {
-            $frame->ballThrows->each->delete();
+            $frame->rolls->each->delete();
         });
     }
 
@@ -19,9 +19,9 @@ class Frame extends Model
         'game_id'
     ];
 
-    public function ballThrows()
+    public function rolls()
     {
-        return $this->hasMany(BallThrow::class);
+        return $this->hasMany(Roll::class);
     }
 
     public function path()
@@ -32,5 +32,10 @@ class Frame extends Model
     public function game()
     {
         return $this->belongsTo(Game::class);
+    }
+
+    public function score()
+    {
+        return $this->rolls->pluck('pins')->sum();
     }
 }

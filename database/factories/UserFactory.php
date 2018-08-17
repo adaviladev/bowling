@@ -33,16 +33,9 @@ $factory->define(App\Game::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\Frame::class, function (Faker $faker) {
-    return [
-        'game_id' => function () {
-            return App\Game::inRandomOrder()
-                           ->first()->id;
-        },
-    ];
-});
 
-$factory->define(App\BallThrow::class, function (Faker $faker) {
+
+$factory->define(App\Roll::class, function (Faker $faker) {
     return [
         'frame_id' => function () {
             return App\Frame::inRandomOrder()

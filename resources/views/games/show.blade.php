@@ -32,8 +32,8 @@
                     <tr>
                         @foreach($game->frames as $frame)
                         <td>
-                            @foreach($frame->ballThrows as $ballThrow)
-                                <span class="p0 col-6 score-{{ $ballThrow->pins }}">{{ $ballThrow->pins }}</span>
+                            @foreach($frame->rolls as $roll)
+                                <span class="p0 col-6 score-{{ $roll->pins }}">{{ $roll->pins }}</span>
                             @endforeach
                         </td>
                         @endforeach

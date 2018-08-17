@@ -13,7 +13,7 @@ class CreateBallThrowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ball_throws', function (Blueprint $table) {
+        Schema::create('rolls', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('frame_id');
             $table->foreign('frame_id')
@@ -35,9 +35,9 @@ class CreateBallThrowsTable extends Migration
      */
     public function down()
     {
-        Schema::table('ball_throws', function (Blueprint $table) {
+        Schema::table('rolls', function (Blueprint $table) {
             $table->dropForeign(['frame_id']);
         });
-        Schema::dropIfExists('ball_throws');
+        Schema::dropIfExists('rolls');
     }
 }

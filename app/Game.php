@@ -19,9 +19,9 @@ class Game extends Model
         'user_id'
     ];
 
-    public function ballThrows()
+    public function rolls()
     {
-        return $this->hasManyThrough(BallThrow::class, Frame::class);
+        return $this->hasManyThrough(Roll::class, Frame::class);
     }
 
     public function frames()
@@ -41,7 +41,7 @@ class Game extends Model
 
     public function score()
     {
-        $this->score = $this->ballThrows->pluck('pins')->sum();
+        $this->score = $this->rolls->pluck('pins')->sum();
         $this->save();
     }
 }

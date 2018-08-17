@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\BallThrow;
+use App\Roll;
 use App\Frame;
 use Illuminate\Http\Request;
 
@@ -75,9 +75,9 @@ class FramesController extends Controller
     public function update(Request $request, Frame $frame)
     {
         if ($index = $request->get('index', null)) {
-            $ball_throw = BallThrow::where('frame_id', $frame->id)
-                     ->where('index', $index)
-                     ->first();
+            $ball_throw = Roll::where('frame_id', $frame->id)
+                              ->where('index', $index)
+                              ->first();
             $ball_throw->update(
                          [
                              'pins' => $request->get('pins'),

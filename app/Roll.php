@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BallThrow extends Model
+class Roll extends Model
 {
     public static $scores = [
         '-', 1, 2, 3, 4, 5, 6, 7, 8, 9, '/', 'X'

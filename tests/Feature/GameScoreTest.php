@@ -21,6 +21,7 @@ class GameScoreTest extends TestCase
     {
         parent::setUp();
 
+        /** @var Game game */
         $this->game = $this->buildGame();
     }
 
@@ -42,7 +43,7 @@ class GameScoreTest extends TestCase
     /** @test */
     function it_should_score_the_sum_of_all_pins_for_a_game()
     {
-        $pinCount   = 5;
+        $pinCount   = 1;
         $finalScore = $pinCount * 20;
 
         /** Game $game */
@@ -54,15 +55,7 @@ class GameScoreTest extends TestCase
 
         $game->score();
 
-        $this->assertEquals($finalScore, $this->game->score);
+        $this->assertEquals($finalScore, $game->score);
     }
 
-<<<<<<< HEAD
-=======
-    /** test */
-    // function it_should_give_a_two_roll_bonus_for_strikes()
-    // {
-    //
-    // }
->>>>>>> 660a86d55d448498440526ae9bd25ea0eb6a11f1
 }

@@ -22,12 +22,12 @@ class RollsTableSeeder extends Seeder
                 factory(\App\Roll::class)->create([
                     'frame_id' => $frame->id,
                     'index' => 1,
-                    'score' => $score1
+                    'pins' => $score1
                 ]);
                 factory(\App\Roll::class)->create([
                     'frame_id' => $frame->id,
                     'index' => 2,
-                    'score' => $score2
+                    'pins' => $score2
                 ]);
             }
         }

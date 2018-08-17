@@ -29,8 +29,8 @@ class FrameTest extends TestCase
 	}
 
 	/** @test */
-	function a_user_can_update_ball_throws()
-	{
+	public function a_user_can_update_ball_throws(): void
+    {
         $game = $this->buildGame();
 
         $pins       = 8;
@@ -99,6 +99,6 @@ class FrameTest extends TestCase
             ]
         );
 
-        $this->assertEquals(5, $frame->score());
+        $this->assertEquals(10, $frame->score());
     }
 }

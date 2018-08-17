@@ -22,26 +22,3 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
-
-$factory->define(App\Game::class, function (Faker $faker) {
-    return [
-        'user_id' => function () {
-            return App\User::inRandomOrder()
-                           ->first()->id;
-        },
-        'score' => $faker->numberBetween(0, 300)
-    ];
-});
-
-
-
-$factory->define(App\Roll::class, function (Faker $faker) {
-    return [
-        'frame_id' => function () {
-            return App\Frame::inRandomOrder()
-                           ->first()->id;
-        },
-        'index' => $faker->numberBetween(1,2),
-        'pins' => $faker->numberBetween(1, 9)
-    ];
-});

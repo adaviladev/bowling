@@ -1,5 +1,6 @@
 <?php
 
+use App\Frame;
 use Illuminate\Database\Seeder;
 
 class FramesTableSeeder extends Seeder
@@ -14,7 +15,13 @@ class FramesTableSeeder extends Seeder
         $games = \App\Game::all();
 
         foreach ($games as $game) {
-            factory(App\Frame::class, 10)->create(['game_id' => $game->id]);
+            $index = 1;
+            factory(App\Frame::class, 10)
+                ->create(['game_id' => $game->id])
+                ->each(function (Frame $frame) use (&$index) {
+                    $frame->index = $index++;
+                    $frame->save();
+                });
         }
     }
 }

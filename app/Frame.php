@@ -16,7 +16,8 @@ class Frame extends Model
     }
 
     protected $fillable = [
-        'game_id'
+        'game_id',
+        'index',
     ];
 
     public function rolls()

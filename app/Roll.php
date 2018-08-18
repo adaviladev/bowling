@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Roll extends Model
 {
     public static $scores = [
-        '-', 1, 2, 3, 4, 5, 6, 7, 8, 9, '/', 'X'
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     ];
     protected $fillable = [
         'frame_id',
@@ -22,8 +22,7 @@ class Roll extends Model
 
     public static function getSecondScore($score1)
     {
-        $score = null;
-        if($score1 === 'X') {
+        if($score1 === 10) {
             return null;
         }
 

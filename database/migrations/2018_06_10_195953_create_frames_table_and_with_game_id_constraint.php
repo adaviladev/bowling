@@ -15,6 +15,7 @@ class CreateFramesTableAndWithGameIdConstraint extends Migration
     {
         Schema::create('frames', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('index');
             $table->unsignedInteger('game_id');
             $table->foreign('game_id')
                   ->references('id')

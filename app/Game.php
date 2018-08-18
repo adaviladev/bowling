@@ -26,12 +26,13 @@ class Game extends Model
 
     public function frames()
     {
-        return $this->hasMany(Frame::class);
+        return $this->hasMany(Frame::class)
+            ->orderBy('index');
     }
 
     public function path()
     {
-        return "/games/{$this->id}";
+        return '/games/' . $this->id;
     }
 
     public function user()

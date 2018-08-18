@@ -8,12 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class GamesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth']);
-        $this->middleware(['game.owner'])->except(['index', 'create', 'store']);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +15,7 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $games = Auth::user()->games()->paginate();
+        $games = Game::paginate();
 
         return view('games.index', compact('games'));
     }
@@ -44,13 +38,7 @@ class GamesController extends Controller
      */
     public function store(Request $request)
     {
-        Game::create([
-            'user_id' => $request->get('user_id')
-        ]);
 
-        return response([
-            'status' => 'Game created.'
-        ]);
     }
 
     /**
@@ -61,8 +49,6 @@ class GamesController extends Controller
      */
     public function show(Game $game)
     {
-        $game->load(['frames.rolls']);
-
         return view('games.show', compact('game'));
     }
 
@@ -99,6 +85,5 @@ class GamesController extends Controller
      */
     public function destroy(Game $game)
     {
-        $game->delete();
     }
 }

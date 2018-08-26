@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class GamesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth'])->except(['index', 'show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +42,17 @@ class GamesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'score' => 'integer|min:0|max:300',
+        ]);
+        $game = new Game([
+            'user_id' => Auth::id(),
+            'score' => $request->get('score') ?? 0,
+        ]);
 
+        $game->save();
+
+        return back();
     }
 
     /**

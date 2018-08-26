@@ -1,13 +1,13 @@
 <?php
 
+use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(App\Game::class, function (Faker $faker) {
     return [
         'user_id' => function () {
-            return App\User::inRandomOrder()
-                           ->first()->id;
+            return factory(User::class)->create()->id;
         },
-        'score' => $faker->numberBetween(0, 300)
+        'score' => $faker->numberBetween(0, 300),
     ];
 });

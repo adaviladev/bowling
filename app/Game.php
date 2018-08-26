@@ -6,43 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($game) {
-            $game->frames->each->delete();
-        });
-    }
-
     protected $fillable = [
-        'user_id'
+        'user_id',
+        'score'
     ];
-
-    public function rolls()
-    {
-        return $this->hasManyThrough(Roll::class, Frame::class);
-    }
-
-    public function frames()
-    {
-        return $this->hasMany(Frame::class)
-            ->orderBy('index');
-    }
 
     public function path()
     {
         return '/games/' . $this->id;
     }
 
-    public function user()
+    public function frames()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function score()
-    {
-        $this->score = $this->rolls->pluck('pins')->sum();
-        $this->save();
+        return $this->hasMany(Frame::class);
     }
 }

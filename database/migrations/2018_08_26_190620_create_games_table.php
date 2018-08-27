@@ -17,6 +17,8 @@ class CreateGamesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('score');
+            $table->boolean('complete')
+                  ->default(false);
             $table->timestamps();
         });
     }

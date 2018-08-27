@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Http\Requests\GameRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,22 +38,20 @@ class GamesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\GameRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(GameRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $request->validate([
-            'score' => 'integer|min:0|max:300',
-        ]);
-        $game = new Game([
-            'user_id' => Auth::id(),
-            'score' => $request->get('score') ?? 0,
+        $game = Game::create([
+            'complete' => request('complete'),
+            'score' => request('score') ?? 0,
+            'user_id' => auth()->id(),
         ]);
 
         $game->save();
 
-        return back();
+        return redirect($game->path());
     }
 
     /**
@@ -99,5 +98,8 @@ class GamesController extends Controller
      */
     public function destroy(Game $game)
     {
+        $game->delete();
+
+        return redirect('/games');
     }
 }

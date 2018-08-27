@@ -2,10 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Roll;
 use App\Frame;
 use App\Game;
-use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -89,9 +87,43 @@ class GameTest extends TestCase
     /** @test */
     public function it_should_return_ten_frames_for_completed_games()
     {
-        $game = create(Game::class);
+        $game = create(Game::class, ['complete' => true]);
         create(Frame::class, ['game_id' => $game->id], 10);
 
         $this->assertCount(10, $game->frames);
+    }
+
+    /** @test */
+    public function a_game_can_be_deleted()
+    {
+        $this->signIn();
+        $game = create(Game::class);
+
+        $this->delete($game->path());
+
+        $this->assertDatabaseMissing('games', $game->toArray());
+    }
+
+    /** @test */
+    public function when_a_game_is_deleted_all_of_its_associated_frames_should_be_deleted()
+    {
+        $this->signIn();
+        $game = create(Game::class);
+        $frames = create(Frame::class, ['game_id' => $game->id], 10);
+        $game->frames()->saveMany($frames);
+
+        $this->delete($game->path());
+
+        $this->assertDatabaseMissing('frames', ['game_id' => $game->id]);
+    }
+
+    /** @test */
+    public function it_should_redirect_you_to_your_index_page_when_you_delete_a_game()
+    {
+        $this->signIn();
+        $game = create(Game::class);
+
+        $this->delete($game->path())
+            ->assertRedirect('/games');
     }
 }

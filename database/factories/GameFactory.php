@@ -9,5 +9,6 @@ $factory->define(App\Game::class, function (Faker $faker) {
             return factory(User::class)->create()->id;
         },
         'score' => $faker->numberBetween(0, 300),
+        'complete' => $faker->boolean,
     ];
 });

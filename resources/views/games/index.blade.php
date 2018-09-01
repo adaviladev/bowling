@@ -17,5 +17,11 @@
         @empty
             No games
         @endforelse
+
+        <div class="row">
+            <div class="col">
+                {{ $games->links() }}
+            </div>
+        </div>
     </div>
 @endsection

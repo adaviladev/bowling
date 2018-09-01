@@ -1,1 +1,0 @@
-{{ $user->fullName }}'s Profile

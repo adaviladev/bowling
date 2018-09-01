@@ -1,1 +1,0 @@
-Edit Game {{ $game->id }}

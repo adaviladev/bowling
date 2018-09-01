@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Frame;
 use App\Game;
 use App\Http\Requests\GameRequest;
+use App\Http\Requests\GameUpdateRequest;
+use App\Roll;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,11 +19,11 @@ class GamesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\View\View
     {
-        $games = Game::paginate();
+        $games = Game::all();
 
         return view('games.index', compact('games'));
     }
@@ -32,7 +35,7 @@ class GamesController extends Controller
      */
     public function create()
     {
-        //
+        return view('games.create');
     }
 
     /**
@@ -68,24 +71,36 @@ class GamesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Game $game)
     {
-        //
+        return view('games.edit', compact('game'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GameUpdateRequest $request, Game $game)
     {
-        //
+        $rolls = collect($request->get('rolls'));
+        $rolls = $rolls->map(function ($roll) {
+            return Roll::make($roll);
+        });
+        $frame = Frame::make(
+            [
+                'game_id' => $game->id,
+            ]
+        );
+        $game->frames()->save($frame);
+
+        $frame->rolls()->saveMany($rolls);
+
     }
 
     /**
@@ -98,6 +113,8 @@ class GamesController extends Controller
      */
     public function destroy(Game $game)
     {
+        //dd($game->toArray(), auth()->user()->toArray());
+        $this->authorize('delete', $game);
         $game->delete();
 
         return redirect('/games');

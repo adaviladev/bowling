@@ -113,6 +113,8 @@ class GamesController extends Controller
      */
     public function destroy(Game $game)
     {
+        //dd($game->toArray(), auth()->user()->toArray());
+        $this->authorize('delete', $game);
         $game->delete();
 
         return redirect('/games');

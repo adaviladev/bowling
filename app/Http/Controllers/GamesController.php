@@ -19,11 +19,11 @@ class GamesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\View\View
     {
-        $games = Game::paginate();
+        $games = Game::all();
 
         return view('games.index', compact('games'));
     }
@@ -35,7 +35,7 @@ class GamesController extends Controller
      */
     public function create()
     {
-        //
+        return view('games.create');
     }
 
     /**
@@ -71,12 +71,12 @@ class GamesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Game $game)
     {
-        //
+        return view('games.edit', compact('game'));
     }
 
     /**

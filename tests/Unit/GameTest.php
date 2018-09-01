@@ -33,6 +33,35 @@ class GameTest extends TestCase
     }
 
     /** @test */
+    public function it_should_show_authenticated_users_the_game_creation_form()
+    {
+        $this->signIn();
+
+        $response = $this->get('/games/create');
+
+        $response->assertSee('<form');
+        $response->assertSee('id="game-create-form"');
+    }
+
+    /** @test */
+    public function guests_may_not_see_the_game_create_form()
+    {
+        $this->expectException(\Illuminate\Auth\AuthenticationException::class);
+
+        $this->get(route('games.create'))
+             ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function it_should_show_authenticated_users_the_edit_form_for_a_game()
+    {
+        $this->signIn();
+        $game = create(Game::class);
+
+        $this->get(route('games.edit', $game->id))->assertSee('Edit Game ' . $game->id);
+    }
+
+    /** @test */
     public function it_should_show_a_single_game(): void
     {
         $game = create(Game::class);

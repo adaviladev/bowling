@@ -75,4 +75,35 @@ class CreateGamesTest extends TestCase
         $this->assertDatabaseMissing('games', $game->toArray());
     }
 
+    /** @test */
+    public function it_should_allow_users_to_edit_their_own_games()
+    {
+        $this->signIn();
+        $game = create(Game::class, [
+            'user_id' => $this->user->id
+        ]);
+
+        $this->put($game->path(), [
+            'score' => 300
+        ]);
+
+        $this->assertDatabaseHas('games', $game->fresh()->toArray());
+    }
+
+    /** @test */
+    public function it_should_prevent_users_from_updating_another_users_game()
+    {
+        $this->signIn();
+        //$ownGame = create(Game::class, [
+        //    'user_id' => $this->user->id,
+        //]);
+        $otherGame = create(Game::class);
+        $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
+
+        $this->put($otherGame->path(), [
+            'score' => 0
+        ]);
+
+        $this->assertDatabaseHas('games', $otherGame->toArray());
+    }
 }

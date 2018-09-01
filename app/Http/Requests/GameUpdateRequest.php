@@ -35,7 +35,8 @@ class GameUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'rolls' => 'required|array'
+            'rolls' => 'array',
+            'score' => 'integer'
         ];
     }
 }

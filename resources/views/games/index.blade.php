@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>{{ auth()->user()->full_name }}'s Games</h1>
+                <h1>Games</h1>
             </div>
         </div>
         @forelse($games as $game)

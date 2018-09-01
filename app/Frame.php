@@ -6,31 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Frame extends Model
 {
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($frame) {
-            $frame->ballThrows->each->delete();
-        });
-    }
-
-    protected $fillable = [
-        'game_id'
-    ];
-
-    public function ballThrows()
-    {
-        return $this->hasMany(BallThrow::class);
-    }
-
     public function path()
     {
-        return "frames/{$this->id}";
+        return "/games/{$this->game_id}/frames/{$this->id}";
     }
 
-    public function game()
+    public function rolls()
     {
-        return $this->belongsTo(Game::class);
+        return $this->hasMany(Roll::class);
     }
 }

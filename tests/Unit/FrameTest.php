@@ -1,56 +1,34 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Frame;
-use Tests\TestCase;
+use App\Game;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class FrameTest extends TestCase
 {
-	use DatabaseMigrations;
+    use DatabaseMigrations;
 
-    /** @test
-     * @throws \Exception
-     */
-	public function a_frame_should_delete_all_associated_ball_throws_when_it_is_deleted()
-	{
-        $this->signIn($this->user);
+    /** @test */
+    public function a_frame_can_make_string_path()
+    {
+        $frame = create(Frame::class);
 
-        $game = $this->buildGame();
-        $frames = $game->frames;
+        $this->assertEquals("/games/{$frame->game_id}/frames/{$frame->id}", $frame->path());
+    }
 
-        $game->delete();
-
-        foreach ($frames as $frame) {
-            $this->assertDatabaseMissing('ball_throws', ['frame_id' => $frame->id]);
-        }
-	}
-
-	/** @test */
-	function a_user_can_update_ball_throws()
-	{
-        $game = $this->buildGame();
-
-        $pins       = 8;
-        $index       = 1;
-        $frame_index = 0;
-
-        /** @var Frame $frame */
-        $frame = $game->frames[$frame_index];
-        $this->patch(
-            $frame->path(),
-            [
-                'index' => $index,
-                'pins' => $pins,
-            ]
-        );
-
-        $this->assertDatabaseHas('ball_throws', [
-            'frame_id' => $frame->id,
-            'index' => $index,
-            'pins' => $pins
-        ]);
-	}
-
+    ///** @test */
+    //public function it_shoul_make_one_frame_associated_to_a_game()
+    //{
+    //    $rolls = make(Roll::class, [], 2);
+    //    $game = create(Game::class);
+    //
+    //    $this->post($game->path(), [
+    //        'rolls' => $rolls,
+    //    ]);
+    //
+    //    $this->assertCount(1, $game->frames);
+    //}
 }

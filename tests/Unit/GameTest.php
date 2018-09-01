@@ -2,10 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\BallThrow;
 use App\Frame;
 use App\Game;
-use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -14,84 +12,105 @@ class GameTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
-    public function an_authenticated_user_should_be_able_to_see_all_of_their_own_games(): void
+    public function a_game_can_make_a_string_path()
     {
-        $this->signIn($this->user);
-        $this->buildGame();
+        $game = create(Game::class);
 
-        /** @var \App\Game $games */
-        $games = $this->user->games;
+        $this->assertEquals("/games/{$game->id}", $game->path());
+    }
+
+    /** @test */
+    public function it_should_show_all_games(): void
+    {
+        $games = create(Game::class, [], 2);
 
         $response = $this->get('/games');
 
-        if ($games->count()) {
-            $response->assertSee("game-{$games[0]->id}");
-        } else {
-            $response->assertSee('No games');
-        }
+        $games->each(function (Game $game) use ($response) {
+            $response->assertSee('game-' . $game->id);
+        });
     }
 
     /** @test */
-    public function an_unauthenticated_user_should_be_redirected_to_the_login_page(): void
+    public function it_should_show_a_single_game(): void
     {
-        $this->withExceptionHandling();
+        $game = create(Game::class);
 
-        $this->get('/games')
-             ->assertRedirect("/login");
+        $this->get($game->path())
+            ->assertSee('game-' . $game->id);
     }
 
     /** @test */
-    public function a_user_should_be_able_to_create_a_game(): void
+    public function it_should_store_a_game()
     {
-        $this->signIn($this->user);
+        $this->signIn();
+        $game = make(Game::class);
+        unset($game->user_id);
 
-        $game = new Game;
+        $this->post($game->path(), $game->toArray());
 
-        $game->user_id = $this->user->id;
-        $gameCount = $this->user->games->count();
-
-        $response = $this->post('/games', $game->toArray());
-
-        $this->assertCount($gameCount + 1, $this->user->fresh()->games);
-        $response->assertJson(['status' => 'Game created.']);
+        $this->assertDatabaseHas('games', $game->toArray());
     }
 
     /** @test */
-    public function a_game_should_have_exactly_ten_frames(): void
+    public function a_game_should_have_a_score()
     {
-        $game = $this->buildGame();
+        $game = create(Game::class);
+
+        $this->assertArrayHasKey('score', $game->toArray());
+    }
+
+    /** @test */
+    public function stored_games_should_belong_to_the_currently_authenticated_user()
+    {
+        $this->signIn();
+        $game = make(Game::class);
+
+        $this->post('games', $game->toArray());
+        $usersGame = $this->user->games()->first();
+
+        $this->assertEquals($this->user->id, $usersGame->user_id);
+    }
+
+    /** @test */
+    public function it_should_return_a_games_rolls()
+    {
+        $game = create(Game::class);
+        create(Frame::class, ['game_id' => $game->id], 10);
+
+        $queriedFrames = $game->frames()->get();
+
+        $this->assertNotNull($queriedFrames);
+        $this->assertNotNull($game->frames);
+    }
+
+    /** @test */
+    public function it_should_return_ten_frames_for_completed_games()
+    {
+        $game = create(Game::class, ['complete' => true]);
+        create(Frame::class, ['game_id' => $game->id], 10);
 
         $this->assertCount(10, $game->frames);
     }
 
     /** @test */
-    public function a_user_should_be_able_to_see_all_of_his_scores_for_a_game(): void
+    public function a_game_can_be_deleted()
     {
-        $this->signIn($this->user);
-        $game = $this->buildGame();
-        $response = $this->get($game->path());
-        foreach ($game->frames as $frame) {
-            $response->assertSee("score-{$frame->ballThrows[0]->score}");
-            $response->assertSee("score-{$frame->ballThrows[1]->score}");
-        }
-    }
-
-    /** @test */
-    function a_user_should_be_able_to_delete_his_own_game()
-    {
-        $this->signIn($this->user);
-        $game = $this->buildGame();
+        $this->signIn();
+        $game = create(Game::class);
 
         $this->delete($game->path());
 
-        $this->assertDatabaseMissing('games', ['id' => $game->id]);
+        $this->assertDatabaseMissing('games', $game->toArray());
     }
 
     /** @test */
-    function when_a_game_is_deleted_all_of_its_frame_and_ball_throw_data_should_also_be_deleted()
+    public function when_a_game_is_deleted_all_of_its_associated_frames_should_be_deleted()
     {
-        $this->signIn($this->user);
-        $game = $this->buildGame();
+        $this->signIn();
+        $game = create(Game::class);
+        $frames = create(Frame::class, ['game_id' => $game->id], 10);
+        $game->frames()->saveMany($frames);
 
         $this->delete($game->path());
 
@@ -99,14 +118,12 @@ class GameTest extends TestCase
     }
 
     /** @test */
-    function an_authenticated_user_may_not_see_another_persons_games()
+    public function it_should_redirect_you_to_your_index_page_when_you_delete_a_game()
     {
-        $bowler = create(User::class);
-
         $this->signIn();
-        $this->buildGame();
-        $game = $this->buildGame($bowler);
+        $game = create(Game::class);
 
-        $this->get($game->path())->assertDontSee("game-{$game->id}");
+        $this->delete($game->path())
+            ->assertRedirect('/games');
     }
 }

@@ -18,37 +18,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'password' => Hash::make('secret'),
         'remember_token' => str_random(10),
-    ];
-});
-
-$factory->define(App\Game::class, function (Faker $faker) {
-    return [
-        'user_id' => function () {
-            return App\User::inRandomOrder()
-                           ->first()->id;
-        },
-        'score' => $faker->numberBetween(0, 300)
-    ];
-});
-
-$factory->define(App\Frame::class, function (Faker $faker) {
-    return [
-        'game_id' => function () {
-            return App\Game::inRandomOrder()
-                           ->first()->id;
-        },
-    ];
-});
-
-$factory->define(App\BallThrow::class, function (Faker $faker) {
-    return [
-        'frame_id' => function () {
-            return App\Frame::inRandomOrder()
-                           ->first()->id;
-        },
-        'index' => $faker->numberBetween(1,2),
-        'pins' => $faker->numberBetween(1, 9)
     ];
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Http\Requests\GameRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,10 +11,8 @@ class GamesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth']);
-        $this->middleware(['game.owner'])->except(['index', 'create', 'store']);
+        $this->middleware(['auth'])->except(['index', 'show']);
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +20,7 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $games = Auth::user()->games()->paginate();
+        $games = Game::paginate();
 
         return view('games.index', compact('games'));
     }
@@ -39,18 +38,20 @@ class GamesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\GameRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(GameRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Game::create([
-            'user_id' => $request->get('user_id')
+        $game = Game::create([
+            'complete' => request('complete'),
+            'score' => request('score') ?? 0,
+            'user_id' => auth()->id(),
         ]);
 
-        return response([
-            'status' => 'Game created.'
-        ]);
+        $game->save();
+
+        return redirect($game->path());
     }
 
     /**
@@ -61,8 +62,6 @@ class GamesController extends Controller
      */
     public function show(Game $game)
     {
-        $game->load(['frames.ballThrows']);
-
         return view('games.show', compact('game'));
     }
 
@@ -100,5 +99,7 @@ class GamesController extends Controller
     public function destroy(Game $game)
     {
         $game->delete();
+
+        return redirect('/games');
     }
 }

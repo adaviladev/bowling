@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFramesTableAndWithGameIdConstraint extends Migration
+class CreateRollsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateFramesTableAndWithGameIdConstraint extends Migration
      */
     public function up()
     {
-        Schema::create('frames', function (Blueprint $table) {
+        Schema::create('rolls', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('game_id');
-            $table->foreign('game_id')
+            $table->unsignedInteger('frame_id');
+            $table->foreign('frame_id')
                   ->references('id')
-                  ->on('games');
+                  ->on('frames');
             $table->timestamps();
         });
     }
@@ -30,9 +30,9 @@ class CreateFramesTableAndWithGameIdConstraint extends Migration
      */
     public function down()
     {
-        Schema::table('frames', function (Blueprint $table) {
-            $table->dropForeign(['game_id']);
+        Schema::table('rolls', function (Blueprint $table) {
+            $table->dropForeign(['frame_id']);
         });
-        Schema::dropIfExists('frames');
+        Schema::dropIfExists('rolls');
     }
 }

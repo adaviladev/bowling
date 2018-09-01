@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use App\BallThrow;
+use App\Roll;
 use App\Exceptions\Handler;
 use App\Frame;
 use App\Game;
@@ -26,6 +26,7 @@ abstract class TestCase extends BaseTestCase
     protected function signIn($user = null){
         $user = $user ?: create(User::class);
 
+        $this->user = $user;
         $this->actingAs($user);
 
         return $this;
@@ -88,27 +89,35 @@ abstract class TestCase extends BaseTestCase
         $frames = create(Frame::class, ['game_id' => $game->id], 10);
 
         foreach ($frames as $frame) {
-            $index = random_int(0, \count(BallThrow::$scores) - 1);
-            $pins1 = BallThrow::$scores[$index];
-            $pins2 = BallThrow::getSecondScore($pins1);
-            create(
-                BallThrow::class,
-                [
-                    'frame_id' => $frame->id,
-                    'index' => 1,
-                    'pins' => $pins1
-                ]
-            );
-            create(
-                BallThrow::class,
-                [
-                    'frame_id' => $frame->id,
-                    'index' => 2,
-                    'pins' => $pins2
-                ]
-            );
+            $this->buildFrame($frame);
         }
 
-        return $game->load(['frames.ballThrows']);
+        return $game->load(['frames.rolls']);
+    }
+
+    /**
+     * @param $frame
+     */
+    protected function buildFrame($frame, $attributes = []): void
+    {
+        $index = random_int(0, \count(Roll::$scores) - 1);
+        $pins1 = Roll::$scores[$index];
+        $pins2 = Roll::getSecondScore($pins1);
+        create(
+            Roll::class,
+            [
+                'frame_id' => $frame->id,
+                'index'    => 1,
+                'pins'     => $attributes['pins1'] ?? $pins1
+            ]
+        );
+        create(
+            Roll::class,
+            [
+                'frame_id' => $frame->id,
+                'index'    => 2,
+                'pins'     => $attributes['pins2'] ?? $pins2
+            ]
+        );
     }
 }

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
+    protected $casts = [
+        'user_id' => 'int'
+    ];
+
     protected $fillable = [
         'complete',
         'score',
@@ -21,13 +25,18 @@ class Game extends Model
         });
     }
 
+    public function frames()
+    {
+        return $this->hasMany(Frame::class);
+    }
+
     public function path()
     {
         return '/games/' . $this->id;
     }
 
-    public function frames()
+    public function rolls()
     {
-        return $this->hasMany(Frame::class);
+        return $this->hasManyThrough(Roll::class, Frame::class);
     }
 }

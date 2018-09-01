@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFramesTableAndWithGameIdConstraint extends Migration
+class CreateFramesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,9 +16,6 @@ class CreateFramesTableAndWithGameIdConstraint extends Migration
         Schema::create('frames', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('game_id');
-            $table->foreign('game_id')
-                  ->references('id')
-                  ->on('games');
             $table->timestamps();
         });
     }

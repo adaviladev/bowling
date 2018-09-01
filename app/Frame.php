@@ -6,17 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Frame extends Model
 {
-    protected $fillable = [
-        'game_id'
-    ];
-
-    public function ballThrows()
+    public function path()
     {
-        return $this->hasMany(BallThrow::class);
+        return "/games/{$this->game_id}/frames/{$this->id}";
     }
 
-    public function game()
+    public function rolls()
     {
-        return $this->belongsTo(Game::class);
+        return $this->hasMany(Roll::class);
     }
 }

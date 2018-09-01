@@ -2,12 +2,13 @@
 
 namespace Tests;
 
+use App\Roll;
 use App\Exceptions\Handler;
-use App\User as Bowler;
+use App\Frame;
+use App\Game;
+use App\User;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Symfony\Component\HttpKernel\EventListener\ExceptionListener;
-use Tests\Unit\User;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -18,11 +19,14 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->disableExceptionHandling();
+
+        $this->user = create(User::class);
     }
 
     protected function signIn($user = null){
-        $user = $user ?: create('App\User');
+        $user = $user ?: create(User::class);
 
+        $this->user = $user;
         $this->actingAs($user);
 
         return $this;
@@ -43,7 +47,10 @@ abstract class TestCase extends BaseTestCase
 
     protected function withExceptionHandling()
     {
-        $this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);
+        $this->app->instance(
+            ExceptionHandler::class,
+            $this->oldExceptionHandler
+        );
 
         return $this;
     }
@@ -54,8 +61,63 @@ abstract class TestCase extends BaseTestCase
      */
     protected function randomUser($relation = 'games')
     {
-        return Bowler::with($relation)
+        return User::with($relation)
                      ->inRandomOrder()
                      ->first();
+    }
+
+    public function buildGames(int $times = 1, User $user = null)
+    {
+        $bowler = $user ?? $this->user;
+        $games = [];
+        for ($i = 0; $i < $times; $i++) {
+            $games[] = $this->buildGame($bowler);
+        }
+
+        return collect($games);
+    }
+
+    /**
+     * @param User|null $user
+     *
+     * @return Game
+     */
+    protected function buildGame(User $user = null): Game
+    {
+        $bowler = $user ?? $this->user;
+        $game = create(Game::class, ['user_id' => $bowler->id]);
+        $frames = create(Frame::class, ['game_id' => $game->id], 10);
+
+        foreach ($frames as $frame) {
+            $this->buildFrame($frame);
+        }
+
+        return $game->load(['frames.rolls']);
+    }
+
+    /**
+     * @param $frame
+     */
+    protected function buildFrame($frame, $attributes = []): void
+    {
+        $index = random_int(0, \count(Roll::$scores) - 1);
+        $pins1 = Roll::$scores[$index];
+        $pins2 = Roll::getSecondScore($pins1);
+        create(
+            Roll::class,
+            [
+                'frame_id' => $frame->id,
+                'index'    => 1,
+                'pins'     => $attributes['pins1'] ?? $pins1
+            ]
+        );
+        create(
+            Roll::class,
+            [
+                'frame_id' => $frame->id,
+                'index'    => 2,
+                'pins'     => $attributes['pins2'] ?? $pins2
+            ]
+        );
     }
 }

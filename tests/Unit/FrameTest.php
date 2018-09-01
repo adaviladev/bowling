@@ -1,0 +1,34 @@
+<?php
+
+namespace Tests\Unit;
+
+use App\Frame;
+use App\Game;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
+
+class FrameTest extends TestCase
+{
+    use DatabaseMigrations;
+
+    /** @test */
+    public function a_frame_can_make_string_path()
+    {
+        $frame = create(Frame::class);
+
+        $this->assertEquals("/games/{$frame->game_id}/frames/{$frame->id}", $frame->path());
+    }
+
+    ///** @test */
+    //public function it_shoul_make_one_frame_associated_to_a_game()
+    //{
+    //    $rolls = make(Roll::class, [], 2);
+    //    $game = create(Game::class);
+    //
+    //    $this->post($game->path(), [
+    //        'rolls' => $rolls,
+    //    ]);
+    //
+    //    $this->assertCount(1, $game->frames);
+    //}
+}

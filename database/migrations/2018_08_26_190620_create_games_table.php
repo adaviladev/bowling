@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGamesTableAndAddUserIdConstraint extends Migration
+class CreateGamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,9 +16,9 @@ class CreateGamesTableAndAddUserIdConstraint extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
+            $table->unsignedInteger('score');
+            $table->boolean('complete')
+                  ->default(false);
             $table->timestamps();
         });
     }

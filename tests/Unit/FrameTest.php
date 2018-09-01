@@ -18,4 +18,17 @@ class FrameTest extends TestCase
 
         $this->assertEquals("/games/{$frame->game_id}/frames/{$frame->id}", $frame->path());
     }
+
+    ///** @test */
+    //public function it_shoul_make_one_frame_associated_to_a_game()
+    //{
+    //    $rolls = make(Roll::class, [], 2);
+    //    $game = create(Game::class);
+    //
+    //    $this->post($game->path(), [
+    //        'rolls' => $rolls,
+    //    ]);
+    //
+    //    $this->assertCount(1, $game->frames);
+    //}
 }

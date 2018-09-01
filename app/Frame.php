@@ -10,4 +10,9 @@ class Frame extends Model
     {
         return "/games/{$this->game_id}/frames/{$this->id}";
     }
+
+    public function rolls()
+    {
+        return $this->hasMany(Roll::class);
+    }
 }

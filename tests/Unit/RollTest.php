@@ -23,4 +23,12 @@ class RollTest extends TestCase
 
         $this->assertDatabaseHas('rolls', $roll->toArray());
     }
+
+    /** @test */
+    public function a_roll_should_have_a_pins_key()
+    {
+        $roll = make(Roll::class);
+
+        $this->assertArrayHasKey('pins', $roll->toArray());
+    }
 }

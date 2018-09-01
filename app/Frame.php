@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Frame extends Model
 {
+    protected $fillable = [
+        'game_id',
+    ];
     public function path()
     {
         return "/games/{$this->game_id}/frames/{$this->id}";

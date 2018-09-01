@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Frame;
 use App\Game;
+use App\Roll;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -125,5 +126,20 @@ class GameTest extends TestCase
 
         $this->delete($game->path())
             ->assertRedirect('/games');
+    }
+
+    /** @test */
+    public function it_should_create_one_frame_with_two_rolls()
+    {
+        //$this->withExceptionHandling();
+        $this->signIn();
+        $rolls = make(Roll::class, ['pins' => 1], 2);
+        $game = create(Game::class, ['user_id' => $this->user->id]);
+
+        $this->put($game->path(), [
+            'rolls' => $rolls->toArray()
+        ]);
+
+        $this->assertCount(2, $game->rolls);
     }
 }

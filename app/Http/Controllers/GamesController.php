@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Frame;
 use App\Game;
 use App\Http\Requests\GameRequest;
+use App\Http\Requests\GameUpdateRequest;
+use App\Roll;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,12 +83,24 @@ class GamesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Game  $game
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GameUpdateRequest $request, Game $game)
     {
-        //
+        $rolls = collect($request->get('rolls'));
+        $rolls = $rolls->map(function ($roll) {
+            return Roll::make($roll);
+        });
+        $frame = Frame::make(
+            [
+                'game_id' => $game->id,
+            ]
+        );
+        $game->frames()->save($frame);
+
+        $frame->rolls()->saveMany($rolls);
+
     }
 
     /**

@@ -13,14 +13,20 @@ class CreateGamesTest extends TestCase
     use DatabaseMigrations;
 
     /** @test */
+    public function guests_may_not_view_the_create_game_form()
+    {
+        $this->withExceptionHandling();
+
+        $this->get('/games/create')
+             ->assertRedirect('/login');
+    }
+
+    /** @test */
     public function guests_may_not_create_games()
     {
         $this->withExceptionHandling();
 
         $this->post('/games')
-             ->assertRedirect('/login');
-
-        $this->get('/games/create')
              ->assertRedirect('/login');
     }
 

@@ -10,7 +10,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateGamesTest extends TestCase
 {
-    use DatabaseMigrations;
+    //use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function guests_may_not_create_games()
@@ -20,8 +21,12 @@ class CreateGamesTest extends TestCase
         $this->post('/games')
              ->assertRedirect('/login');
 
+<<<<<<< Updated upstream
         $this->get('/games/create')
              ->assertRedirect('/login');
+=======
+        $this->assertEquals(0, Game::count());
+>>>>>>> Stashed changes
     }
 
     /** @test */
@@ -80,14 +85,19 @@ class CreateGamesTest extends TestCase
     {
         $this->signIn();
         $game = create(Game::class, [
-            'user_id' => $this->user->id
+            'user_id' => $this->user->id,
+            'score' => 130,
         ]);
 
+        // Bad test. Doesn't check to see if the value is persisted
         $this->put($game->path(), [
             'score' => 300
         ]);
 
-        $this->assertDatabaseHas('games', $game->fresh()->toArray());
+        $game = array_merge($game->fresh()->toArray(), ['score' => 300]);
+
+        // fresh() will always make this past
+        $this->assertDatabaseHas('games', $game);
     }
 
     /** @test */

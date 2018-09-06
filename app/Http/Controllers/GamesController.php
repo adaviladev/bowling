@@ -100,7 +100,13 @@ class GamesController extends Controller
         $game->frames()->save($frame);
 
         $frame->rolls()->saveMany($rolls);
+        foreach ($request->all() as $key => $value) {
+            $game->update([
+                $key => $value
+            ]);
+        }
 
+        $game->update();
     }
 
     /**

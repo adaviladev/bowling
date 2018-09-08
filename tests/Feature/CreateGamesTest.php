@@ -26,8 +26,10 @@ class CreateGamesTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $this->post('/games')
-             ->assertRedirect('/login');
+        $response = $this->post('/games');
+
+        $response->assertRedirect('/login');
+        $this->assertEquals(0, Game::count());
     }
 
     /** @test */

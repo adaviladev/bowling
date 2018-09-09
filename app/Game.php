@@ -9,6 +9,8 @@ class Game extends Model
 {
     protected const FRAMES_PER_GAME = 10;
 
+    public $id;
+
     protected $casts = [
         'user_id' => 'int'
     ];

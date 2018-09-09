@@ -7,8 +7,7 @@ use App\Game;
 use App\Http\Requests\GameRequest;
 use App\Http\Requests\GameUpdateRequest;
 use App\Roll;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Response;
 
 class GamesController extends Controller
 {
@@ -31,9 +30,9 @@ class GamesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         return view('games.create');
     }
@@ -47,8 +46,8 @@ class GamesController extends Controller
     public function store(GameRequest $request): \Illuminate\Http\RedirectResponse
     {
         $game = Game::create([
-            'complete' => request('complete'),
-            'score' => request('score') ?? 0,
+            'complete' => $request->get('complete'),
+            'score' => $request->get('score') ?? 0,
             'user_id' => auth()->id(),
         ]);
 
@@ -61,9 +60,9 @@ class GamesController extends Controller
      * Display the specified resource.
      *
      * @param \App\Game $game
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function show(Game $game)
+    public function show(Game $game): \Illuminate\View\View
     {
         return view('games.show', compact('game'));
     }
@@ -71,10 +70,10 @@ class GamesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Game  $game
-     * @return \Illuminate\Http\Response
+     * @param  Game $game
+     * @return \Illuminate\View\View
      */
-    public function edit(Game $game)
+    public function edit(Game $game): \Illuminate\View\View
     {
         return view('games.edit', compact('game'));
     }
@@ -82,9 +81,9 @@ class GamesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Game  $game
-     * @return \Illuminate\Http\Response
+     * @param \App\Http\Requests\GameUpdateRequest $request
+     * @param  Game                                $game
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update(GameUpdateRequest $request, Game $game)
     {
@@ -94,6 +93,7 @@ class GamesController extends Controller
                 'pins' => $roll
             ]);
         });
+        /** @var Frame $frame */
         $frame = Frame::make(
             [
                 'game_id' => $game->id,
@@ -104,14 +104,17 @@ class GamesController extends Controller
 
         $frame->rolls()->saveMany($rolls);
 
+        return response([
+            'message' => 'Game ' . $game->id . ' has been successfully updated.',
+        ], Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Game $game
-     *
-     * @return void
+     * @param \App\Game $game
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Exception
      */
     public function destroy(Game $game)

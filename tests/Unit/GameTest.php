@@ -5,11 +5,12 @@ namespace Tests\Unit;
 use App\Frame;
 use App\Game;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class GameTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase ;
 
     /** @test */
     public function a_game_can_make_a_string_path()
@@ -20,36 +21,12 @@ class GameTest extends TestCase
     }
 
     /** @test */
-    public function it_should_show_all_games(): void
-    {
-        $games = create(Game::class, [], 2);
-
-        $response = $this->get('/games');
-
-        $games->each(function (Game $game) use ($response) {
-            $response->assertSee('game-' . $game->id);
-        });
-    }
-
-    /** @test */
-    public function it_should_show_a_single_game(): void
-    {
-        $game = create(Game::class);
-
-        $this->get($game->path())
-            ->assertSee('game-' . $game->id);
-    }
-
-    /** @test */
-    public function it_should_store_a_game()
+    public function it_should_show_authenticated_users_the_edit_form_for_a_game()
     {
         $this->signIn();
-        $game = make(Game::class);
-        unset($game->user_id);
+        $game = create(Game::class);
 
-        $this->post($game->path(), $game->toArray());
-
-        $this->assertDatabaseHas('games', $game->toArray());
+        $this->get(route('games.edit', $game->id))->assertSee('Edit Game ' . $game->id);
     }
 
     /** @test */
@@ -58,18 +35,6 @@ class GameTest extends TestCase
         $game = create(Game::class);
 
         $this->assertArrayHasKey('score', $game->toArray());
-    }
-
-    /** @test */
-    public function stored_games_should_belong_to_the_currently_authenticated_user()
-    {
-        $this->signIn();
-        $game = make(Game::class);
-
-        $this->post('games', $game->toArray());
-        $usersGame = $this->user->games()->first();
-
-        $this->assertEquals($this->user->id, $usersGame->user_id);
     }
 
     /** @test */
@@ -91,39 +56,5 @@ class GameTest extends TestCase
         create(Frame::class, ['game_id' => $game->id], 10);
 
         $this->assertCount(10, $game->frames);
-    }
-
-    /** @test */
-    public function a_game_can_be_deleted()
-    {
-        $this->signIn();
-        $game = create(Game::class);
-
-        $this->delete($game->path());
-
-        $this->assertDatabaseMissing('games', $game->toArray());
-    }
-
-    /** @test */
-    public function when_a_game_is_deleted_all_of_its_associated_frames_should_be_deleted()
-    {
-        $this->signIn();
-        $game = create(Game::class);
-        $frames = create(Frame::class, ['game_id' => $game->id], 10);
-        $game->frames()->saveMany($frames);
-
-        $this->delete($game->path());
-
-        $this->assertDatabaseMissing('frames', ['game_id' => $game->id]);
-    }
-
-    /** @test */
-    public function it_should_redirect_you_to_your_index_page_when_you_delete_a_game()
-    {
-        $this->signIn();
-        $game = create(Game::class);
-
-        $this->delete($game->path())
-            ->assertRedirect('/games');
     }
 }

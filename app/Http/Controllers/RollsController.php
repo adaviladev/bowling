@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Frame;
+use App\Game;
+use App\Roll;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class RollsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +17,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-
-        return view('users.index', compact('users'));
+        //
     }
 
     /**
@@ -24,31 +25,44 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //public function create()
-    //{
-    //    //
-    //}
+    public function create()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \App\Game                 $game
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
-    //public function store(Request $request)
-    //{
-    //    //
-    //}
+    public function store(Game $game, Request $request)
+    {
+        $rolls = collect($request->get('rolls'))->map(function ($pins) {
+            return Roll::make([
+                'pins' => $pins
+            ]);
+        });
+
+        /** @var Frame $frame */
+        $frame = Frame::make([
+            'score' => 8,
+        ]);
+        $game->frames()->save($frame);
+
+        $frame->rolls()->saveMany($rolls);
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return view('users.show', compact('user'));
+        //
     }
 
     /**
@@ -57,10 +71,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //public function edit($id)
-    //{
-    //    //
-    //}
+    public function edit($id)
+    {
+        //
+    }
 
     /**
      * Update the specified resource in storage.
@@ -69,10 +83,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //public function update(Request $request, $id)
-    //{
-    //    //
-    //}
+    public function update(Request $request, $id)
+    {
+        //
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -80,8 +94,8 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //public function destroy($id)
-    //{
-    //    //
-    //}
+    public function destroy($id)
+    {
+        //
+    }
 }

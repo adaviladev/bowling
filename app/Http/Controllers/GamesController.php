@@ -85,7 +85,21 @@ class GamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rolls = collect($request->get('rolls'));
+        $rolls = $rolls->map(function ($roll) {
+            return Roll::make([
+                'pins' => $roll
+            ]);
+        });
+        $frame = Frame::make(
+            [
+                'game_id' => $game->id,
+                'score' => 8
+            ]
+        );
+        $game->frames()->save($frame);
+
+        $frame->rolls()->saveMany($rolls);
     }
 
     /**
@@ -98,6 +112,7 @@ class GamesController extends Controller
      */
     public function destroy(Game $game)
     {
+        $this->authorize('delete', $game);
         $game->delete();
 
         return redirect('/games');

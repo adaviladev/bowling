@@ -3,30 +3,44 @@
 namespace Tests\Feature;
 
 use App\Game;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Roll;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateGamesTest extends TestCase
 {
-    //use DatabaseMigrations;
     use RefreshDatabase;
+
+    /** @test */
+    public function guests_may_not_view_the_create_game_form()
+    {
+        $this->withExceptionHandling();
+
+        $this->get('/games/create')
+             ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function it_should_show_authenticated_users_the_game_creation_form()
+    {
+        $this->signIn();
+
+        $response = $this->get('/games/create');
+
+        $response->assertSee('<form');
+        $response->assertSee('id="game-create-form"');
+    }
 
     /** @test */
     public function guests_may_not_create_games()
     {
         $this->withExceptionHandling();
 
-        $this->post('/games')
-             ->assertRedirect('/login');
+        $response = $this->post('/games');
 
-<<<<<<< Updated upstream
-        $this->get('/games/create')
-             ->assertRedirect('/login');
-=======
+        $response->assertRedirect('/login');
         $this->assertEquals(0, Game::count());
->>>>>>> Stashed changes
     }
 
     /** @test */
@@ -115,5 +129,44 @@ class CreateGamesTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('games', $otherGame->toArray());
+    }
+
+    /** @test */
+    public function it_should_create_one_frame_with_two_rolls()
+    {
+        $this->signIn();
+        $game = create(Game::class, ['user_id' => $this->user->id]);
+
+        $this->put($game->path(), [
+            'rolls' => [1, 3]
+        ]);
+
+        $this->assertCount(2, $game->rolls);
+    }
+
+    /** @test */
+    public function a_games_score_should_not_be_less_than_zero()
+    {
+        $this->signIn();
+        $game = make(Game::class, [
+            'score' => -1,
+        ]);
+
+        $this->expectException(\Illuminate\Validation\ValidationException::class);
+
+        $this->post($game->path(), $game->toArray());
+    }
+
+    /** @test */
+    public function a_games_score_should_not_be_greater_than_three_hundred()
+    {
+        $this->signIn();
+        $game = make(Game::class, [
+            'score' => 301,
+        ]);
+
+        $this->expectException(\Illuminate\Validation\ValidationException::class);
+
+        $this->post($game->path(), $game->toArray());
     }
 }

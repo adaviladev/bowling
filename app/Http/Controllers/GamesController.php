@@ -90,11 +90,14 @@ class GamesController extends Controller
     {
         $rolls = collect($request->get('rolls'));
         $rolls = $rolls->map(function ($roll) {
-            return Roll::make($roll);
+            return Roll::make([
+                'pins' => $roll
+            ]);
         });
         $frame = Frame::make(
             [
                 'game_id' => $game->id,
+                'score' => 8
             ]
         );
         $game->frames()->save($frame);
@@ -119,7 +122,6 @@ class GamesController extends Controller
      */
     public function destroy(Game $game)
     {
-        //dd($game->toArray(), auth()->user()->toArray());
         $this->authorize('delete', $game);
         $game->delete();
 

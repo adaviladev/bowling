@@ -8,6 +8,7 @@ class Frame extends Model
 {
     protected $fillable = [
         'game_id',
+        'score',
     ];
     public function path()
     {

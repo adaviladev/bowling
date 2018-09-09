@@ -14,13 +14,21 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    /** @var Game */
+    protected $game;
+
+    /** @var \Illuminate\Support\Collection */
+    protected $rolls;
+
     protected function setUp()
     {
         parent::setUp();
 
         $this->disableExceptionHandling();
 
+        $this->game = make(Game::class);
         $this->user = create(User::class);
+        $this->rolls = collect();
     }
 
     protected function signIn($user = null){
@@ -66,12 +74,12 @@ abstract class TestCase extends BaseTestCase
                      ->first();
     }
 
-    public function buildGames(int $times = 1, User $user = null)
+    public function createGames(int $times = 1, User $user = null)
     {
         $bowler = $user ?? $this->user;
         $games = [];
         for ($i = 0; $i < $times; $i++) {
-            $games[] = $this->buildGame($bowler);
+            $games[] = $this->createGame($bowler);
         }
 
         return collect($games);
@@ -82,17 +90,16 @@ abstract class TestCase extends BaseTestCase
      *
      * @return Game
      */
-    protected function buildGame(User $user = null): Game
+    protected function createGame(User $user = null): Game
     {
         $bowler = $user ?? $this->user;
-        $game = create(Game::class, ['user_id' => $bowler->id]);
-        $frames = create(Frame::class, ['game_id' => $game->id], 10);
 
-        foreach ($frames as $frame) {
-            $this->buildFrame($frame);
-        }
+        return create(Game::class, ['user_id' => $bowler->id]);
+    }
 
-        return $game->load(['frames.rolls']);
+    public function makeGame(): Game
+    {
+        return make(Game::class);
     }
 
     /**
@@ -118,6 +125,31 @@ abstract class TestCase extends BaseTestCase
                 'index'    => 2,
                 'pins'     => $attributes['pins2'] ?? $pins2
             ]
+        );
+    }
+
+    public function rollStrike(): void
+    {
+        $this->roll(10);
+    }
+
+    public function rollSpare(): void
+    {
+        $this->roll(7);
+        $this->roll(3);
+    }
+
+    public function rollTimes($count, $pins): void
+    {
+        for ($i = 0; $i < $count; $i++) {
+            $this->roll($pins);
+        }
+    }
+
+    public function roll($pins): void
+    {
+        $this->rolls->push(
+            make(Roll::class, ['pins' => $pins])
         );
     }
 }

@@ -10,6 +10,7 @@ class Frame extends Model
         'game_id',
         'score',
     ];
+
     public function path()
     {
         return "/games/{$this->game_id}/frames/{$this->id}";

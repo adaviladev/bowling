@@ -19,7 +19,6 @@ class CreateRollsTable extends Migration
             $table->foreign('frame_id')
                   ->references('id')
                   ->on('frames');
-            $table->unsignedInteger('pins');
             $table->timestamps();
         });
     }

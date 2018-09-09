@@ -62,11 +62,6 @@ class Game extends Model
         return '/games/' . $this->id;
     }
 
-    public function rolls()
-    {
-        return $this->hasManyThrough(Roll::class, Frame::class);
-    }
-
     private function isStrike(Collection $rolls, int $roll): bool
     {
         return $rolls[$roll] === 10;

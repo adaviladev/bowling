@@ -68,45 +68,23 @@ class CreateGamesTest extends TestCase
     }
 
     /** @test */
-    public function an_unauthenticated_user_may_not_delete_a_game()
-    {
-        $this->withExceptionHandling();
-        $game = create(Game::class);
-
-        $this->delete($game->path())
-             ->assertRedirect('/login');
-
-        $this->signIn();
-        $this->delete($game->path())
-             ->assertStatus(403);
-    }
-
-    /** @test */
-    public function an_authenticated_user_can_delete_a_game()
-    {
-        $this->signIn();
-        $game = create(Game::class, [
-            'user_id' => $this->user->id
-        ]);
-
-        $this->delete($game->path());
-
-        $this->assertDatabaseMissing('games', $game->toArray());
-    }
-
-    /** @test */
     public function it_should_allow_users_to_edit_their_own_games()
     {
         $this->signIn();
         $game = create(Game::class, [
-            'user_id' => $this->user->id
+            'user_id' => $this->user->id,
+            'score' => 130,
         ]);
 
+        // Bad test. Doesn't check to see if the value is persisted
         $this->put($game->path(), [
             'score' => 300
         ]);
 
-        $this->assertDatabaseHas('games', $game->fresh()->toArray());
+        $game = array_merge($game->fresh()->toArray(), ['score' => 300]);
+
+        // fresh() will always make this past
+        $this->assertDatabaseHas('games', $game);
     }
 
     /** @test */

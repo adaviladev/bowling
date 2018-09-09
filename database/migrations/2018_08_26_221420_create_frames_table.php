@@ -16,6 +16,7 @@ class CreateFramesTable extends Migration
         Schema::create('frames', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('game_id');
+            $table->unsignedInteger('score');
             $table->timestamps();
         });
     }

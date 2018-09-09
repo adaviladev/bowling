@@ -3,13 +3,12 @@
 namespace Tests\Unit;
 
 use App\Frame;
-use App\Game;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class FrameTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function a_frame_can_make_string_path()

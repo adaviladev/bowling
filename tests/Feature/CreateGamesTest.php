@@ -68,33 +68,6 @@ class CreateGamesTest extends TestCase
     }
 
     /** @test */
-    public function an_unauthenticated_user_may_not_delete_a_game()
-    {
-        $this->withExceptionHandling();
-        $game = create(Game::class);
-
-        $this->delete($game->path())
-             ->assertRedirect('/login');
-
-        $this->signIn();
-        $this->delete($game->path())
-             ->assertStatus(403);
-    }
-
-    /** @test */
-    public function an_authenticated_user_can_delete_a_game()
-    {
-        $this->signIn();
-        $game = create(Game::class, [
-            'user_id' => $this->user->id
-        ]);
-
-        $this->delete($game->path());
-
-        $this->assertDatabaseMissing('games', $game->toArray());
-    }
-
-    /** @test */
     public function it_should_allow_users_to_edit_their_own_games()
     {
         $this->signIn();

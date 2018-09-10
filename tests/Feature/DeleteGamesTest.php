@@ -70,5 +70,4 @@ class DeleteGamesTest extends TestCase
 
         $this->assertDatabaseMissing('games', $game->toArray());
     }
-
 }

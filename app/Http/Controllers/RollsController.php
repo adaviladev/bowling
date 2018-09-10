@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 class RollsController extends Controller
 {
     /**
+<<<<<<< HEAD
+=======
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -31,6 +33,7 @@ class RollsController extends Controller
     }
 
     /**
+>>>>>>> origin/master
      * Store a newly created resource in storage.
      *
      * @param \App\Game                 $game
@@ -55,6 +58,8 @@ class RollsController extends Controller
     }
 
     /**
+<<<<<<< HEAD
+=======
      * Display the specified resource.
      *
      * @param  int  $id
@@ -77,16 +82,17 @@ class RollsController extends Controller
     }
 
     /**
+>>>>>>> origin/master
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    //public function update(Request $request, $id)
+    //{
+    //    //
+    //}
 
     /**
      * Remove the specified resource from storage.
@@ -94,8 +100,8 @@ class RollsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    //public function destroy($id)
+    //{
+    //    //
+    //}
 }

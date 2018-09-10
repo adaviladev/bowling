@@ -19,19 +19,36 @@ class RollsController extends Controller
      */
     public function store(Game $game, Request $request)
     {
-        $rolls = collect($request->get('rolls'))->map(function ($pins) {
-            return Roll::make([
-                'pins' => $pins
-            ]);
-        });
+        $frames = $this->prepareRollsToFrames($request);
 
-        /** @var Frame $frame */
-        $frame = Frame::make([
-            'score' => 8,
-        ]);
-        $game->frames()->save($frame);
+        $game->calculateScore($frames);
 
-        $frame->rolls()->saveMany($rolls);
+        ///** @var Frame $frame */
+        //$frame = Frame::make([
+        //    'score' => 8,
+        //]);
+        //$game->frames()->save($frame);
+        //
+        //$frame->rolls()->saveMany($rolls);
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Support\Collection
+     */
+    protected function prepareRollsToFrames(Request $request): \Illuminate\Support\Collection
+    {
+        $rolls = collect($request->get('rolls'))
+            ->map(function ($pins) {
+                return Roll::make(
+                    [
+                        'pins' => $pins
+                    ]
+                );
+            }
+        );
+
+        return $rolls;
     }
 
     /**

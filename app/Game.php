@@ -32,17 +32,36 @@ class Game extends Model
     {
         $sum = 0;
         $roll = 0;
-        $rolls = $rolls->pluck('pins');
+        //$rolls = $rolls->pluck('pins');
 
-        for ($frame = 1; $frame <= self::FRAMES_PER_GAME; $frame++) {
+        for ($frameIndex = 1; $frameIndex <= self::FRAMES_PER_GAME; $frameIndex++) {
+            $index = 1;
             if($this->isStrike($rolls, $roll)) {
                 $sum += 10 + $this->getStrikeBonus($rolls, $roll);
+
                 $roll++;
             } else if($this->isSpare($rolls, $roll)) {
                 $sum += 10 + $this->getSpareBonus($rolls, $roll);
                 $roll += 2;
             } else {
                 $sum += $this->getDefaultFrameScore($rolls, $roll);
+                $frame = Frame::make([
+                    'score' => $sum,
+                    'index' => $frameIndex
+                ]);
+                //$this->frames()->save($frame);
+                //dd($rolls[$roll]);
+                //echo "$frameIndex\n";
+                //$frame->rolls()->saveMany([
+                //    Roll::make([
+                //        'pins' => $rolls[$roll],
+                //        'index' => $index++
+                //    ]),
+                //    Roll::make([
+                //        'pins' => $rolls[$roll + 1],
+                //        'index' => $index++
+                //    ])
+                //]);
                 $roll += 2;
             }
         }
@@ -69,26 +88,26 @@ class Game extends Model
 
     private function isStrike(Collection $rolls, int $roll): bool
     {
-        return $rolls[$roll] === 10;
+        return $rolls[$roll]->pins === 10;
     }
 
     private function isSpare(Collection $rolls, int $roll): bool
     {
-        return $rolls[$roll] + $rolls[$roll + 1] === 10;
+        return $rolls[$roll]->pins + $rolls[$roll + 1]->pins === 10;
     }
 
     private function getStrikeBonus(Collection $rolls, int $roll)
     {
-        return $rolls[$roll + 1] + $rolls[$roll + 2];
+        return $rolls[$roll + 1]->pins + $rolls[$roll + 2]->pins;
     }
 
     private function getSpareBonus(Collection $rolls, int $roll)
     {
-        return $rolls[$roll + 2];
+        return $rolls[$roll + 2]->pins;
     }
 
     protected function getDefaultFrameScore(Collection $rolls, int $roll): int
     {
-        return $rolls[$roll] + $rolls[$roll + 1];
+        return $rolls[$roll]->pins + $rolls[$roll + 1]->pins;
     }
 }

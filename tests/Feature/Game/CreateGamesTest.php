@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Game;
 
 use App\Game;
 use App\Roll;

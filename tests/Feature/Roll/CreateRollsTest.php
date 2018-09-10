@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Roll;
 
 use App\Frame;
 use App\Game;
@@ -58,17 +58,17 @@ class CreateRollsTest extends TestCase
         ]);
     }
 
-    ///** @test */
-    //public function a_strike_and_a_five_roll_should_create_two_frames_instead_of_one()
-    //{
-    //    $this->signIn();
-    //    $game = $this->buildGame();
-    //    $rolls = [10, 5];
-    //
-    //    $this->post($game->path() . '/rolls', [
-    //        'rolls' => $rolls,
-    //    ]);
-    //
-    //    $this->assertEquals(2, Frame::count());
-    //}
+    /** @test */
+    public function a_gutter_game_should_create_twenty_rolls_across_ten_frames()
+    {
+        $game = create(Game::class);
+        $rolls = $this->rollTimes(20, 0)->pluck('pins');
+
+        $this->post($game->path() . '/rolls', [
+            'rolls' => $rolls
+        ]);
+
+        $this->assertEquals(10, $game->frames()->count());
+        $this->assertEquals(20, Roll::count());
+    }
 }

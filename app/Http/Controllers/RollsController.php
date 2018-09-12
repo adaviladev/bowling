@@ -39,10 +39,10 @@ class RollsController extends Controller
     protected function prepareRollsToFrames(Request $request): \Illuminate\Support\Collection
     {
         $rolls = collect($request->get('rolls'))
-            ->map(function ($pins) {
+            ->map(function ($roll) {
                 return Roll::make(
                     [
-                        'pins' => $pins
+                        'pins' => $roll->pins
                     ]
                 );
             }

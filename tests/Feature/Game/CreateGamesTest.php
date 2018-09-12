@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Game;
 
+use App\Frame;
 use App\Game;
 use App\Roll;
 use Tests\TestCase;
@@ -79,4 +80,20 @@ class CreateGamesTest extends TestCase
 
         $this->assertCount(2, $game->rolls);
     }
+
+    ///** @test */
+    //public function a_game_should_be_loaded_with_its_related_frames_in_order(): void
+    //{
+    //    $game = create(Game::class);
+    //    $this->rollTimes(20, 0);
+    //
+    //    $this->post($game->path() . '/rolls', [
+    //        'rolls' => $this->rolls
+    //    ]);
+    //    /** @var Frame $frames */
+    //    $frames = $game->frames;
+    //    $frameIndices = $frames->pluck('index')->toArray();
+    //
+    //    $this->assertEquals([1,2,3,4,5,6,7,8,9,10], $frameIndices);
+    //}
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Game;
 
+use App\Frame;
 use App\Game;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;

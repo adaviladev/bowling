@@ -14,36 +14,31 @@ class CreateRollsTest extends TestCase
 {
     use DatabaseMigrations;
 
-    ///** @test */
-    //public function a_roll_cannot_knock_down_more_than_ten_pins()
-    //{
-    //    $this->signIn();
-    //    $game = create(Game::class, ['user_id' => $this->user->id]);
-    //    $roll = make(Roll::class, ['pins' => '11']);
-    //
-    //    $this->put($game->path(), $roll->toArray());
-    //
-    //    $this->assertTrue(false);
-    //}
+    /** @test */
+    public function a_roll_cannot_knock_down_more_than_ten_pins()
+    {
+        $this->signIn();
+        $game = create(Game::class, ['user_id' => $this->user->id]);
+        $this->roll(11);
+        $this->rollTimes(19, 0);
+        $this->expectException(\Illuminate\Validation\ValidationException::class);
 
-    ///** @test */
-    //public function a_roll_should_belong_to_a_frame()
-    //{
-    //    $this->signIn();
-    //    $game = $this->createGame();
-    //    $this->rollTimes(20, 0);
-    //
-    //    $this->post($game->path() . '/rolls', [
-    //        'rolls' => $this->rolls,
-    //    ]);
-    //
-    //    $frame = $game->frames()->first();
-    //
-    //    $this->assertDatabaseHas('rolls', [
-    //        'frame_id' => $frame->id,
-    //        'pins' => 2
-    //    ]);
-    //}
+        $this->post($game->path() . '/rolls', $this->getRolls());
+    }
+
+    /** @test */
+    public function when_rolls_are_submitted_ten_frames_should_be_generated_for_the_submitted_game()
+    {
+        $this->signIn();
+        $game = $this->createGame();
+        $this->rollTimes(20, 0);
+
+        $this->post($game->path() . '/rolls', $this->getRolls());
+
+        $this->assertCount(10, $game->frames);
+    }
+
+
 
     ///** @test */
     //public function a_gutter_game_should_create_twenty_rolls_across_ten_frames()

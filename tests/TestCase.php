@@ -150,10 +150,18 @@ abstract class TestCase extends BaseTestCase
 
     public function roll($pins): \Illuminate\Support\Collection
     {
-        $this->rolls->push(
-            make(Roll::class, ['pins' => $pins])
-        );
+        $this->rolls->push($pins);
 
         return $this->rolls;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRolls(): array
+    {
+        return [
+            'rolls' => $this->rolls->toArray()
+        ];
     }
 }

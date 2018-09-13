@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Frame;
 use App\Game;
+use App\Http\Requests\RollRequest;
 use App\Roll;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -13,11 +14,11 @@ class RollsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Game                 $game
-     * @param  \Illuminate\Http\Request $request
+     * @param \App\Game                      $game
+     * @param \App\Http\Requests\RollRequest $request
      * @return void
      */
-    public function store(Game $game, Request $request)
+    public function store(Game $game, RollRequest $request)
     {
         $frames = $this->prepareRollsToFrames($request);
 
@@ -38,17 +39,7 @@ class RollsController extends Controller
      */
     protected function prepareRollsToFrames(Request $request): \Illuminate\Support\Collection
     {
-        $rolls = collect($request->get('rolls'))
-            ->map(function ($roll) {
-                return Roll::make(
-                    [
-                        'pins' => $roll->pins
-                    ]
-                );
-            }
-        );
-
-        return $rolls;
+        return collect($request->get('rolls'));
     }
 
     /**

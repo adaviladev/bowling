@@ -88,26 +88,26 @@ class Game extends Model
 
     private function isStrike(Collection $rolls, int $roll): bool
     {
-        return $rolls[$roll]->pins === 10;
+        return $rolls[$roll] === 10;
     }
 
     private function isSpare(Collection $rolls, int $roll): bool
     {
-        return $rolls[$roll]->pins + $rolls[$roll + 1]->pins === 10;
+        return $rolls[$roll] + $rolls[$roll + 1] === 10;
     }
 
     private function getStrikeBonus(Collection $rolls, int $roll)
     {
-        return $rolls[$roll + 1]->pins + $rolls[$roll + 2]->pins;
+        return $rolls[$roll + 1] + $rolls[$roll + 2];
     }
 
     private function getSpareBonus(Collection $rolls, int $roll)
     {
-        return $rolls[$roll + 2]->pins;
+        return $rolls[$roll + 2];
     }
 
     protected function getDefaultFrameScore(Collection $rolls, int $roll): int
     {
-        return $rolls[$roll]->pins + $rolls[$roll + 1]->pins;
+        return $rolls[$roll] + $rolls[$roll + 1];
     }
 }

@@ -32,17 +32,32 @@ class Game extends Model
     {
         $sum = 0;
         $roll = 0;
-        $rolls = $rolls->pluck('pins');
+        //$rolls = $rolls->pluck('pins');
 
-        for ($frame = 1; $frame <= self::FRAMES_PER_GAME; $frame++) {
+        for ($frameIndex = 1; $frameIndex <= self::FRAMES_PER_GAME; $frameIndex++) {
+            $index = 1;
             if($this->isStrike($rolls, $roll)) {
                 $sum += 10 + $this->getStrikeBonus($rolls, $roll);
+
                 $roll++;
             } else if($this->isSpare($rolls, $roll)) {
                 $sum += 10 + $this->getSpareBonus($rolls, $roll);
                 $roll += 2;
             } else {
                 $sum += $this->getDefaultFrameScore($rolls, $roll);
+                $frame = Frame::make([
+                    'score' => $sum,
+                    'index' => $frameIndex
+                ]);
+                $this->frames[] = $frame;
+                $frame->rolls[] = Roll::make([
+                        'pins' => $rolls[$roll],
+                        'index' => $index++
+                    ]);
+                $frame->rolls[] = Roll::make([
+                        'pins' => $rolls[$roll + 1],
+                        'index' => $index++
+                    ]);
                 $roll += 2;
             }
         }

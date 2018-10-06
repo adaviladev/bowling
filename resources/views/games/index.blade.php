@@ -7,15 +7,29 @@
                 <h1>Games</h1>
             </div>
         </div>
-        @forelse($games as $game)
-            <div id="game-{{ $game->id }}" class="row">
-                <div class="col-1">{{ $game->id }}</div>
-                <div class="col-11">
-                    <a href="/games/{{ $game->id }}">Click to view game details</a><span class="pull-right">{{ $game->created_at->diffForHumans() }}</span>
-                </div>
-            </div>
-        @empty
-            No games
-        @endforelse
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Details</th>
+                <th scope="col">Score</th>
+                <th scope="col">Date Played</th>
+            </tr>
+            </thead>
+            <tbody>
+                @forelse($games as $game)
+                    <tr id="game-{{ $game->id }}">
+                        <th scope="row">{{ $game->id }}</td>
+                        <td>
+                            <a href="/games/{{ $game->id }}">Click to view game details</a>
+                        </td>
+                        <td>{{ $game->score }}</td>
+                        <td>{{ $game->created_at }}</td>
+                    </tr>
+                @empty
+                    No games
+                @endforelse
+            </tbody>
+        </table>
     </div>
 @endsection

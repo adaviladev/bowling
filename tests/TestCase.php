@@ -139,17 +139,29 @@ abstract class TestCase extends BaseTestCase
         $this->roll(3);
     }
 
-    public function rollTimes($count, $pins): void
+    public function rollTimes($count, $pins): \Illuminate\Support\Collection
     {
         for ($i = 0; $i < $count; $i++) {
             $this->roll($pins);
         }
+
+        return $this->rolls;
     }
 
-    public function roll($pins): void
+    public function roll($pins): \Illuminate\Support\Collection
     {
-        $this->rolls->push(
-            make(Roll::class, ['pins' => $pins])
-        );
+        $this->rolls->push($pins);
+
+        return $this->rolls;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRolls(): array
+    {
+        return [
+            'rolls' => $this->rolls->toArray()
+        ];
     }
 }

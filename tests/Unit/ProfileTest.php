@@ -34,7 +34,7 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
-    public function it_shouls_show_a_users_profile()
+    public function it_should_show_a_users_profile()
     {
         $user = create(User::class);
 

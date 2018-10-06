@@ -106,7 +106,7 @@ class GamesController extends Controller
         $frame->rolls()->saveMany($rolls);
 
         return response([
-            'message' => "Game ' . $game->id . ' has been successfully updated.",
+            'message' => "Game {$game->id} has been successfully updated.",
         ], Response::HTTP_OK);
     }
 

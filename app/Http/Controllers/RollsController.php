@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Frame;
 use App\Game;
 use App\Http\Requests\RollRequest;
-use App\Roll;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class RollsController extends Controller
@@ -20,26 +17,13 @@ class RollsController extends Controller
      */
     public function store(Game $game, RollRequest $request)
     {
-        $frames = $this->prepareRollsToFrames($request);
+        $frames = collect($request->get('rolls'));
 
         $game->calculateScore($frames);
-
-        ///** @var Frame $frame */
-        //$frame = Frame::make([
-        //    'score' => 8,
-        //]);
-        //$game->frames()->save($frame);
-        //
-        //$frame->rolls()->saveMany($rolls);
-    }
-
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Support\Collection
-     */
-    protected function prepareRollsToFrames(Request $request): \Illuminate\Support\Collection
-    {
-        return collect($request->get('rolls'));
+        $game->frames()->saveMany($game->frames);
+        $game->frames->each(function ($frame) {
+            $frame->rolls()->saveMany($frame->rolls);
+        });
     }
 
     /**

@@ -49,19 +49,15 @@ class Game extends Model
                     'score' => $sum,
                     'index' => $frameIndex
                 ]);
-                //$this->frames()->save($frame);
-                //dd($rolls[$roll]);
-                //echo "$frameIndex\n";
-                //$frame->rolls()->saveMany([
-                //    Roll::make([
-                //        'pins' => $rolls[$roll],
-                //        'index' => $index++
-                //    ]),
-                //    Roll::make([
-                //        'pins' => $rolls[$roll + 1],
-                //        'index' => $index++
-                //    ])
-                //]);
+                $this->frames[] = $frame;
+                $frame->rolls[] = Roll::make([
+                        'pins' => $rolls[$roll],
+                        'index' => $index++
+                    ]);
+                $frame->rolls[] = Roll::make([
+                        'pins' => $rolls[$roll + 1],
+                        'index' => $index++
+                    ]);
                 $roll += 2;
             }
         }

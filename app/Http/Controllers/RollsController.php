@@ -17,9 +17,9 @@ class RollsController extends Controller
      */
     public function store(Game $game, RollRequest $request)
     {
-        $frames = collect($request->get('rolls'));
+        $rolls = collect($request->get('rolls'));
 
-        $game->calculateScore($frames);
+        $game->calculateScore($rolls);
         $game->frames()->saveMany($game->frames);
         $game->frames->each(function ($frame) {
             $frame->rolls()->saveMany($frame->rolls);

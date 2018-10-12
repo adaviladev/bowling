@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Frame;
 use App\Game;
-use App\Roll;
-use Illuminate\Database\Eloquent\Collection;
+use App\Http\Requests\RollRequest;
 use Illuminate\Http\Request;
 
 class RollsController extends Controller
@@ -13,25 +11,19 @@ class RollsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Game                 $game
-     * @param  \Illuminate\Http\Request $request
+     * @param \App\Game                      $game
+     * @param \App\Http\Requests\RollRequest $request
      * @return void
      */
-    public function store(Game $game, Request $request)
+    public function store(Game $game, RollRequest $request)
     {
-        $rolls = collect($request->get('rolls'))->map(function ($pins) {
-            return Roll::make([
-                'pins' => $pins
-            ]);
+        $rolls = collect($request->get('rolls'));
+
+        $game->calculateScore($rolls);
+        $game->frames()->saveMany($game->frames);
+        $game->frames->each(function ($frame) {
+            $frame->rolls()->saveMany($frame->rolls);
         });
-
-        /** @var Frame $frame */
-        $frame = Frame::make([
-            'score' => 8,
-        ]);
-        $game->frames()->save($frame);
-
-        $frame->rolls()->saveMany($rolls);
     }
 
     /**

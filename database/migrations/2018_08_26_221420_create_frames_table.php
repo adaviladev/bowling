@@ -17,6 +17,7 @@ class CreateFramesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('game_id');
             $table->unsignedInteger('score');
+            $table->unsignedInteger('index');
             $table->timestamps();
         });
     }

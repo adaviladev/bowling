@@ -97,7 +97,8 @@ class GamesController extends Controller
         $frame = Frame::make(
             [
                 'game_id' => $game->id,
-                'score' => 8
+                'score' => 8,
+                'index' => 1
             ]
         );
         $game->frames()->save($frame);
@@ -105,7 +106,7 @@ class GamesController extends Controller
         $frame->rolls()->saveMany($rolls);
 
         return response([
-            'message' => 'Game ' . $game->id . ' has been successfully updated.',
+            'message' => "Game {$game->id} has been successfully updated.",
         ], Response::HTTP_OK);
     }
 

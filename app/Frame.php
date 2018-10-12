@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Frame extends Model
 {
+    protected $casts = [
+        'index' => 'integer',
+    ];
+
     protected $fillable = [
+        'index',
         'game_id',
         'score',
     ];

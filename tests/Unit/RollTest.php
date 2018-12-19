@@ -22,26 +22,29 @@ class RollTest extends TestCase
 
         $frame->rolls()->save($roll);
 
-        $this->assertDatabaseHas('rolls', $roll->toArray());
+        $this->assertDatabaseHas('rolls', ['frame_id' => $roll->frame_id]);
+        $this->assertTrue($roll->frame->is($frame));
     }
 
     /** @test */
-    public function a_roll_should_have_a_pins_key()
+    public function a_roll_has_a_record_of_the_pins_that_it_hit()
     {
-        $roll = create(Roll::class);
+        $roll = make(Roll::class);
 
-        $this->assertArrayHasKey('pins', $roll->toArray());
+        for ($i = 1; $i <= self::MAX_PIN_COUNT; $i++) {
+            $this->assertArrayHasKey("pin_{$i}", $roll);
+        }
     }
 
-    /**  test */
-    public function a_roll_cannot_knock_down_more_than_ten_pins()
+    /** @test */
+    public function a_roll_can_return_a_list_of_the_pins_that_it_hit()
     {
-        $this->signIn();
-        $game = create(Game::class, ['user_id' => $this->user->id]);
-        $roll = make(Roll::class, ['pins' => '11']);
+        $roll = make(Roll::class, [
+            'pin_1' => true,
+            'pin_3' => true,
+            'pin_4' => true,
+        ]);
 
-        $this->put($game->path(), $roll->toArray());
-
-        $this->assertTrue(false);
+        $this->assertCount(3, $roll->pins);
     }
 }

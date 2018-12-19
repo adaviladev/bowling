@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RollRequest extends FormRequest
@@ -14,7 +13,15 @@ class RollRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return auth()->check();
+    }
+
+    public function messages()
+    {
+        return [
+            'rolls.required' => 'Variable $rolls is required.',
+            'rolls.array' => 'Variable $rolls must be an array.',
+        ];
     }
 
     /**

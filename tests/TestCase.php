@@ -14,6 +14,8 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    protected const MAX_PIN_COUNT = 10;
+
     /** @var Game */
     protected $game;
 

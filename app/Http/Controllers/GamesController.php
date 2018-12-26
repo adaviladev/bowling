@@ -64,7 +64,9 @@ class GamesController extends Controller
      */
     public function show(Game $game): \Illuminate\View\View
     {
-        return view('games.show', compact('game'));
+        return view('games.show', [
+            'game' => $game,
+        ]);
     }
 
     /**
@@ -75,7 +77,9 @@ class GamesController extends Controller
      */
     public function edit(Game $game): \Illuminate\View\View
     {
-        return view('games.edit', compact('game'));
+        return view('games.edit', [
+            'game' => $game,
+        ]);
     }
 
     /**

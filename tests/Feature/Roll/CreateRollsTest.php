@@ -40,17 +40,18 @@ class CreateRollsTest extends TestCase
 
 
 
-    ///** @test */
-    //public function a_gutter_game_should_create_twenty_rolls_across_ten_frames()
-    //{
-    //    $game = create(Game::class);
-    //    $rolls = $this->rollTimes(20, 0)->pluck('pins');
-    //
-    //    $this->post($game->path() . '/rolls', [
-    //        'rolls' => $rolls
-    //    ]);
-    //
-    //    $this->assertEquals(10, $game->frames()->count());
-    //    $this->assertEquals(20, Roll::count());
-    //}
+    /** @test */
+    public function a_gutter_game_should_create_twenty_rolls_across_ten_frames()
+    {
+        $this->signIn();
+        $game = create(Game::class);
+        $rolls = $this->rollTimes(20, 0);
+
+        $this->post($game->path() . '/rolls', [
+            'rolls' => $rolls->toArray(),
+        ]);
+
+        $this->assertEquals(10, $game->frames()->count());
+        $this->assertEquals(20, Roll::count());
+    }
 }

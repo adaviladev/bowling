@@ -16,11 +16,22 @@ class CreateRollsTable extends Migration
         Schema::create('rolls', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('frame_id');
+            $table->unsignedInteger('pins');
+            $table->boolean('pin_1')->default(false);
+            $table->boolean('pin_2')->default(false);
+            $table->boolean('pin_3')->default(false);
+            $table->boolean('pin_4')->default(false);
+            $table->boolean('pin_5')->default(false);
+            $table->boolean('pin_6')->default(false);
+            $table->boolean('pin_7')->default(false);
+            $table->boolean('pin_8')->default(false);
+            $table->boolean('pin_9')->default(false);
+            $table->boolean('pin_10')->default(false);
+            $table->timestamps();
+
             $table->foreign('frame_id')
                   ->references('id')
                   ->on('frames');
-            $table->unsignedInteger('pins');
-            $table->timestamps();
         });
     }
 

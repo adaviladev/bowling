@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"module": "es2015",
+		"target": "es5",
+		"noImplicitAny": false,
+		"moduleResolution" : "node",
+		"strict" : true,
+		"sourceMap": false,
+		"experimentalDecorators" : true
+	},
+	"include": [
+		"resources/assets/js/**/*"
+	],
+	"exclude" : [
+		"node_modules"
+	]
+}

@@ -6,16 +6,15 @@ import Component from 'vue-class-component';
     size: Number,
   },
 })
-export default class ExampleComponent extends Vue {
+export default class Scripts extends Vue {
   public message: string = 'some message';
 
-  public data() {
-    return {
-    };
+  public static data() {
+    return {};
   }
 
-  public mounted(): void {
-    console.log('Component mounted.');
+  public static mounted(): void {
+    console.log('CComponent mounted.');
     // this.size = this.data.size;
   }
 }

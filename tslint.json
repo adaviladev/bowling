@@ -1,13 +1,33 @@
 {
-	"extends" : "tslint:recommended",
+	"extends" : [
+		"tslint:recommended",
+		"tslint-clean-code",
+		"tslint-consistent-codestyle"
+	],
 	"excludes": [
 		"resources/assets/js/app.js",
 		"resources/assets/js/bootstrap.js"
 	],
 	"rules": {
-		"max-line-length": {
-			"options": [120]
-		},
+		"indent" : [true, "spaces", 2],
+		"max-line-length" : [true, 120],
+		"member-ordering": [
+			true,
+			{
+				"order": [
+					"public-static-field",
+					"public-instance-field",
+					"private-static-field",
+					"private-instance-field",
+					"public-constructor",
+					"private-constructor",
+					"public-instance-method",
+					"protected-instance-method",
+					"private-instance-method"
+				]
+			}
+		],
+		"newline-per-chained-call" : true,
 		"new-parens": true,
 		"no-arg": true,
 		"no-bitwise": true,

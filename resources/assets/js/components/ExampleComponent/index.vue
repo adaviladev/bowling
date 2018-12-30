@@ -14,4 +14,4 @@
     </div>
 </template>
 
-<script src="./ExampleComponent.ts"></script>
+<script lang="ts" src="./scripts.ts"></script>

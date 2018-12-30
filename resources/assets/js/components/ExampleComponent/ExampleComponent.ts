@@ -3,13 +3,15 @@ import Component from 'vue-class-component';
 
 @Component({
   props: {
+    message: {
+      default: 'some message',
+      type: String,
+    },
     size: Number,
   },
 })
-export default class Scripts extends Vue {
-  public message: string = 'some message';
-
-  public static data() {
+export default class ExampleComponent extends Vue {
+  public static data(): object {
     return {};
   }
 

@@ -4,7 +4,7 @@
     <div class="content">
         <div class="title m-b-md">
             Laravel
-            <example-component></example-component>
+            <example-component :size="88"></example-component>
         </div>
     </div>
 @endsection

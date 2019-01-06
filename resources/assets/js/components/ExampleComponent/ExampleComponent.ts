@@ -16,7 +16,7 @@ export default class ExampleComponent extends Vue {
   }
 
   public static mounted(): void {
-    console.log('CComponent mounted.');
+    // console.log('CComponent mounted.');
     // this.size = this.data.size;
   }
 }

@@ -23,7 +23,6 @@ class GamesController extends Controller
     public function index(): \Illuminate\View\View
     {
         $games = Game::all();
-        $foo = 'The quick brown fox jumps over the lazy dog.The quick brown fox jumps over the lazy dog.The quick brown fox jumps over the lazy dog.';
 
         return view('games.index', compact('games'));
     }

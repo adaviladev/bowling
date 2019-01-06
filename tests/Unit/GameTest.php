@@ -4,13 +4,12 @@ namespace Tests\Unit;
 
 use App\Frame;
 use App\Game;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class GameTest extends TestCase
 {
-    use RefreshDatabase ;
+    use RefreshDatabase;
 
     /** @test */
     public function a_game_can_make_a_string_path()

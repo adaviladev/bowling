@@ -4,14 +4,12 @@ namespace Tests\Feature\Game;
 
 use App\Frame;
 use App\Game;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class DeleteGamesTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function when_a_game_is_deleted_all_of_its_associated_frames_should_be_deleted()

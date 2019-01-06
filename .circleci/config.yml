@@ -27,54 +27,21 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-  nodejs:
-    machine:
-        enabled: true
-    steps:
       - run: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
       - run: sudo apt-get install -y nodejs
+
+      - run: composer install -n --prefer-dist
       - run: npm install
 
-  composer:
-    machine:
-        enabled: true
-    steps:
-      - run: composer install -n --prefer-dist
       - save_cache:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
-  php_lint_and_test:
-    machine:
-        enabled: true
-    steps:
       # Lint the code
       - run: composer run-script lint
       - run: composer run-script style
-      - run: vendor/bin/phpunit
-
-  js_lint_and_test:
-    machine:
-        enabled: true
-    steps:
       - run: npm run lint
-      - run: npm run test
 
-workflows:
-  version: 2
-  build-and-test:
-    jobs:
-      - build
-      - nodejs:
-          requires:
-            - build
-      - composer:
-          requires:
-            - build
-      - php_lint_and_test:
-          requires:
-            - composer
-      - js_lint_and_test:
-          requires:
-            - nodejs
+      # run tests!
+      - run: vendor/bin/phpunit

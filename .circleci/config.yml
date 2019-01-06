@@ -27,21 +27,43 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-      - run: sudo apt-get install -y nodejs
+  nodejs:
+    - run: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    - run: sudo apt-get install -y nodejs
+    - run: npm install
 
-      - run: composer install -n --prefer-dist
-      - run: npm install
+  composer:
+    - run: composer install -n --prefer-dist
 
-      - save_cache:
-          paths:
-            - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
+    - save_cache:
+      paths:
+        - ./vendor
+      key: v1-dependencies-{{ checksum "composer.json" }}
 
-      # Lint the code
-      - run: composer run-script lint
-      - run: composer run-script style
-      - run: npm run lint
+  php_lint_and_test:
+    # Lint the code
+    - run: composer run-script lint
+    - run: composer run-script style
+    - run: vendor/bin/phpunit
 
-      # run tests!
-      - run: vendor/bin/phpunit
+  js_lint_and_test:
+    - run: npm run lint
+    - run: npm run test
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build
+      - nodejs:
+        requires:
+          - build
+      - composer:
+        requires:
+          - build
+      - php_lint_and_test:
+        requires:
+          - composer
+      - js_lint_and_test:
+        requires:
+          - nodejs

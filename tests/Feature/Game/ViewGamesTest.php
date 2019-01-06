@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Game;
 
-use App\Frame;
 use App\Game;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ViewGamesTest extends TestCase
 {

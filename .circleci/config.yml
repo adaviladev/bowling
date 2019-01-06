@@ -59,14 +59,14 @@ workflows:
     jobs:
       - build
       - nodejs:
-        requires:
-          - build
+          requires:
+            - build
       - composer:
-        requires:
-          - build
+          requires:
+            - build
       - php_lint_and_test:
-        requires:
-          - composer
+          requires:
+            - composer
       - js_lint_and_test:
-        requires:
-          - nodejs
+          requires:
+            - nodejs

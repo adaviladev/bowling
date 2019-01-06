@@ -3,16 +3,13 @@
 namespace Tests\Unit;
 
 use App\Frame;
-use App\Game;
 use App\Roll;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RollTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function a_roll_should_be_associated_to_a_frame()

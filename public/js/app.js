@@ -36625,8 +36625,6 @@ var ExampleComponent = /** @class */ (function (_super) {
     function ExampleComponent() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    // @Prop(String)
-    // public message!: string;
     ExampleComponent.data = function () {
         return {};
     };

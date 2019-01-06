@@ -2,14 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Game;
-use App\Roll;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class GameScoreTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function it_scores_a_gutter_game_as_a_zero()

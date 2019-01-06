@@ -41,9 +41,9 @@ jobs:
     steps:
       - run: composer install -n --prefer-dist
       - save_cache:
-        paths:
-          - ./vendor
-        key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
 
   php_lint_and_test:
     machine:

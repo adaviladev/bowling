@@ -53,6 +53,10 @@ abstract class TestCase extends BaseTestCase
             ExceptionHandler::class,
             new class extends Handler
             {
+                public function __construct()
+                {
+                }
+
                 public function report(\Exception $e): void
                 {
                 }

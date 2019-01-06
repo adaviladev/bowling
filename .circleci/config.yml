@@ -34,6 +34,8 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
 
+      - run: php artisan key:generate
+
       # Lint the code
       - run: composer run-script lint
       - run: composer run-script style

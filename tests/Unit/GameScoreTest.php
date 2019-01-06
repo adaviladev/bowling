@@ -2,9 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Game;
-use App\Roll;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

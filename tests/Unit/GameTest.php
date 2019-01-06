@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\Frame;
 use App\Game;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

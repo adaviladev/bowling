@@ -2,13 +2,10 @@
 
 namespace Tests\Feature\Roll;
 
-use App\Frame;
 use App\Game;
 use App\Roll;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CreateRollsTest extends TestCase
 {

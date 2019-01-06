@@ -3,7 +3,6 @@
 namespace Tests\Feature\Game;
 
 use App\Game;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

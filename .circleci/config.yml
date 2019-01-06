@@ -28,6 +28,8 @@ jobs:
           - v1-dependencies-
 
   nodejs:
+    machine:
+        enabled: true
     steps:
       - run: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
       - run: sudo apt-get install -y nodejs

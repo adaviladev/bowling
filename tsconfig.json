@@ -9,7 +9,7 @@
 		"experimentalDecorators" : true
 	},
 	"include": [
-		"resources/assets/js/**/*"
+		"resources/assets/js/**/*.ts"
 	],
 	"exclude" : [
 		"node_modules"

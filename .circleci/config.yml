@@ -34,6 +34,8 @@ jobs:
       - run: npm install
 
   composer:
+    machine:
+        enabled: true
     steps:
       - run: composer install -n --prefer-dist
       - save_cache:
@@ -42,6 +44,8 @@ jobs:
         key: v1-dependencies-{{ checksum "composer.json" }}
 
   php_lint_and_test:
+    machine:
+        enabled: true
     steps:
       # Lint the code
       - run: composer run-script lint
@@ -49,6 +53,8 @@ jobs:
       - run: vendor/bin/phpunit
 
   js_lint_and_test:
+    machine:
+        enabled: true
     steps:
       - run: npm run lint
       - run: npm run test

@@ -3,12 +3,12 @@
 namespace Tests\Feature\Game;
 
 use App\Game;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UpdateGamesTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function it_should_allow_users_to_edit_their_own_games()

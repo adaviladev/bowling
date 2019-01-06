@@ -3,14 +3,12 @@
 namespace Tests\Unit;
 
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function it_should_show_a_list_of_all_of_the_users()

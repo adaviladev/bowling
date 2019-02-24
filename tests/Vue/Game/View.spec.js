@@ -1,7 +1,7 @@
-import { shallowMount } from '@vue/test-utils';
-import expect from 'expect';
-import GameList from '../../../resources/assets/js/components/GameList/index.vue';
-import moxios from 'moxios';
+const testUtils = require('@vue/test-utils');
+const expect = require('expect');
+const GameList = require('../../../resources/assets/js/components/GameList/index.vue');
+const moxios = require('moxios');
 
 describe('GameList', () => {
   // beforeEach(() => {
@@ -13,7 +13,7 @@ describe('GameList', () => {
   // });
 
   it('renders a list of games', () => {
-    let wrapper = shallowMount(GameList);
+    let wrapper = testUtils.shallowMount(GameList);
 
     expect(wrapper.html())
       .toContain('Game List');

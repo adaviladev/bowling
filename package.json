@@ -15,6 +15,7 @@
         "@vue/server-test-utils": "^1.0.0-beta.29",
         "@vue/test-utils": "^1.0.0-beta.29",
         "axios": "^0.18",
+        "babel-loader": "^8.0.5",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "expect": "^23.6.0",
@@ -38,6 +39,7 @@
         "typescript": "^3.2.2",
         "vue": "^2.5.7",
         "vue-class-component": "^6.3.2",
+        "vue-loader": "^15.6.4",
         "vue-property-decorator": "^7.3.0",
         "vue-template-compiler": "^2.5.21",
         "webpack-node-externals": "^1.7.2"

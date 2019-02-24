@@ -14,10 +14,7 @@
     </div>
 </template>
 
-<script lang="ts">
-    import GameList from './GameList'
-    export default GameList;
-</script>
+<script lang="ts" src="./GameList.ts"></script>
 
 <style>
     .card-body {

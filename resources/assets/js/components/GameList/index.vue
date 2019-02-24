@@ -16,8 +16,4 @@
 
 <script lang="ts" src="./GameList.ts"></script>
 
-<style>
-    .card-body {
-        color: #0074d9;
-    }
-</style>
+<style></style>

@@ -7,12 +7,12 @@
         "lint": "tslint -p tsconfig.json",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "tslint-loader": "^3.5.4",
-        "test": "mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --require tests/Vue/setup.js tests/Vue/**/*.spec.js",
+        "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --require tests/Vue/setup.js tests/Vue/**/*.spec.js",
         "watch": "npm run development -- --watch",
         "watch-poll": "npm run watch -- --watch-poll"
     },
     "devDependencies": {
+        "@vue/server-test-utils": "^1.0.0-beta.29",
         "@vue/test-utils": "^1.0.0-beta.29",
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
@@ -26,6 +26,7 @@
         "mocha": "^5.2.0",
         "mocha-webpack": "^1.1.0",
         "moxios": "^0.4.0",
+        "nyc": "^13.3.0",
         "resolve-url-loader": "2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "7.*",
@@ -33,12 +34,22 @@
         "tslint": "^5.12.0",
         "tslint-clean-code": "^0.2.9",
         "tslint-consistent-codestyle": "^1.14.1",
+        "tslint-loader": "^3.5.4",
         "typescript": "^3.2.2",
         "vue": "^2.5.7",
         "vue-class-component": "^6.3.2",
-        "vue-template-compiler": "^2.5.21"
+        "vue-property-decorator": "^7.3.0",
+        "vue-template-compiler": "^2.5.21",
+        "webpack-node-externals": "^1.7.2"
     },
     "dependencies": {
         "mdbvue": "^4.6.0"
+    },
+    "nyc": {
+        "include": [
+            "resources/assets/js/\\*\\*/\\*.(ts|vue)"
+        ],
+        "instrument": false,
+        "sourceMap": false
     }
 }

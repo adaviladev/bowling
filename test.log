@@ -1,0 +1,15 @@
+
+> @ test /Users/adrian/Code/bowling
+> cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --require tests/Vue/setup.js tests/Vue/**/*.spec.js
+
+ WEBPACK  Compiling...
+
+ DONE  Compiled successfully in 2912ms
+
+ WEBPACK  Compiled successfully in 2912ms
+
+----------|----------|----------|----------|----------|-------------------|
+File      |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+----------|----------|----------|----------|----------|-------------------|
+All files |        0 |        0 |        0 |        0 |                   |
+----------|----------|----------|----------|----------|-------------------|

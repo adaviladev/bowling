@@ -5,6 +5,7 @@ namespace Tests\Feature\Roll;
 use App\Game;
 use App\Roll;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
 class CreateRollsTest extends TestCase
@@ -18,7 +19,7 @@ class CreateRollsTest extends TestCase
         $game = create(Game::class, ['user_id' => $this->user->id]);
         $this->roll(11);
         $this->rollTimes(19, 0);
-        $this->expectException(\Illuminate\Validation\ValidationException::class);
+        $this->expectException(ValidationException::class);
 
         $this->post($game->path() . '/rolls', $this->getRolls());
     }
@@ -41,7 +42,7 @@ class CreateRollsTest extends TestCase
     public function a_gutter_game_should_create_twenty_rolls_across_ten_frames()
     {
         $this->signIn();
-        $game = create(Game::class);
+        $game  = create(Game::class);
         $rolls = $this->rollTimes(20, 0);
 
         $this->post($game->path() . '/rolls', [

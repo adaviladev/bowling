@@ -8,6 +8,7 @@
 
     <include-pattern>*.php</include-pattern>
     <exclude-pattern>resources/*</exclude-pattern>
+    <exclude-pattern>tests/Vue/*</exclude-pattern>
 
     <arg name="colors"/>
 

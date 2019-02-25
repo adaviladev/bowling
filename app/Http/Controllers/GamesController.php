@@ -7,6 +7,7 @@ use App\Game;
 use App\Http\Requests\GameRequest;
 use App\Http\Requests\GameUpdateRequest;
 use App\Roll;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 
 class GamesController extends Controller
@@ -87,7 +88,7 @@ class GamesController extends Controller
      *
      * @param \App\Http\Requests\GameUpdateRequest $request
      * @param  Game                                $game
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update(GameUpdateRequest $request, Game $game)
     {

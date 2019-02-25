@@ -13,7 +13,7 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mysql:9.4
-      - image: circleci/mysql:5.7
+      - image: circleci/mysql:5.7.22
 
     working_directory: ~/repo
 
@@ -27,7 +27,11 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      - run: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+      - run: sudo apt-get install -y nodejs
+
       - run: composer install -n --prefer-dist
+      - run: npm install
 
       - save_cache:
           paths:
@@ -37,6 +41,7 @@ jobs:
       # Lint the code
       - run: composer run-script lint
       - run: composer run-script style
+      - run: npm run lint
 
       # run tests!
-      - run: phpunit
+      - run: vendor/bin/phpunit

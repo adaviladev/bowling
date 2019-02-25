@@ -45,8 +45,8 @@
         }
     },
     "scripts": {
-        "style": "./vendor/bin/phpcs --standard=phpcs.xml app/",
-        "lint": "./vendor/bin/phpcbf app/",
+        "style": "./vendor/bin/phpcs --standard=phpcs.xml",
+        "lint": "./vendor/bin/phpcbf --standard=phpcs.xml",
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],

@@ -9,9 +9,10 @@
 		"experimentalDecorators" : true
 	},
 	"include": [
-		"resources/assets/js/**/*"
+		"resources/assets/js/**/*.ts"
 	],
 	"exclude" : [
-		"node_modules"
+		"node_modules",
+		"webpack.mix.js"
 	]
 }

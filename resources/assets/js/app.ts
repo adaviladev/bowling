@@ -1,13 +1,13 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+import './bootstrap';
 
-window.Vue = require('vue');
+import Vue from 'vue';
+import GameList from './components/GameList/index.vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,7 +15,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent/index.vue').default);
+Vue.component('example-component', GameList);
 
 const app = new Vue({
     el: '#app',

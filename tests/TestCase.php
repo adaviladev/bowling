@@ -4,7 +4,6 @@ namespace Tests;
 
 use App\Roll;
 use App\Exceptions\Handler;
-use App\Frame;
 use App\Game;
 use App\User;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -22,18 +21,22 @@ abstract class TestCase extends BaseTestCase
     /** @var \Illuminate\Support\Collection */
     protected $rolls;
 
+    /** @var ExceptionHandler */
+    protected $originalExceptionHandler;
+
     protected function setUp()
     {
         parent::setUp();
 
         $this->disableExceptionHandling();
 
-        $this->game = make(Game::class);
-        $this->user = create(User::class);
+        $this->game  = make(Game::class);
+        $this->user  = create(User::class);
         $this->rolls = collect();
     }
 
-    protected function signIn($user = null){
+    protected function signIn($user = null)
+    {
         $user = $user ?: create(User::class);
 
         $this->user = $user;
@@ -42,17 +45,28 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
-    protected function disableExceptionHandling()
+    protected function disableExceptionHandling(): void
     {
         $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
 
-        $this->app->instance(ExceptionHandler::class, new class extends Handler {
-            public function __construct() {}
-            public function report(\Exception $e) {}
-            public function render($request, \Exception $e) {
-                throw $e;
+        $this->app->instance(
+            ExceptionHandler::class,
+            new class extends Handler
+            {
+                public function __construct()
+                {
+                }
+
+                public function report(\Exception $e): void
+                {
+                }
+
+                public function render($request, \Exception $e)
+                {
+                    throw $e;
+                }
             }
-        });
+        );
     }
 
     protected function withExceptionHandling()
@@ -67,20 +81,21 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * @param string $relation
+     *
      * @return mixed
      */
     protected function randomUser($relation = 'games')
     {
         return User::with($relation)
-                     ->inRandomOrder()
-                     ->first();
+                   ->inRandomOrder()
+                   ->first();
     }
 
     public function createGames(int $times = 1, User $user = null)
     {
         $bowler = $user ?? $this->user;
-        $games = [];
-        for ($i = 0; $i < $times; $i++) {
+        $games  = [];
+        for ($i = 0; $i < $times; $i ++) {
             $games[] = $this->createGame($bowler);
         }
 
@@ -105,29 +120,24 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @param $frame
+     * @param       $frame
+     * @param array $attributes
      */
-    protected function buildFrame($frame, $attributes = []): void
+    protected function buildFrame($frame, array $attributes = []): void
     {
         $index = random_int(0, \count(Roll::$scores) - 1);
         $pins1 = Roll::$scores[$index];
         $pins2 = Roll::getSecondScore($pins1);
-        create(
-            Roll::class,
-            [
-                'frame_id' => $frame->id,
-                'index'    => 1,
-                'pins'     => $attributes['pins1'] ?? $pins1
-            ]
-        );
-        create(
-            Roll::class,
-            [
-                'frame_id' => $frame->id,
-                'index'    => 2,
-                'pins'     => $attributes['pins2'] ?? $pins2
-            ]
-        );
+        create(Roll::class, [
+            'frame_id' => $frame->id,
+            'index'    => 1,
+            'pins'     => $attributes['pins1'] ?? $pins1,
+        ]);
+        create(Roll::class, [
+            'frame_id' => $frame->id,
+            'index'    => 2,
+            'pins'     => $attributes['pins2'] ?? $pins2,
+        ]);
     }
 
     public function rollStrike(): void
@@ -143,7 +153,7 @@ abstract class TestCase extends BaseTestCase
 
     public function rollTimes($count, $pins): \Illuminate\Support\Collection
     {
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; $i ++) {
             $this->roll($pins);
         }
 
@@ -163,7 +173,7 @@ abstract class TestCase extends BaseTestCase
     protected function getRolls(): array
     {
         return [
-            'rolls' => $this->rolls->toArray()
+            'rolls' => $this->rolls->toArray(),
         ];
     }
 }

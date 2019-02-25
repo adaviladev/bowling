@@ -33,7 +33,8 @@ abstract class TestCase extends BaseTestCase
         $this->rolls = collect();
     }
 
-    protected function signIn($user = null){
+    protected function signIn($user = null)
+    {
         $user = $user ?: create(User::class);
 
         $this->user = $user;
@@ -47,9 +48,14 @@ abstract class TestCase extends BaseTestCase
         $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
 
         $this->app->instance(ExceptionHandler::class, new class extends Handler {
-            public function __construct() {}
-            public function report(\Exception $e) {}
-            public function render($request, \Exception $e) {
+            public function __construct()
+            {
+            }
+            public function report(\Exception $e)
+            {
+            }
+            public function render($request, \Exception $e)
+            {
                 throw $e;
             }
         });

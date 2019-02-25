@@ -10,5 +10,9 @@
 ## Coding Standard
 - Your code must conform to the PSR-1/PSR-2 standard.
 - All tests must pass before making a PR.
-- All methods must have full DocBlocks.
 - All method parameters must have type hints
+
+# Troubleshooting
+## TypeError: Super expression must either be null or a function
+- Error when running `npm run test`  
+  - Comment out the line that is indicated: Most likely `node_modules/@vue/component-compiler-utils/node_modules/prettier/index.js:40358`

@@ -17,14 +17,23 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
    .webpackConfig({
      module: {
        rules: [
+         {
+           test: /\.js$/,
+           loader: 'babel-loader',
+           exclude: /node_modules/,
+         },
+         // {
+         //   test: /\.vue$/,
+         //   loader: 'vue-loader',
+         // },
          // We're registering the TypeScript loader here. It should only
          // apply when we're dealing with a `.ts` or `.tsx` file.
-         {
-           test   : /\.tsx?$/,
-           loader : 'ts-loader',
-           exclude: /node_modules/,
-           options: {appendTsSuffixTo: [/\.vue$/]}
-         }
+         // {
+         //   test   : /\.tsx?$/,
+         //   loader : 'ts-loader',
+         //   exclude: /node_modules/,
+         //   options: {appendTsSuffixTo: [/\.vue$/]}
+         // }
        ]
      },
 

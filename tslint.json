@@ -18,8 +18,8 @@
 			true,
 			{
 				"order": [
-					"public-static-field",
 					"public-instance-field",
+					"public-static-field",
 					"private-static-field",
 					"private-instance-field",
 					"public-constructor",

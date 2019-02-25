@@ -6,8 +6,8 @@
     <file>routes</file>
     <file>tests</file>
 
-    <exclude-pattern>*.blade.php</exclude-pattern>
-    <exclude-pattern>resources/lang/*</exclude-pattern>
+    <include-pattern>*.php</include-pattern>
+    <exclude-pattern>resources/*</exclude-pattern>
 
     <arg name="colors"/>
 

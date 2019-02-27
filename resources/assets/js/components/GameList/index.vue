@@ -1,19 +1,18 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Game List</div>
+        <h1>Game List</h1>
 
-                    <div class="card-body">
-                        I'm an example component with {{ message }} and a size of {{ size / bar }}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <game-list-item
+            v-if="games"
+            v-for="game in games"
+            :game="game"
+            :key="game.id"
+        >
+        </game-list-item>
     </div>
 </template>
 
-<script lang="ts" src="./GameList.ts"></script>
+<script lang="ts" src="./GameList.ts">
+</script>
 
 <style></style>

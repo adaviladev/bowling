@@ -15,7 +15,7 @@ import GameList from './components/GameList/index.vue';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', GameList);
+Vue.component('game-list', GameList);
 
 const app = new Vue({
     el: '#app',

@@ -24,7 +24,7 @@
     </filter>
     <logging>
         <log type="coverage-html"
-             target="public/report"
+             target="public/report/php"
              lowUpperBound="50"
              highLowerBound="80" />
     </logging>

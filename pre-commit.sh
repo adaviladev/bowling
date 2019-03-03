@@ -17,7 +17,7 @@ if [[ "$STAGED_PHP_FILES" != "" ]]; then
   done
 fi
 
-STAGED_JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "(?<=resources)\S+\.ts$")
+STAGED_JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "resources(?=\.ts$)")
 
 if [[ "$STAGED_JS_FILES" != "" ]]; then
   for JS_FILE in ${STAGED_JS_FILES}

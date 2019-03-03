@@ -1,5 +1,5 @@
 export default class Game {
-  private constructor(params: object) {
+  constructor(params: object) {
     for (const key in params) {
       this[key] = params[key];
     }

@@ -11,14 +11,15 @@ class ViewGamesTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_should_show_all_games(): void
+    public function it_should_show_return_all_games(): void
     {
         $games = create(Game::class, [], 2);
 
-        $response = $this->get('/games');
+        $response = $this->getJson('/games');
 
+        // $response->assertJsonFragment($games->toArray());
         $games->each(function (Game $game) use ($response) {
-            $response->assertSee('game-' . $game->id);
+            $response->assertJsonFragment($game->toArray());
         });
     }
 

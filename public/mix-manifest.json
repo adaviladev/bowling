@@ -1,7 +1,4 @@
 {
-<<<<<<< HEAD
-    "/main.js": "/main.js"
-=======
-    "/bundle.js": "/bundle.js"
->>>>>>> master
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css"
 }

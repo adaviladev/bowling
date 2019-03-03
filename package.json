@@ -7,7 +7,7 @@
         "lint": "tslint -p tsconfig.json",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "test": "mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --require tests/Vue/setup.js tests/Vue/**/*.spec.js",
+        "test": "nyc mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --require tests/Vue/setup.js tests/Vue/**/*.spec.js",
         "watch": "npm run development -- --watch",
         "watch-poll": "npm run watch -- --watch-poll"
     },
@@ -45,17 +45,32 @@
         "vue-class-component": "^6.3.2",
         "vue-loader": "^15.6.4",
         "vue-property-decorator": "^7.3.0",
+        "vue-router": "^3.0.2",
         "vue-server-renderer": "^2.6.7",
         "vue-template-compiler": "^2.5.21",
         "webpack": "^4.1.0",
         "webpack-node-externals": "^1.7.2"
     },
-    "dependencies": {},
+    "dependencies": {
+        "faker": "^4.1.0"
+    },
     "nyc": {
+        "extension": [
+            ".ts",
+            ".vue"
+        ],
+        "exclude": [
+            "**/*.d.ts"
+        ],
         "include": [
-            "resources/assets/js/\\*\\*/\\*.(ts|vue)"
+            "resources/assets/js/**/*.{ts|vue}"
         ],
         "instrument": false,
-        "sourceMap": false
+        "sourceMap": false,
+        "reporter": [
+            "lcov",
+            "html"
+        ],
+        "report-dir": "public/report/vue"
     }
 }

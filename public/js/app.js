@@ -19772,21 +19772,21 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 };
 
 
-var GameList = /** @class */ (function (_super) {
-    __extends(GameList, _super);
-    function GameList() {
+var GameListItem = /** @class */ (function (_super) {
+    __extends(GameListItem, _super);
+    function GameListItem() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    GameList = __decorate([
+    GameListItem = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             props: {
                 game: Object,
             },
         })
-    ], GameList);
-    return GameList;
+    ], GameListItem);
+    return GameListItem;
 }(vue__WEBPACK_IMPORTED_MODULE_0__["default"]));
-/* harmony default export */ __webpack_exports__["default"] = (GameList);
+/* harmony default export */ __webpack_exports__["default"] = (GameListItem);
 
 
 /***/ }),
@@ -20095,7 +20095,7 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.games, function(game) {
         return _vm.games
-          ? _c("game-list-item", { key: game.id, attrs: { game: game } })
+          ? _c("GameListItem", { key: game.id, attrs: { game: game } })
           : _vm._e()
       })
     ],
@@ -20124,7 +20124,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "flex-column" }, [
     _c("p", [
       _vm._v("Game #" + _vm._s(_vm.game.id) + " "),
       _c("small", [_vm._v("created on " + _vm._s(_vm.game.created_at))])
@@ -32407,8 +32407,8 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1__["default"]({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
-/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
+/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /**

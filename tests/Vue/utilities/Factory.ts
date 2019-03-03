@@ -1,4 +1,4 @@
-import GameBuilder from './factories/GameBuilder';
+import GameFactory from './factories/GameFactory';
 import BuilderInterface from './factories/BuilderInterface';
 
 type BuilderInterfaceObject = {
@@ -8,7 +8,7 @@ type BuilderInterfaceObject = {
 export default class Factory
 {
   static models: BuilderInterfaceObject = {
-    'Game': new GameBuilder,
+    'Game': new GameFactory,
   };
 
   public static make(modelName: string,

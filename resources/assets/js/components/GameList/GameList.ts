@@ -2,6 +2,7 @@ import axios from 'axios';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
+import Game from '../../models/Game';
 import GameListItem from '../GameListItem/index.vue';
 
 @Component({
@@ -10,7 +11,7 @@ import GameListItem from '../GameListItem/index.vue';
   },
 })
 export default class GameList extends Vue {
-  public games: object[] = [];
+  public games: Game[] = [];
 
   public created() {
     return axios.get('/games')

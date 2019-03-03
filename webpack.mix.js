@@ -13,7 +13,7 @@ let path = require('path');
  */
 
 function resolve(dir) {
-  return path.join(__dirname, '..', dir);
+  return path.join(__dirname, '/', dir);
 }
 
 mix.ts('resources/assets/js/app.ts', 'public/js')

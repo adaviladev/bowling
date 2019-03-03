@@ -11,6 +11,7 @@
 		]
 	},
 	"rules": {
+		"forin" : false,
 		"indent" : [true, "spaces", 2],
 		"max-line-length" : [true, 120],
 		"member-ordering": [

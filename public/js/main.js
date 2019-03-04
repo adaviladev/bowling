@@ -20283,7 +20283,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex-column" }, [
     _c("p", [
-      _vm._v("Game #" + _vm._s(_vm.game.id) + " "),
+      _vm._v(
+        "Game #" + _vm._s(_vm.game.id) + " - " + _vm._s(_vm.game.score) + " "
+      ),
       _c("small", [_vm._v("created on " + _vm._s(_vm.game.created_at))])
     ])
   ])

@@ -28,11 +28,11 @@ if [[ "$STAGED_JS_FILES" != "" ]]; then
       PASS=false
    fi
   done
+fi
 
-  npm run test
-  if [[ "$?" != 0 ]]; then
-    PASS=false
-  fi
+npm run test
+if [[ "$?" != 0 ]]; then
+  PASS=false
 fi
 
 if ! ${PASS}; then

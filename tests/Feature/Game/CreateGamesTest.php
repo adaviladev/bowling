@@ -18,7 +18,7 @@ class CreateGamesTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $this->get('/games/create')
+        $this->get('/api/games/create')
              ->assertRedirect('/login');
     }
 
@@ -27,7 +27,7 @@ class CreateGamesTest extends TestCase
     {
         $this->signIn();
 
-        $response = $this->get('/games/create');
+        $response = $this->get('/api/games/create');
 
         $response->assertSee('<form');
         $response->assertSee('id="game-create-form"');
@@ -38,7 +38,7 @@ class CreateGamesTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $response = $this->post('/games');
+        $response = $this->post('/api/games');
 
         $response->assertRedirect('/login');
         $this->assertEquals(0, Game::count());

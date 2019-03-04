@@ -22,7 +22,7 @@ class DeleteGamesTest extends TestCase
 
         //dd(Game::count());
         $this->delete($game->path())
-             ->assertRedirect('/games');
+             ->assertStatus(200);
 
         $this->assertDatabaseMissing('frames', ['game_id' => $game->id]);
         $this->assertEquals(0, Game::count());
@@ -30,16 +30,15 @@ class DeleteGamesTest extends TestCase
     }
 
     /** @test */
-    public function it_should_redirect_you_to_your_index_page_when_you_delete_a_game()
+    public function it_should_return_a_200_status_when_you_delete_a_game()
     {
         $this->signIn();
-        //dd($this->user->id);
         $game = create(Game::class, [
             'user_id' => $this->user->id,
         ]);
 
         $this->delete($game->path())
-            ->assertRedirect('/games');
+            ->assertStatus(200);
     }
 
     /** @test */

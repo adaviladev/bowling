@@ -32,12 +32,12 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
-    public function it_should_show_a_users_profile()
+    public function it_should_return_a_users_profile_as_json()
     {
         $user = create(User::class);
 
-        $this->get($user->path())
-             ->assertSee("{$user->fullName}'s Profile");
+        $this->getJson($user->path())
+             ->assertJsonFragment($user->toArray());
     }
 
     /** @test */

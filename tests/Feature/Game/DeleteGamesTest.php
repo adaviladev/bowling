@@ -21,7 +21,7 @@ class DeleteGamesTest extends TestCase
         $game->frames()->saveMany(make(Frame::class, [], 10));
 
         //dd(Game::count());
-        $this->delete($game->path())
+        $this->delete(route('games.destroy', ['game' => $game]))
              ->assertStatus(200);
 
         $this->assertDatabaseMissing('frames', ['game_id' => $game->id]);
@@ -37,7 +37,7 @@ class DeleteGamesTest extends TestCase
             'user_id' => $this->user->id,
         ]);
 
-        $this->delete($game->path())
+        $this->delete(route('games.destroy', ['game' => $game]))
             ->assertStatus(200);
     }
 
@@ -47,11 +47,11 @@ class DeleteGamesTest extends TestCase
         $this->withExceptionHandling();
         $game = create(Game::class);
 
-        $this->delete($game->path())
+        $this->delete(route('games.destroy', ['game' => $game]))
              ->assertRedirect('/login');
 
         $this->signIn();
-        $this->delete($game->path())
+        $this->delete(route('games.destroy', ['game' => $game]))
              ->assertStatus(403);
     }
 
@@ -63,7 +63,7 @@ class DeleteGamesTest extends TestCase
             'user_id' => $this->user->id
         ]);
 
-        $this->delete($game->path());
+        $this->delete(route('games.destroy', ['game' => $game]));
 
         $this->assertDatabaseMissing('games', $game->toArray());
     }

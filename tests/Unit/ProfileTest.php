@@ -11,14 +11,14 @@ class ProfileTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_should_show_a_list_of_all_of_the_users()
+    public function it_should_return_a_list_of_all_of_the_users()
     {
         $users = create(User::class, [], 3);
 
-        $response = $this->get('/users');
+        $response = $this->getJson('/api/users');
 
-        $users->each(function ($user) use ($response) {
-            $response->assertSee($user->fullName);
+        $users->each(function (User $user) use ($response) {
+            $response->assertJsonFragment($user->toArray());
         });
     }
 

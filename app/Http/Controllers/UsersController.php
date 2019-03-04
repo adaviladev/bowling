@@ -9,13 +9,13 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index()
+    public function index(): \Illuminate\Database\Eloquent\Collection
     {
         $users = User::all();
 
-        return view('users.index', compact('users'));
+        return $users;
     }
 
     /**

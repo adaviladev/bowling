@@ -37,7 +37,7 @@ describe('View Game List Test', () => {
     });
   });
 
-  it.only('should_render_a_GamesListItem_component_for_each_game', function() {
+  it('should_render_a_GamesListItem_component_for_each_game', function() {
     let wrapper = mount(GameList);
     wrapper.vm.$data.games = Factory.make('Game', {}, 3);
 

@@ -16,7 +16,7 @@ class GameTest extends TestCase
     {
         $game = create(Game::class);
 
-        $this->assertEquals("/games/{$game->id}", $game->path());
+        $this->assertEquals("/api/games/{$game->id}", $game->path());
     }
 
     /** @test */

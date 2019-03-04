@@ -30,6 +30,11 @@ if [[ "$STAGED_JS_FILES" != "" ]]; then
   done
 fi
 
+npm run test
+if [[ "$?" != 0 ]]; then
+  PASS=false
+fi
+
 if ! ${PASS}; then
   exit 1
 fi

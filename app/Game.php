@@ -83,7 +83,7 @@ class Game extends Model
 
     public function path(): string
     {
-        return '/games/' . $this->id;
+        return '/api/games/' . $this->id;
     }
 
     public function rolls()

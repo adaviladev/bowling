@@ -131,6 +131,8 @@ class GamesController extends Controller
         $this->authorize('delete', $game);
         $game->delete();
 
-        return redirect('/games');
+        return response([
+            'message' => "Game #{$game->id} successfully deleted.",
+        ], Response::HTTP_OK);
     }
 }

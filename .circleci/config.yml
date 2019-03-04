@@ -42,7 +42,6 @@ jobs:
       - run: composer run-script lint
       - run: composer run-script style
       - run: npm run lint
-      - run: npm run test
 
       # run tests!
       - run: vendor/bin/phpunit

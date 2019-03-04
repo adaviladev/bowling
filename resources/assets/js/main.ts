@@ -7,16 +7,21 @@
 import './bootstrap';
 
 import Vue from 'vue';
-import GameList from './components/GameList/index.vue';
+import router from './router';
+
+import App from './App.vue';
+
+// import GameList from './components/GameList/index.vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component('bowling-app', App);
 
-Vue.component('example-component', GameList);
-
+// tslint:disable object-literal-sort-keys
 const app = new Vue({
-    el: '#app',
+  el: '#app',
+  router,
 });

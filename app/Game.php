@@ -10,7 +10,9 @@ class Game extends Model
     protected const FRAMES_PER_GAME = 10;
 
     protected $casts = [
-        'user_id' => 'int'
+        'user_id' => 'int',
+        'complete' => 'boolean',
+        'score' => 'integer',
     ];
 
     protected $fillable = [
@@ -81,7 +83,7 @@ class Game extends Model
 
     public function path(): string
     {
-        return '/games/' . $this->id;
+        return '/api/games/' . $this->id;
     }
 
     public function rolls()

@@ -19,6 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('users', 'UsersController');
-Route::resource('games', 'GamesController');
-Route::resource('games/{game}/rolls', 'RollsController');
+Route::group(['prefix' => 'api'], function () {
+    Route::resource('users', 'UsersController');
+    Route::resource('games', 'GamesController');
+    Route::resource('games/{game}/rolls', 'RollsController');
+});
+
+Route::get('{spa?}', function () {
+    return view('welcome');
+})->where('catchall', '^(?!api).*$')->name('vue');

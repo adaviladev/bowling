@@ -21,7 +21,7 @@ class CreateRollsTest extends TestCase
         $this->rollTimes(19, 0);
         $this->expectException(ValidationException::class);
 
-        $this->post($game->path() . '/rolls', $this->getRolls());
+        $this->post(route('rolls.store', ['game' => $game]), $this->getRolls());
     }
 
     /** @test */
@@ -31,7 +31,7 @@ class CreateRollsTest extends TestCase
         $game = $this->createGame();
         $this->rollTimes(20, 0);
 
-        $this->post($game->path() . '/rolls', $this->getRolls());
+        $this->post(route('rolls.store', ['game' => $game]), $this->getRolls());
 
         $this->assertCount(10, $game->frames);
     }
@@ -45,7 +45,7 @@ class CreateRollsTest extends TestCase
         $game  = create(Game::class);
         $rolls = $this->rollTimes(20, 0);
 
-        $this->post($game->path() . '/rolls', [
+        $this->post(route('rolls.store', ['game' => $game]), [
             'rolls' => $rolls->toArray(),
         ]);
 

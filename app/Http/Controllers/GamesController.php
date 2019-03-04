@@ -16,16 +16,19 @@ class GamesController extends Controller
     {
         $this->middleware(['auth'])->except(['index', 'show']);
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return Response
      */
-    public function index(): \Illuminate\View\View
+    public function index(): Response
     {
         $games = Game::all();
 
-        return view('games.index', compact('games'));
+        return response([
+            'games' => $games,
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -128,6 +131,8 @@ class GamesController extends Controller
         $this->authorize('delete', $game);
         $game->delete();
 
-        return redirect('/games');
+        return response([
+            'message' => "Game #{$game->id} successfully deleted.",
+        ], Response::HTTP_OK);
     }
 }

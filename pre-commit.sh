@@ -17,7 +17,7 @@ if [[ "$STAGED_PHP_FILES" != "" ]]; then
   done
 fi
 
-STAGED_JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".jsx\{0,1\}$")
+STAGED_JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^resources" | grep ".ts$")
 
 if [[ "$STAGED_JS_FILES" != "" ]]; then
   for JS_FILE in ${STAGED_JS_FILES}
@@ -28,6 +28,11 @@ if [[ "$STAGED_JS_FILES" != "" ]]; then
       PASS=false
    fi
   done
+fi
+
+npm run test
+if [[ "$?" != 0 ]]; then
+  PASS=false
 fi
 
 if ! ${PASS}; then

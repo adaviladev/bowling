@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index()
+    public function index(): \Illuminate\Database\Eloquent\Collection
     {
         $users = User::all();
 
-        return view('users.index', compact('users'));
+        return $users;
     }
 
     /**
@@ -44,13 +43,12 @@ class UsersController extends Controller
      * Display the specified resource.
      *
      * @param  User  $user
-     * @return \Illuminate\Http\Response
+     *
+     * @return User
      */
-    public function show(User $user)
+    public function show(User $user): User
     {
-        return view('users.show', [
-            'user' => $user,
-        ]);
+        return $user;
     }
 
     /**

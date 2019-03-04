@@ -36,7 +36,7 @@ class GameUpdateRequest extends FormRequest
     {
         return [
             'rolls' => 'array',
-            'score' => 'integer'
+            'score' => 'integer|min:0|max:300'
         ];
     }
 }

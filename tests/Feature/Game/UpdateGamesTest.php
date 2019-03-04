@@ -18,7 +18,7 @@ class UpdateGamesTest extends TestCase
             'user_id' => $this->user->id
         ]);
 
-        $this->put($game->path(), [
+        $this->put(route('games.update', ['game' => $game]), [
             'score' => 300
         ]);
 
@@ -32,7 +32,7 @@ class UpdateGamesTest extends TestCase
         $otherGame = create(Game::class);
         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
 
-        $this->put($otherGame->path(), [
+        $this->put(route('games.update', ['game' => $otherGame]), [
             'score' => 0
         ]);
 
@@ -43,25 +43,25 @@ class UpdateGamesTest extends TestCase
     public function a_games_score_should_not_be_less_than_zero()
     {
         $this->signIn();
-        $game = make(Game::class, [
-            'score' => -1,
+        $game = create(Game::class, [
+            'user_id' => $this->user->id,
         ]);
 
         $this->expectException(\Illuminate\Validation\ValidationException::class);
 
-        $this->post($game->path(), $game->toArray());
+        $this->put(route('games.update', ['game' => $game]), ['score' => -1]);
     }
 
     /** @test */
     public function a_games_score_should_not_be_greater_than_three_hundred()
     {
         $this->signIn();
-        $game = make(Game::class, [
-            'score' => 301,
+        $game = create(Game::class, [
+            'user_id' => $this->user->id,
         ]);
 
         $this->expectException(\Illuminate\Validation\ValidationException::class);
 
-        $this->post($game->path(), $game->toArray());
+        $this->put(route('games.update', ['game' => $game]), ['score' => 301]);
     }
 }

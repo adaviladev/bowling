@@ -1,4 +1,5 @@
-let mix = require('laravel-mix')
+let mix = require('laravel-mix');
+let path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,7 +12,11 @@ let mix = require('laravel-mix')
  |
  */
 
-mix.ts('resources/assets/js/app.ts', 'public/js')
+function resolve(dir) {
+  return path.join(__dirname, '/', dir);
+}
+
+mix.ts('resources/assets/js/main.ts', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
 
    .webpackConfig({
@@ -42,6 +47,9 @@ mix.ts('resources/assets/js/app.ts', 'public/js')
        // TypeScript modules without explicitly providing an extension.
        // The other extensions in this list are identical to the Mix
        // defaults.
-       extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx']
+       extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
+       alias: {
+         '@': resolve('resources/assets/js')
+       }
      },
    })

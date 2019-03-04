@@ -1,17 +1,24 @@
+import axios from 'axios';
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
+
+import GameListItem from '../GameListItem/index.vue';
 
 @Component({
-  props: {
-    size: {
-      type: Number,
-    },
+  components: {
+    GameListItem,
   },
 })
 export default class GameList extends Vue {
-  public message: string = 'some garbage';
+  public games: object[] = [];
 
-  get bar(): number {
-    return 33;
+  public created() {
+    return axios.get('/api/games')
+      .then(({ data }) => {
+        this.$data.games = data.games;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 }

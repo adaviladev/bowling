@@ -18,7 +18,7 @@ class CreateGamesTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $this->get('/games/create')
+        $this->get(route('games.create'))
              ->assertRedirect('/login');
     }
 
@@ -27,7 +27,7 @@ class CreateGamesTest extends TestCase
     {
         $this->signIn();
 
-        $response = $this->get('/games/create');
+        $response = $this->get(route('games.create'));
 
         $response->assertSee('<form');
         $response->assertSee('id="game-create-form"');
@@ -38,7 +38,7 @@ class CreateGamesTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $response = $this->post('/games');
+        $response = $this->post(route('games.store'));
 
         $response->assertRedirect('/login');
         $this->assertEquals(0, Game::count());
@@ -51,7 +51,7 @@ class CreateGamesTest extends TestCase
         $game = make(Game::class);
         unset($game->user_id);
 
-        $this->post($game->path(), $game->toArray());
+        $this->post(route('games.store', ['game' => $game]), $game->toArray());
 
         $this->assertDatabaseHas('games', $game->toArray());
     }
@@ -62,7 +62,7 @@ class CreateGamesTest extends TestCase
         $this->signIn();
         $game = make(Game::class);
 
-        $this->post('games', $game->toArray());
+        $this->post(route('games.index'), $game->toArray());
         $usersGame = $this->user->games()->first();
 
         $this->assertEquals($this->user->id, $usersGame->user_id);
@@ -74,7 +74,7 @@ class CreateGamesTest extends TestCase
         $this->signIn();
         $game = create(Game::class, ['user_id' => $this->user->id]);
 
-        $this->put($game->path(), [
+        $this->put(route('games.update', ['game' => $game]), [
             'rolls' => [1, 3]
         ]);
 

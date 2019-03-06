@@ -1,12 +1,11 @@
 import { mount, shallowMount } from '@vue/test-utils';
 import expect from 'expect';
-import GameList from '../../../resources/assets/js/components/GameList/index.vue';
-import Game from '../../../resources/assets/js/models/Game'
+import GameList from '../../../resources/assets/js/components/GameList/index.vue'
 import GameListItem from '../../../resources/assets/js/components/GameListItem/index.vue';
 import Factory from '../utilities/Factory'
 import moxios from 'moxios';
 
-describe('View Game List Test', () => {
+describe('View Game List Item Test', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -24,9 +23,9 @@ describe('View Game List Test', () => {
 
   it('should_fetch_a_list_of_games_from_the_API_on_mount', function(done) {
     let wrapper = mount(GameList);
-    moxios.stubRequest('/games', {
+    moxios.stubRequest('/api/games', {
       response: {
-        games: Factory.make(Game, {}, 3)
+        games: Factory.make('Game', {}, 3)
       },
       status: 200,
     });
@@ -37,7 +36,7 @@ describe('View Game List Test', () => {
     });
   });
 
-  it.only('should_render_a_GamesListItem_component_for_each_game', function() {
+  it('should_render_a_GamesListItem_component_for_each_game', function() {
     let wrapper = mount(GameList);
     wrapper.vm.$data.games = Factory.make('Game', {}, 3);
 

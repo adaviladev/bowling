@@ -15,7 +15,7 @@ class FrameTest extends TestCase
     {
         $frame = create(Frame::class);
 
-        $this->assertEquals("/games/{$frame->game_id}/frames/{$frame->id}", $frame->path());
+        $this->assertEquals("/api/games/{$frame->game_id}/frames/{$frame->id}", $frame->path());
     }
 
     ///** @test */

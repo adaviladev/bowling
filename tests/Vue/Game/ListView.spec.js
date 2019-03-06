@@ -24,9 +24,9 @@ describe('View Game List Test', () => {
 
   it('should_fetch_a_list_of_games_from_the_API_on_mount', function(done) {
     let wrapper = mount(GameList);
-    moxios.stubRequest('/games', {
+    moxios.stubRequest('/api/games', {
       response: {
-        games: Factory.make(Game, {}, 3)
+        games: Factory.make('Game', {}, 3)
       },
       status: 200,
     });
@@ -37,7 +37,7 @@ describe('View Game List Test', () => {
     });
   });
 
-  it.only('should_render_a_GamesListItem_component_for_each_game', function() {
+  it('should_render_a_GamesListItem_component_for_each_game', function() {
     let wrapper = mount(GameList);
     wrapper.vm.$data.games = Factory.make('Game', {}, 3);
 

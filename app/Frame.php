@@ -17,7 +17,7 @@ class Frame extends Model
     ];
     public function path()
     {
-        return "/games/{$this->game_id}/frames/{$this->id}";
+        return "/api/games/{$this->game_id}/frames/{$this->id}";
     }
 
     public function rolls()

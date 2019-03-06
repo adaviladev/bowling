@@ -16,7 +16,7 @@ function resolve(dir) {
   return path.join(__dirname, '/', dir);
 }
 
-mix.ts('resources/assets/js/app.ts', 'public/js')
+mix.ts('resources/assets/js/main.ts', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
 
    .webpackConfig({

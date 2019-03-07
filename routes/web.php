@@ -25,6 +25,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::resource('games/{game}/rolls', 'RollsController');
 });
 
-Route::get('{spa?}', function () {
+Route::get('{spa}', function () {
     return view('welcome');
-})->where('catchall', '^(?!api).*$')->name('vue');
+})->where('spa', '^(?!api).*$')->name('vue');

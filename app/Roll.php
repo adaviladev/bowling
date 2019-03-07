@@ -10,7 +10,7 @@ class Roll extends Model
         'pins'
     ];
 
-    public function getPinsAttribute()
+    public function getKnockedPinsAttribute()
     {
         return collect($this->attributes)
             ->filter(function ($attribute, $index) {

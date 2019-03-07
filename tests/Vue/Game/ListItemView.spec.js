@@ -1,16 +1,25 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { mount, RouterLinkStub } from '@vue/test-utils';
 import expect from 'expect';
-import Game from '../../../resources/assets/js/models/Game'
 import GameListItem from '../../../resources/assets/js/components/GameListItem/index.vue';
 import Factory from '../utilities/Factory'
-import moxios from 'moxios';
 
 describe('View Game List Item Test', () => {
-  beforeEach(() => {
-    moxios.install();
-  });
+  it('should_show_a_link_to_a_specific_game', function() {
+    const game = Factory.make('Game')
+    let wrapper = mount(GameListItem, {
+      propsData: {
+        game
+      },
+      stubs: {
+        RouterLink: RouterLinkStub
+      }
+    });
 
-  afterEach(() => {
-    moxios.uninstall();
-  });
+    expect(wrapper.find(RouterLinkStub).props().to).toEqual({
+      name: 'GameShow',
+      params: {
+        id: game.id
+      }
+    })
+  })
 });

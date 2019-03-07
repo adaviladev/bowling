@@ -64,13 +64,14 @@ class GamesController extends Controller
      * Display the specified resource.
      *
      * @param \App\Game $game
-     * @return \Illuminate\View\View
+     *
+     * @return Response
      */
-    public function show(Game $game): \Illuminate\View\View
+    public function show(Game $game): Response
     {
-        return view('games.show', [
-            'game' => $game,
-        ]);
+        return response([
+            'game' => $game->load('frames.rolls'),
+        ], Response::HTTP_OK);
     }
 
     /**

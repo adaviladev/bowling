@@ -13,7 +13,6 @@ class Frame extends Model
     protected $fillable = [
         'index',
         'game_id',
-        'score',
     ];
     public function path()
     {

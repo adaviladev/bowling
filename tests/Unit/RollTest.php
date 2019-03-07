@@ -44,6 +44,6 @@ class RollTest extends TestCase
                 'pin_4' => true,
             ]);
 
-        $this->assertCount(3, $roll->pins);
+        $this->assertCount(3, $roll->knockedPins);
     }
 }

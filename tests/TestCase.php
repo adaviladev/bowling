@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Frame;
 use App\Roll;
 use App\Exceptions\Handler;
 use App\Game;
@@ -30,14 +31,14 @@ abstract class TestCase extends BaseTestCase
 
         $this->disableExceptionHandling();
 
-        $this->game  = make(Game::class);
-        $this->user  = create(User::class);
+        $this->game = make(Game::class);
+        $this->user = create(User::class);
         $this->rolls = collect();
     }
 
     protected function signIn($user = null)
     {
-        $user = $user ?: create(User::class);
+        $user = $user ? : create(User::class);
 
         $this->user = $user;
         $this->actingAs($user);
@@ -49,8 +50,7 @@ abstract class TestCase extends BaseTestCase
     {
         $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
 
-        $this->app->instance(
-            ExceptionHandler::class,
+        $this->app->instance(ExceptionHandler::class,
             new class extends Handler
             {
                 public function __construct()
@@ -65,16 +65,13 @@ abstract class TestCase extends BaseTestCase
                 {
                     throw $e;
                 }
-            }
-        );
+            });
     }
 
     protected function withExceptionHandling()
     {
-        $this->app->instance(
-            ExceptionHandler::class,
-            $this->oldExceptionHandler
-        );
+        $this->app->instance(ExceptionHandler::class,
+            $this->oldExceptionHandler);
 
         return $this;
     }
@@ -94,8 +91,8 @@ abstract class TestCase extends BaseTestCase
     public function createGames(int $times = 1, User $user = null)
     {
         $bowler = $user ?? $this->user;
-        $games  = [];
-        for ($i = 0; $i < $times; $i ++) {
+        $games = [];
+        for ($i = 0; $i < $times; $i++) {
             $games[] = $this->createGame($bowler);
         }
 
@@ -110,8 +107,10 @@ abstract class TestCase extends BaseTestCase
     protected function createGame(User $user = null): Game
     {
         $bowler = $user ?? $this->user;
+        $game = create(Game::class, ['user_id' => $bowler->id]);
+        $this->buildFrames($game);
 
-        return create(Game::class, ['user_id' => $bowler->id]);
+        return $game;
     }
 
     public function makeGame(): Game
@@ -120,24 +119,29 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @param       $frame
+     * @param Game  $game
      * @param array $attributes
      */
-    protected function buildFrame($frame, array $attributes = []): void
+    protected function buildFrames(Game $game, array $attributes = []): void
     {
-        $index = random_int(0, \count(Roll::$scores) - 1);
-        $pins1 = Roll::$scores[$index];
-        $pins2 = Roll::getSecondScore($pins1);
-        create(Roll::class, [
-            'frame_id' => $frame->id,
-            'index'    => 1,
-            'pins'     => $attributes['pins1'] ?? $pins1,
-        ]);
-        create(Roll::class, [
-            'frame_id' => $frame->id,
-            'index'    => 2,
-            'pins'     => $attributes['pins2'] ?? $pins2,
-        ]);
+        for ($i = 1; $i <= 10; $i++) {
+            $frame = factory(Frame::class)->create([
+                'game_id' => $game->id,
+            ]);
+            $roll1 = factory(Roll::class)->create([
+                'frame_id' => $frame->id,
+            ]);
+            $availablePins = 10 - $roll1->pins;
+            $roll2 = factory(Roll::class)->create([
+                'frame_id' => $frame->id,
+                'pins'     => random_int(0, $availablePins),
+            ]);
+            if ($i === 10 && ($roll1->pins === 10 || $roll1->pins + $roll2->pins === 10)) {
+                factory(Roll::class)->create([
+                    'frame_id' => $frame->id,
+                ]);
+            }
+        }
     }
 
     public function rollStrike(): void
@@ -153,7 +157,7 @@ abstract class TestCase extends BaseTestCase
 
     public function rollTimes($count, $pins): \Illuminate\Support\Collection
     {
-        for ($i = 0; $i < $count; $i ++) {
+        for ($i = 0; $i < $count; $i++) {
             $this->roll($pins);
         }
 

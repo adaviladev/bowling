@@ -26,7 +26,7 @@ describe('View Game List Item Test', () => {
     });
   });
 
-  it.only('should_render_a_card_component_for_each_list_item', () => {
+  it('should_render_a_card_component_for_each_list_item', () => {
     const game  = Factory.make('Game');
     let wrapper = mount(GameListItem, {
       propsData: {

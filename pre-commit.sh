@@ -9,9 +9,10 @@ if [[ "$STAGED_PHP_FILES" != "" ]]; then
   do
     composer run-script lint "$PHP_FILE"
     git add "$PHP_FILE"
-    composer run-script style "$PHP_FILE"
 
-    if [[ "$?" != 0 ]]; then
+
+    if ! composer run-script style "$PHP_FILE"
+    then
       PASS=false
     fi
   done
@@ -22,16 +23,15 @@ STAGED_JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^resou
 if [[ "$STAGED_JS_FILES" != "" ]]; then
   for JS_FILE in ${STAGED_JS_FILES}
   do
-    npm run lint "$JS_FILE"
-
-    if [[ "$?" != 0 ]]; then
+    if ! npm run lint "$JS_FILE"
+    then
       PASS=false
-   fi
+    fi
   done
 fi
 
-npm run test
-if [[ "$?" != 0 ]]; then
+if ! npm run test
+then
   PASS=false
 fi
 

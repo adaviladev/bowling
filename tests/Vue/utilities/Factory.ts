@@ -8,7 +8,7 @@ type BuilderInterfaceObject = {
 export default class Factory
 {
   static models: BuilderInterfaceObject = {
-    'Game': new GameFactory,
+    'Game': new GameFactory(),
   };
 
   public static make(modelName: string,

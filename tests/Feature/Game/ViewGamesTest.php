@@ -17,7 +17,6 @@ class ViewGamesTest extends TestCase
 
         $response = $this->getJson(route('games.index'));
 
-        // $response->assertJsonFragment($games->toArray());
         $games->each(function (Game $game) use ($response) {
             $response->assertJsonFragment($game->toArray());
         });
@@ -29,6 +28,6 @@ class ViewGamesTest extends TestCase
         $game = create(Game::class);
 
         $this->getJson(route('games.show', ['game' => $game]))
-            ->assertJsonFragment($game->toArray());
+             ->assertJsonFragment($game->toArray());
     }
 }

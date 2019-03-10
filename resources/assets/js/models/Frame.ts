@@ -1,11 +1,15 @@
-export default class Frame {
-  private constructor(params: object) {
-    for (const key in params) {
-      this[key] = params[key];
-    }
+import Model from './Model';
+import {IFrame} from './types';
+
+export default class Frame extends Model {
+  public rolls: object[] = [];
+
+  private constructor(params: IFrame) {
+    super(params);
+    this.rolls = params.rolls;
   }
 
-  public static make(params: object) {
+  public static make(params: IFrame): object {
     return new Frame(params);
   }
 }

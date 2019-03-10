@@ -3,7 +3,7 @@
         Game #{{ id }}
         <FramesTable
             :data-vue="`game-${id}-frames`"
-            :frames="game.frames"
+            :rolls="rolls"
         ></FramesTable>
     </div>
 </template>

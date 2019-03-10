@@ -59,7 +59,7 @@ class GameScoreTest extends TestCase
         $this->rollStrike();
         $this->roll(5);
         $this->roll(3);
-        $this->rollTimes(17, 0);
+        $this->rollTimes(16, 0);
 
         $this->game->calculateScore($this->rolls);
 

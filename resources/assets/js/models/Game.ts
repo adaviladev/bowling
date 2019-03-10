@@ -1,8 +1,12 @@
-export default class Game {
+import Model from './Model';
+import {IFrame} from './types';
+
+export default class Game extends Model {
+  public score: number = 0;
+  public frames: IFrame[] = [];
+
   private constructor(params: object) {
-    for (const key in params) {
-      this[key] = params[key];
-    }
+    super(params);
   }
 
   public static make(params: object) {

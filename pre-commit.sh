@@ -23,6 +23,8 @@ STAGED_JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^resou
 if [[ "$STAGED_JS_FILES" != "" ]]; then
   for JS_FILE in ${STAGED_JS_FILES}
   do
+    npm run lint "$JS_FILE" --fix
+    git add "$JS_FILE"
     if ! npm run lint "$JS_FILE"
     then
       PASS=false

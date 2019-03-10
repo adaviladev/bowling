@@ -16,24 +16,22 @@
         <tbody>
         <tr>
             <td
-                v-for="(frame, index) in frames"
+                v-for="(roll, index) in rolls"
                 :key="index"
                 class="py-0"
             >
                 <div
                     class="row text-center"
                 >
-                    <div
-                        v-for="(roll, index) in frame.rolls"
-                        class="col p-0"
-                        :class="index !== 0 ? 'border': ''"
-                    >
-                        {{ roll.pins }}
-                    </div>
                     <div>
                         <!-- frame score -->
                     </div>
                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ rolls }}
             </td>
         </tr>
         </tbody>

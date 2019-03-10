@@ -14,7 +14,13 @@ class GamesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->except(['index', 'show']);
+        $this->middleware(['auth'])
+             ->except(
+                 [
+                     'index',
+                     'show',
+                 ]
+             );
     }
 
     /**
@@ -26,9 +32,12 @@ class GamesController extends Controller
     {
         $games = Game::all();
 
-        return response([
-            'games' => $games,
-        ], Response::HTTP_OK);
+        return response(
+            [
+                'games' => $games,
+            ],
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -45,15 +54,18 @@ class GamesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \App\Http\Requests\GameRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(GameRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $game = Game::create([
-            'complete' => $request->get('complete'),
-            'score' => $request->get('score') ?? 0,
-            'user_id' => auth()->id(),
-        ]);
+        $game = Game::create(
+            [
+                'complete' => $request->get('complete'),
+                'score'    => $request->get('score') ?? 0,
+                'user_id'  => auth()->id(),
+            ]
+        );
 
         $game->save();
 
@@ -69,22 +81,29 @@ class GamesController extends Controller
      */
     public function show(Game $game): Response
     {
-        return response([
-            'game' => $game->load('frames.rolls'),
-        ], Response::HTTP_OK);
+        return response(
+            [
+                'game' => $game->load('frames.rolls'),
+            ],
+            Response::HTTP_OK
+        );
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  Game $game
+     *
      * @return \Illuminate\View\View
      */
     public function edit(Game $game): \Illuminate\View\View
     {
-        return view('games.edit', [
-            'game' => $game,
-        ]);
+        return view(
+            'games.edit',
+            [
+                'game' => $game,
+            ]
+        );
     }
 
     /**
@@ -92,37 +111,48 @@ class GamesController extends Controller
      *
      * @param \App\Http\Requests\GameUpdateRequest $request
      * @param  Game                                $game
+     *
      * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update(GameUpdateRequest $request, Game $game)
     {
         $rolls = collect($request->get('rolls'));
-        $rolls = $rolls->map(function ($roll) {
-            return Roll::make([
-                'pins' => $roll
-            ]);
-        });
+        $rolls = $rolls->map(
+            function ($roll) {
+                return Roll::make(
+                    [
+                        'pins' => $roll,
+                    ]
+                );
+            }
+        );
         /** @var Frame $frame */
         $frame = Frame::make(
             [
                 'game_id' => $game->id,
-                'score' => 8,
-                'index' => 1
+                'score'   => 8,
+                'index'   => 1,
             ]
         );
-        $game->frames()->save($frame);
+        $game->frames()
+             ->save($frame);
 
-        $frame->rolls()->saveMany($rolls);
+        $frame->rolls()
+              ->saveMany($rolls);
 
-        return response([
-            'message' => "Game {$game->id} has been successfully updated.",
-        ], Response::HTTP_OK);
+        return response(
+            [
+                'message' => "Game {$game->id} has been successfully updated.",
+            ],
+            Response::HTTP_OK
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Game $game
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Exception
@@ -132,8 +162,11 @@ class GamesController extends Controller
         $this->authorize('delete', $game);
         $game->delete();
 
-        return response([
-            'message' => "Game #{$game->id} successfully deleted.",
-        ], Response::HTTP_OK);
+        return response(
+            [
+                'message' => "Game #{$game->id} successfully deleted.",
+            ],
+            Response::HTTP_OK
+        );
     }
 }

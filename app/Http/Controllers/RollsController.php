@@ -20,6 +20,7 @@ class RollsController extends Controller
         $rolls = collect($request->get('rolls'));
 
         $game->calculateScore($rolls);
+
         $game->frames()->saveMany($game->frames);
         $game->frames->each(function ($frame) {
             $frame->rolls()->saveMany($frame->rolls);

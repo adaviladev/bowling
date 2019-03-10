@@ -32,33 +32,33 @@ class Game extends Model
 
     public function calculateScore(Collection $rolls)
     {
-        $sum  = 0;
+        $sum = 0;
         $roll = 0;
 
-        for ($frameIndex = 1; $frameIndex <= self::FRAMES_PER_GAME; $frameIndex ++) {
+        for ($frameIndex = 1; $frameIndex <= self::FRAMES_PER_GAME; $frameIndex++) {
             $index = 1;
             if ($this->isStrike($rolls, $roll)) {
                 $sum += 10 + $this->getStrikeBonus($rolls, $roll);
 
-                $roll ++;
+                $roll++;
             } else if ($this->isSpare($rolls, $roll)) {
-                $sum  += 10 + $this->getSpareBonus($rolls, $roll);
+                $sum += 10 + $this->getSpareBonus($rolls, $roll);
                 $roll += 2;
             } else {
-                $sum           += $this->getDefaultFrameScore($rolls, $roll);
-                $frame          = Frame::make([
-                        'index' => $frameIndex,
-                    ]);
+                $sum += $this->getDefaultFrameScore($rolls, $roll);
+                $frame = Frame::make([
+                    'index' => $frameIndex,
+                ]);
+                $frame->rolls[] = Roll::make([
+                    'pins'  => $rolls[$roll],
+                    'index' => $index++,
+                ]);
+                $frame->rolls[] = Roll::make([
+                    'pins'  => $rolls[$roll + 1],
+                    'index' => $index++,
+                ]);
                 $this->frames[] = $frame;
-                $frame->rolls[] = Roll::make([
-                        'pins'  => $rolls[$roll],
-                        'index' => $index ++,
-                    ]);
-                $frame->rolls[] = Roll::make([
-                        'pins'  => $rolls[$roll + 1],
-                        'index' => $index ++,
-                    ]);
-                $roll          += 2;
+                $roll += 2;
             }
         }
 

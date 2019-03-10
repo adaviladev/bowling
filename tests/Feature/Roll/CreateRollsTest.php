@@ -28,7 +28,7 @@ class CreateRollsTest extends TestCase
     public function when_rolls_are_submitted_ten_frames_should_be_generated_for_the_submitted_game()
     {
         $this->signIn();
-        $game = $this->createGame();
+        $game = create(Game::class);
         $this->rollTimes(20, 0);
 
         $this->post(route('rolls.store', ['game' => $game]), $this->getRolls());

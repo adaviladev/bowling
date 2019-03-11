@@ -17,24 +17,34 @@ class FramesTableSeeder extends Seeder
         $game = Game::all();
 
         $game->each(function (Game $game, $index) {
-            for ($i = 1; $i <= 10; $i ++) {
-                $frame         = factory(Frame::class)->create([
+            for ($i = 1; $i <= 10; $i++) {
+                $frame = factory(Frame::class)->create([
                     'game_id' => $game->id,
                 ]);
-                $roll1         = factory(Roll::class)->create([
+                $roll1 = factory(Roll::class)->create([
                     'frame_id' => $frame->id,
                 ]);
                 $availablePins = 10 - $roll1->pins;
-                $roll2         = factory(Roll::class)->create([
-                    'frame_id' => $frame->id,
-                    'pins'     => random_int(0, $availablePins),
-                ]);
-                if ($i === 10 && ($roll1->pins === 10 || $roll1->pins + $roll2->pins === 10)) {
+
+                $roll2 = null;
+                if ($roll1->pins !== 10) {
+                    $roll2 = factory(Roll::class)->create([
+                        'frame_id' => $frame->id,
+                        'pins'     => random_int(0, $availablePins),
+                    ]);
+                }
+
+                if ($i === 10 && $this->earnedThirdRoll($roll1, $roll2)) {
                     factory(Roll::class)->create([
                         'frame_id' => $frame->id,
                     ]);
                 }
             }
         });
+    }
+
+    public function earnedThirdRoll($roll1, $roll2): bool
+    {
+        return $roll1->pins === 10 || ($roll2 && $roll1->pins + $roll2->pins === 10);
     }
 }

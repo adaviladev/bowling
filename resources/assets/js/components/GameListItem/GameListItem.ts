@@ -18,10 +18,4 @@ export default class GameListItem extends Vue {
 
     return 'bg-danger';
   }
-
-  get rolls() {
-    return this.$props.game.frames
-               .map((frame: Frame) => frame.rolls)
-               .flat(1);
-  }
 }

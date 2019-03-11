@@ -1,12 +1,14 @@
-import faker from 'faker';
+import * as faker from 'faker';
 import BuilderInterface from './BuilderInterface';
 import Roll from '../../../../resources/assets/js/models/Roll';
+import {IRoll} from '../../../../resources/assets/js/models/types';
 
 export default class RollFactory implements BuilderInterface {
   generate() {
-    return Roll.make({
+    const attributes: IRoll = {
       id: faker.random.number(),
       pins: faker.random.number(10),
-    });
+    };
+    return new Roll(attributes);
   }
 }

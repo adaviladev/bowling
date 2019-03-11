@@ -1,11 +1,12 @@
 import axios from 'axios';
-import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {
+  Component,
+  Vue,
+} from 'vue-property-decorator';
 import FramesTable from '../../components/FramesTable/index.vue';
 import Game from '../../models/Game';
 import {
   IFrame,
-  IGame,
 } from '../../models/types';
 
 @Component({
@@ -19,22 +20,21 @@ import {
   },
 })
 export default class PageGameShow extends Vue {
-  public game: IGame;
+  public game: Game;
 
-  constructor(params) {
-    super(params);
-    this.game = Game.make({});
+  constructor() {
+    super();
+    this.game = new Game();
   }
 
   public created() {
     axios.get(`/api/games/${this.$props.id}`)
       .then(({data}) => {
-        this.$data.game = data.game;
+        this.game = new Game(data.game);
       });
   }
 
-  get rolls() {
-    const frames = this.$data.game.frames;
-    return [].concat(...frames.map((frame: IFrame) => frame.rolls));
+  get frames() {
+    return this.$data.game.frames;
   }
 }

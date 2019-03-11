@@ -1,7 +1,11 @@
 import Model from './Model';
+import {IRoll} from './types';
 
 export default class Roll extends Model {
-  public static make(params: object) {
-    return new Roll(params);
+  public pins: number = 0;
+
+  public constructor(params: IRoll) {
+    super();
+    this.pins = params.pins;
   }
 }

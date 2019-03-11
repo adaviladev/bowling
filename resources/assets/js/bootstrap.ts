@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This

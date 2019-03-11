@@ -2,6 +2,7 @@ import GameFactory from './factories/GameFactory';
 import RollFactory from './factories/RollFactory';
 import BuilderInterface from './factories/BuilderInterface';
 import FrameFactory from './factories/FrameFactory';
+import Model from '../../../resources/assets/js/models/Model';
 
 type BuilderInterfaceObject = {
   [name: string]: BuilderInterface,
@@ -25,7 +26,7 @@ export default class Factory
         return Object.assign(builder.generate(), attributes);
       }
 
-      const models: BuilderInterface[] = [];
+      const models: Model[] = [];
       for (let i = 0; i < times; i++) {
         models.push(Object.assign(builder.generate(), attributes));
       }

@@ -11,7 +11,7 @@ export default class FramesTable extends Vue {
   @Prop(Array) private frames!: Frame[];
   private MAX_FRAMES: number = 10;
 
-  get score() {
+  get score(): number {
     const frames = this.frames;
     if (!frames.length) {
       return 0;

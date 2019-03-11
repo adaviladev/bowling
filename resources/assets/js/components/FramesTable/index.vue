@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </td>
-            <td v-if="frames">{{ score }}</td>
+            <td>{{ score }}</td>
         </tr>
         </tbody>
     </table>

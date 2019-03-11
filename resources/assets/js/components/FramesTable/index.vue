@@ -24,9 +24,8 @@
                     class="row text-center"
                 >
                     <div
-                        v-for="(roll, index) in frame.rolls"
-                        class="col p-0"
-                        :class="index !== 0 ? 'border': ''"
+                        v-for="roll in frame.rolls"
+                        class="col"
                     >
                         {{ roll.pins }}
                     </div>
@@ -35,6 +34,7 @@
                     </div>
                 </div>
             </td>
+            <td>{{ score }}</td>
         </tr>
         </tbody>
     </table>

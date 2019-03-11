@@ -1,15 +1,19 @@
-import faker from 'faker';
+import * as faker  from 'faker';
 import BuilderInterface from './BuilderInterface';
 import Frame from '../../../../resources/assets/js/models/Frame';
+import Factory from '../Factory';
+import {IFrame} from '../../../../resources/assets/js/models/types';
 
 export default class FrameFactory implements BuilderInterface {
   generate() {
-    return Frame.make({
+    const attributes: IFrame = {
       id: faker.random.number(),
-      game_id: faker.random.number(),
-      score: faker.numberBetween(10),
-      index: faker.numberBetween(10),
-      created_at: faker.date.past()
-    });
+      gameId: faker.random.number(),
+      score: faker.random.number(10),
+      index: faker.random.number(10),
+      rolls: Factory.make('Roll', {}, 2),
+      createdAt: faker.date.past()
+    };
+    return new Frame(attributes);
   }
 }

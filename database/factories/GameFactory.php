@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Game::class, function (Faker $faker) {
     return [
-        'userId' => function () {
+        'user_id' => function () {
             return factory(User::class)->create()->id;
         },
         'score' => $faker->numberBetween(0, 300),

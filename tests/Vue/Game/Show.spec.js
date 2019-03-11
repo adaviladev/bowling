@@ -35,15 +35,10 @@ describe('Showing a game', () => {
 
   it('should_render_the_FramesTable_component', () => {
     let game = Factory.make('Game', {id: 42});
-    game.frames = Factory.make('Frame', {game_id: game.id}, 10);
+    game.frames = Factory.make('Frame', {gameId: game.id}, 10);
     const wrapper = mount(GameShow, {
       propsData: {
         id: game.id
-      },
-      data() {
-        return {
-          game
-        };
       },
     });
 

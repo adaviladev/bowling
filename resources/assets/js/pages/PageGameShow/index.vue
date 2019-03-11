@@ -2,8 +2,9 @@
     <div>
         Game #{{ id }}
         <FramesTable
+            v-if="game"
             :data-vue="`game-${id}-frames`"
-            :rolls="rolls"
+            :frames="frames"
         ></FramesTable>
     </div>
 </template>

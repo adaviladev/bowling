@@ -1,22 +1,31 @@
-interface IGame {
-  score: number;
-  frames: object[];
+interface IEntity {
+  [key: string]: any;
 }
 
-interface IFrame {
-  id: number;
-  game_id: number;
+interface IGame extends IEntity {
+  id: number|null;
+  userId: number|null;
+  score: number;
+  frames: IFrame[];
+  complete: boolean;
+  createdAt: any;
+}
+
+interface IFrame extends IEntity {
+  id: number|null;
+  gameId: number|null;
   score: number;
   index: number;
-  rolls: object[];
-  created_at: any;
+  rolls: IRoll[];
+  createdAt: any;
 }
 
-interface IRoll {
+interface IRoll extends IEntity {
   pins: number;
 }
 
 export {
+  IEntity,
   IGame,
   IFrame,
   IRoll,

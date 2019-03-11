@@ -1,11 +1,5 @@
-export default class Model {
-  public constructor(params: object) {
-    for (const key in params) {
-      this[key] = params[key];
-    }
-  }
+import {IEntity} from './types';
 
-  public static make(params: object) {
-    return new Model(params);
-  }
+export default abstract class Model {
 }
+

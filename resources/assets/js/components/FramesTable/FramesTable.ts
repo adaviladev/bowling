@@ -1,22 +1,22 @@
-import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import {IRoll} from '../../models/types';
+import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+import Frame from '../../models/Frame';
+import Roll from '../../models/Roll';
+import {
+  IFrame,
+  IRoll,
+} from '../../models/types';
 
-@Component({
-  props: {
-    rolls: Array,
-  },
-})
+@Component
 export default class FramesTable extends Vue {
+  @Prop(Array) private frames!: Frame[];
   private MAX_FRAMES: number = 10;
-  private score: number = 0;
 
-  public created() {
-    this.score = this.calculateScore();
-  }
-
-  private calculateScore() {
-    const rolls = this.$props.rolls;
+  get score() {
+    const frames = this.frames;
+    if (!frames.length) {
+      return 0;
+    }
+    const rolls: IRoll[] = this.rolls;
     let total = 0;
     let roll = 0;
     for (let i = 0; i < this.MAX_FRAMES; i++) {
@@ -32,5 +32,12 @@ export default class FramesTable extends Vue {
       }
     }
     return total;
+  }
+
+  get rolls(): IRoll[] {
+    const rolls: IRoll[] = this.frames.reduce((accumulator: IRoll[], frame: IFrame) => {
+      return accumulator.concat(frame.rolls);
+    }, [] as IRoll[]);
+    return rolls;
   }
 }

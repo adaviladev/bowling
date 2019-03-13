@@ -4,7 +4,8 @@
         <FramesTable
             v-if="game"
             :data-vue="`game-${id}-frames`"
-            :frames="frames"
+            :frames="game.frames"
+            :score="game.score"
         ></FramesTable>
     </div>
 </template>

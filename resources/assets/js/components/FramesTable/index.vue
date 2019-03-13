@@ -29,8 +29,10 @@
                     >
                         {{ roll.pins }}
                     </div>
-                    <div>
-                        <!-- frame score -->
+                </div>
+                <div class="row text-right">
+                    <div class="col">
+                        {{ frame.score }}
                     </div>
                 </div>
             </td>

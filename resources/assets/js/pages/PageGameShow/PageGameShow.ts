@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   Component,
+  Prop,
   Vue,
 } from 'vue-property-decorator';
 import FramesTable from '../../components/FramesTable/index.vue';
@@ -13,13 +14,10 @@ import {
   components: {
     FramesTable,
   },
-  props: {
-    id: {
-      type: [Number, String],
-    },
-  },
 })
 export default class PageGameShow extends Vue {
+  @Prop([Number, String]) public readonly id!: number;
+
   public game: Game;
 
   constructor() {

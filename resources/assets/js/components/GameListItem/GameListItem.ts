@@ -1,13 +1,14 @@
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import Frame from '../../models/Frame';
+import {
+  Component,
+  Prop,
+} from 'vue-property-decorator';
+import {IGame} from '../../models/types';
 
-@Component({
-  props: {
-    game: Object,
-  },
-})
+@Component
 export default class GameListItem extends Vue {
+  @Prop(Object) public readonly game!: IGame;
+
   get performanceClass() {
     if (this.$props.game.score >= 200) {
       return 'bg-success';

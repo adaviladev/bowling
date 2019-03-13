@@ -1,3 +1,4 @@
+import Game from '@/models/Game';
 import { mount, shallowMount } from '@vue/test-utils';
 import expect from 'expect'
 import moxios from 'moxios';
@@ -15,7 +16,10 @@ describe('Showing a game', () => {
   });
 
   it('should_fetch_a_game_by_id', (done) => {
+    /** @var Game game */
     let game = Factory.make('Game', {id: 1});
+    game.calculateScore();
+
     const wrapper = shallowMount(GameShow, {
       propsData: {
         id: game.id,

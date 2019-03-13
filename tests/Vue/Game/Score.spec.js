@@ -1,3 +1,4 @@
+import Game from '@/models/Game';
 import { shallowMount } from '@vue/test-utils';
 import expect from 'expect';
 import FramesTable from '../../../resources/assets/js/components/FramesTable/index.vue';
@@ -8,26 +9,21 @@ describe('Game Scoring', () => {
     const frames = Factory.make('Frame', {
       rolls: Factory.make('Roll', {pins: 0}, 2)
     }, 10);
-    let wrapper = shallowMount(FramesTable, {
-      propsData: {
-        frames,
-      }
-    });
+    const game = new Game();
+    game.frames = frames;
 
-    expect(wrapper.vm.score).toEqual(0);
+    expect(game.score).toEqual(0);
   });
 
   it('should_score_a_game_of_all_ones_as_twenty', () => {
     const frames = Factory.make('Frame', {
       rolls: Factory.make('Roll', {pins: 1}, 2)
     }, 10);
-    let wrapper = shallowMount(FramesTable, {
-      propsData: {
-        frames,
-      }
-    });
+    const game = new Game();
+    game.frames = frames;
+    game.calculateScore();
 
-    expect(wrapper.vm.score).toEqual(20);
+    expect(game.score).toEqual(20);
   });
 
   it('should_score_a_game_of_3_and_5_as_8', () => {
@@ -42,13 +38,11 @@ describe('Game Scoring', () => {
         rolls: Factory.make('Roll', {pins: 0}, 2),
       }, 9)
     ];
-    let wrapper = shallowMount(FramesTable, {
-      propsData: {
-        frames,
-      }
-    });
+    const game = new Game();
+    game.frames = frames;
+    game.calculateScore();
 
-    expect(wrapper.vm.score).toEqual(8);
+    expect(game.score).toEqual(8);
   });
 
   it('should_give_a_one_roll_bonus_for_a_spare', () => {
@@ -69,13 +63,11 @@ describe('Game Scoring', () => {
         rolls: Factory.make('Roll', {pins: 0}, 2),
       }, 8)
     ];
-    let wrapper = shallowMount(FramesTable, {
-      propsData: {
-        frames,
-      }
-    });
+    const game = new Game();
+    game.frames = frames;
+    game.calculateScore();
 
-    expect(wrapper.vm.score).toEqual(16);
+    expect(game.score).toEqual(16);
   });
 
   it('should_give_a_two_roll_bonus_for_a_strike', () => {
@@ -95,13 +87,11 @@ describe('Game Scoring', () => {
         rolls: Factory.make('Roll', {pins: 0}, 2),
       }, 8)
     ];
-    let wrapper = shallowMount(FramesTable, {
-      propsData: {
-        frames,
-      }
-    });
+    const game = new Game();
+    game.frames = frames;
+    game.calculateScore();
 
-    expect(wrapper.vm.score).toEqual(26);
+    expect(game.score).toEqual(26);
   });
 
   it('should_give_a_score_of_300_for_a_perfect_game', () => {
@@ -113,12 +103,10 @@ describe('Game Scoring', () => {
         rolls: Factory.make('Roll', {pins: 10}, 3),
       })
     ];
-    let wrapper = shallowMount(FramesTable, {
-      propsData: {
-        frames,
-      }
-    });
+    const game = new Game();
+    game.frames = frames;
+    game.calculateScore();
 
-    expect(wrapper.vm.score).toEqual(300);
+    expect(game.score).toEqual(300);
   });
 });

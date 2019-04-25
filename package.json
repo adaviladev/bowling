@@ -34,9 +34,7 @@
         "jsdom-global": "^3.0.2",
         "laravel-mix": "^4.0.12",
         "lodash": "^4.17.4",
-        "mocha-webpack": "^2.0.0-beta.0",
         "moxios": "^0.4.0",
-        "nyc": "^13.3.0",
         "popper.js": "^1.14.7",
         "prettier": "1.14.0",
         "resolve-url-loader": "2.3.2",
@@ -66,7 +64,7 @@
     "jest": {
         "moduleFileExtensions": [
             "js",
-			"ts",
+            "ts",
             "vue"
         ],
         "transform": {
@@ -90,24 +88,5 @@
         "setupFiles": [
             "<rootDir>/tests/Vue/setup.js"
         ]
-    },
-    "nyc": {
-        "extension": [
-            ".ts",
-            ".vue"
-        ],
-        "exclude": [
-            "**/*.d.ts"
-        ],
-        "include": [
-            "resources/assets/js/**/*.vue"
-        ],
-        "instrument": false,
-        "sourceMap": false,
-        "reporter": [
-            "lcov",
-            "html"
-        ],
-        "report-dir": "public/report/vue"
     }
 }

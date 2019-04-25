@@ -18,6 +18,11 @@ if [[ "$STAGED_PHP_FILES" != "" ]]; then
   done
 fi
 
+if ! vendor/bin/phpunit
+then
+  PASS=false
+fi
+
 STAGED_JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^resources" | grep ".ts$")
 
 if [[ "$STAGED_JS_FILES" != "" ]]; then

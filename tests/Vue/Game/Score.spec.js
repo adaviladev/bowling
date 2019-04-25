@@ -1,7 +1,5 @@
 import Game from '@/models/Game';
-import { shallowMount } from '@vue/test-utils';
 import expect from 'expect';
-import FramesTable from '../../../resources/assets/js/components/FramesTable/index.vue';
 import Factory from '../utilities/Factory';
 
 describe('Game Scoring', () => {

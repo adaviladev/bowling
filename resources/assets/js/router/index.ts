@@ -1,9 +1,9 @@
 // tslint:disable:object-literal-sort-keys
 import Vue from 'vue';
 import Router from 'vue-router';
-import GameList from '../components/GameList/index.vue';
-import GameShow from '../pages/PageGameShow/index.vue';
-import Home from '../pages/PageHome/index.vue';
+import GameList from '../components/GameList.vue';
+import GameShow from '../pages/PageGameShow.vue';
+import Home from '../pages/PageHome.vue';
 
 Vue.use(Router);
 

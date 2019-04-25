@@ -30,7 +30,7 @@
     public created() {
       return axios.get('/api/games')
         .then(({ data }) => {
-          this.$data.games = data.games;
+          this.games = data.games;
         })
         .catch((error) => {
           console.error(error);

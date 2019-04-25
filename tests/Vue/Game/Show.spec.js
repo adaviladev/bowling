@@ -7,11 +7,11 @@ import Factory from '../utilities/Factory'
 import GameShow from '@/pages/PageGameShow';
 
 describe('Showing a game', () => {
-  before(() => {
+  beforeAll(() => {
     moxios.install(axios);
   });
 
-  after(() => {
+  afterAll(() => {
     moxios.uninstall(axios);
   });
 

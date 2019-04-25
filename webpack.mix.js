@@ -1,5 +1,7 @@
 let mix = require('laravel-mix');
 let path = require('path');
+let nodeExternals = require('webpack-node-externals');
+let isCoverage = process.env.NODE_ENV === 'coverage';
 
 /*
  |--------------------------------------------------------------------------
@@ -20,8 +22,13 @@ mix.ts('resources/assets/js/main.ts', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
 
    .webpackConfig({
+       output: {
+           // use absolute paths in sourcemaps (important for debugging via IDE)
+           devtoolModuleFilenameTemplate: '[absolute-resource-path]',
+           devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]?[hash]'
+       },
      module: {
-       rules: [
+       rules: [].concat(
          {
            test: /\.js$/,
            loader: 'babel-loader',
@@ -31,6 +38,11 @@ mix.ts('resources/assets/js/main.ts', 'public/js')
          //   test: /\.vue$/,
          //   loader: 'vue-loader',
          // },
+           isCoverage ? {
+               test: /\.(vue|ts)/,
+               include: path.resolve('resources/assets/js'), // instrument only testing sources with Istanbul, after ts-loader runs
+               loader: 'istanbul-instrumenter-loader'
+           }: [],
          // We're registering the TypeScript loader here. It should only
          // apply when we're dealing with a `.ts` or `.tsx` file.
          // {
@@ -39,7 +51,7 @@ mix.ts('resources/assets/js/main.ts', 'public/js')
          //   exclude: /node_modules/,
          //   options: {appendTsSuffixTo: [/\.vue$/]}
          // }
-       ]
+       )
      },
 
      resolve: {
@@ -52,4 +64,7 @@ mix.ts('resources/assets/js/main.ts', 'public/js')
          '@': resolve('resources/assets/js')
        }
      },
+       target: 'node',  // webpack should compile node compatible code
+       externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
+       devtool: "inline-cheap-module-source-map"
    })

@@ -7,7 +7,7 @@
         "lint": "tslint -p tsconfig.json",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "test": "nyc mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --require tests/Vue/setup.js tests/Vue/**/*.spec.js",
+        "test": "jest",
         "watch": "npm run development -- --watch",
         "watch-poll": "npm run watch -- --watch-poll"
     },
@@ -19,25 +19,28 @@
         "@vue/server-test-utils": "^1.0.0-beta.29",
         "@vue/test-utils": "^1.0.0-beta.29",
         "axios": "^0.18",
+        "babel-core": "^6.26.3",
+        "babel-jest": "^24.7.1",
         "babel-loader": "^8.0.5",
+        "babel-preset-env": "^1.7.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "css-loader": "^2.1.0",
         "expect": "^23.6.0",
+        "istanbul-instrumenter-loader": "^3.0.1",
+        "jest": "^24.7.1",
         "jquery": "^3.2",
         "jsdom": "^13.1.0",
         "jsdom-global": "^3.0.2",
         "laravel-mix": "^4.0.12",
         "lodash": "^4.17.4",
-        "mocha": "^5.2.0",
-        "mocha-webpack": "^2.0.0-beta.0",
         "moxios": "^0.4.0",
-        "nyc": "^13.3.0",
         "popper.js": "^1.14.7",
         "prettier": "1.14.0",
         "resolve-url-loader": "2.3.2",
         "sass": "^1.15.2",
         "sass-loader": "7.*",
+        "ts-jest": "^24.0.2",
         "ts-loader": "^5.3.2",
         "tslint": "^5.12.0",
         "tslint-clean-code": "^0.2.9",
@@ -46,6 +49,7 @@
         "typescript": "^3.2.2",
         "vue": "^2.5.7",
         "vue-class-component": "^6.3.2",
+        "vue-jest": "^3.0.4",
         "vue-loader": "^15.6.4",
         "vue-property-decorator": "^7.3.0",
         "vue-router": "^3.0.2",
@@ -57,23 +61,32 @@
     "dependencies": {
         "faker": "^4.1.0"
     },
-    "nyc": {
-        "extension": [
-            ".ts",
-            ".vue"
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "ts",
+            "vue"
         ],
-        "exclude": [
-            "**/*.d.ts"
+        "transform": {
+            "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+            ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
+            "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest"
+        },
+        "moduleNameMapper": {
+            "^@/(.*)$": "<rootDir>/resources/assets/js/$1"
+        },
+        "collectCoverage": true,
+        "collectCoverageFrom": [
+            "resources/assets/js/**/*.{js,vue}",
+            "!**/node_modules/**"
         ],
-        "include": [
-            "resources/assets/js/**/*.{ts|vue}"
+        "coverageDirectory": "public/report/vue",
+        "coverageReporters": [
+            "html",
+            "text"
         ],
-        "instrument": false,
-        "sourceMap": false,
-        "reporter": [
-            "lcov",
-            "html"
-        ],
-        "report-dir": "public/report/vue"
+        "setupFiles": [
+            "<rootDir>/tests/Vue/setup.js"
+        ]
     }
 }

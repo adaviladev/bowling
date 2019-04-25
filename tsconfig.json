@@ -6,7 +6,8 @@
 		"moduleResolution" : "node",
 		"strict" : true,
 		"sourceMap": false,
-		"experimentalDecorators" : true
+		"experimentalDecorators" : true,
+		"esModuleInterop" : true
 	},
 	"include": [
 		"resources/assets/js/**/*.ts"

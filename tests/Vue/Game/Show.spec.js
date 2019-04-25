@@ -7,11 +7,11 @@ import Factory from '../utilities/Factory'
 import GameShow from '../../../resources/assets/js/pages/PageGameShow/index.vue';
 
 describe('Showing a game', () => {
-  before(() => {
+  beforeAll(() => {
     moxios.install(axios);
   });
 
-  after(() => {
+  afterAll(() => {
     moxios.uninstall(axios);
   });
 

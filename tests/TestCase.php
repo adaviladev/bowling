@@ -25,7 +25,7 @@ abstract class TestCase extends BaseTestCase
     /** @var ExceptionHandler */
     protected $originalExceptionHandler;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

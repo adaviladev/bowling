@@ -3,7 +3,7 @@ import {
   RouterLinkStub,
 } from '@vue/test-utils';
 import expect from 'expect';
-import GameListItem from '../../../resources/assets/js/components/GameListItem/index.vue';
+import GameListItem from '@/components/GameListItem.vue';
 import Factory from '../utilities/Factory';
 
 describe('View Game List Item Test', () => {

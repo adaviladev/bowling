@@ -13,7 +13,10 @@ class CreateGamesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    /**
+     * @testdox A guest may not view the create game form.
+     * @test
+     */
     public function guests_may_not_view_the_create_game_form()
     {
         $this->withExceptionHandling();

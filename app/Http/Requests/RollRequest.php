@@ -11,12 +11,12 @@ class RollRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return auth()->check();
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'rolls.required' => 'Variable $rolls is required.',
@@ -29,7 +29,7 @@ class RollRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'rolls' => 'required|array',

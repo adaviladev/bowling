@@ -11,12 +11,12 @@ class GameRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return auth()->check();
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'score.integer' => 'Score must be an integer.',
@@ -30,7 +30,7 @@ class GameRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'score' => 'integer|min:0|max:300'

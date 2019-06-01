@@ -4,14 +4,14 @@ import expect from 'expect'
 import moxios from 'moxios';
 import axios from 'axios';
 import Factory from '../utilities/Factory'
-import GameShow from '../../../resources/assets/js/pages/PageGameShow/index.vue';
+import GameShow from '@/pages/PageGameShow';
 
 describe('Showing a game', () => {
-  before(() => {
+  beforeAll(() => {
     moxios.install(axios);
   });
 
-  after(() => {
+  afterAll(() => {
     moxios.uninstall(axios);
   });
 

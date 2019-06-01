@@ -13,14 +13,14 @@ class GameUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         $game = $this->route('game');
 
         return $game->user_id === auth()->id();
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'rolls.array' => 'Rolls must be an array.',
@@ -32,7 +32,7 @@ class GameUpdateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'rolls' => 'array',

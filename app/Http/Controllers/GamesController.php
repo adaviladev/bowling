@@ -7,8 +7,13 @@ use App\Game;
 use App\Http\Requests\GameRequest;
 use App\Http\Requests\GameUpdateRequest;
 use App\Roll;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 
 class GamesController extends Controller
 {
@@ -43,9 +48,9 @@ class GamesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function create(): \Illuminate\View\View
+    public function create(): View
     {
         return view('games.create');
     }
@@ -53,11 +58,11 @@ class GamesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Http\Requests\GameRequest $request
+     * @param GameRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(GameRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(GameRequest $request): RedirectResponse
     {
         $game = Game::create(
             [
@@ -75,7 +80,7 @@ class GamesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Game $game
+     * @param Game $game
      *
      * @return Response
      */
@@ -94,9 +99,9 @@ class GamesController extends Controller
      *
      * @param  Game $game
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function edit(Game $game): \Illuminate\View\View
+    public function edit(Game $game): View
     {
         return view(
             'games.edit',
@@ -109,64 +114,52 @@ class GamesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Http\Requests\GameUpdateRequest $request
-     * @param  Game                                $game
+     * @param GameUpdateRequest $request
+     * @param  Game             $game
      *
      * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update(GameUpdateRequest $request, Game $game)
     {
         $rolls = collect($request->get('rolls'));
-        $rolls = $rolls->map(
-            function ($roll) {
-                return Roll::make(
-                    [
-                        'pins' => $roll,
-                    ]
-                );
-            }
-        );
+        $rolls = $rolls->map(static function ($roll) {
+            return Roll::make([
+                'pins' => $roll,
+            ]);
+        });
         /** @var Frame $frame */
-        $frame = Frame::make(
-            [
-                'game_id' => $game->id,
-                'score'   => 8,
-                'index'   => 1,
-            ]
-        );
+        $frame = Frame::make([
+            'game_id' => $game->id,
+            'score'   => 8,
+            'index'   => 1,
+        ]);
         $game->frames()
-             ->save($frame);
+            ->save($frame);
 
         $frame->rolls()
-              ->saveMany($rolls);
+             ->saveMany($rolls);
 
-        return response(
-            [
-                'message' => "Game {$game->id} has been successfully updated.",
-            ],
-            Response::HTTP_OK
-        );
+        return response([
+            'message' => "Game {$game->id} has been successfully updated.",
+        ], Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Game $game
+     * @param Game $game
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     * @throws \Exception
+     * @return RedirectResponse|Redirector
+     * @throws AuthorizationException
+     * @throws Exception
      */
     public function destroy(Game $game)
     {
         $this->authorize('delete', $game);
         $game->delete();
 
-        return response(
-            [
-                'message' => "Game #{$game->id} successfully deleted.",
-            ],
-            Response::HTTP_OK
-        );
+        return response([
+            'message' => "Game #{$game->id} successfully deleted.",
+        ], Response::HTTP_OK);
     }
 }

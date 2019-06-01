@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-  import axios from 'axios';
+  import axios, { AxiosResponse } from 'axios';
   import {
     Component,
     Prop,
@@ -34,15 +34,16 @@
 
     public game: Game = {} as Game;
 
-    public created() {
+    public created(): void {
       axios.get(`/api/games/${this.id}`)
-        .then(({data}) => {
+        .then(({data}: AxiosResponse) => {
           this.game = new Game(data.game as IGame);
           this.game.calculateScore();
+
         });
     }
 
-    get frames() {
+    get frames(): IFrame[] {
       return this.game.frames;
     }
   }

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import axios from 'axios';
+  import axios, { AxiosResponse } from 'axios';
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
 
@@ -27,12 +27,12 @@
   export default class GameList extends Vue {
     public games: object[] = [];
 
-    public created() {
-      return axios.get('/api/games')
-        .then(({ data }) => {
-          this.games = data.games;
+    public created(): void {
+      axios.get('/api/games')
+        .then((response: AxiosResponse) => {
+          this.games = response.data.games;
         })
-        .catch((error) => {
+        .catch((error: AxiosResponse) => {
           console.error(error);
         });
     }

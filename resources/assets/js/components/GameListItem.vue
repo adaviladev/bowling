@@ -33,7 +33,7 @@
   export default class GameListItem extends Vue {
     @Prop(Object) public readonly game!: IGame;
 
-    get performanceClass() {
+    get performanceClass(): string {
       if (this.game.score >= 200) {
         return 'bg-success';
       }

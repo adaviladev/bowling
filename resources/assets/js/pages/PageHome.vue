@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home-page">
         The Home Page
     </div>
 </template>
@@ -8,8 +8,7 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
 
-  @Component({
-  })
+  @Component
   export default class PageHome extends Vue {}
 </script>
 

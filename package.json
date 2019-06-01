@@ -7,7 +7,7 @@
         "lint": "tslint -p tsconfig.json",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "test": "jest",
+        "test": "jest --config=jest.config.json",
         "watch": "npm run development -- --watch",
         "watch-poll": "npm run watch -- --watch-poll"
     },
@@ -60,33 +60,5 @@
     },
     "dependencies": {
         "faker": "^4.1.0"
-    },
-    "jest": {
-        "moduleFileExtensions": [
-            "js",
-            "ts",
-            "vue"
-        ],
-        "transform": {
-            "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-            ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
-            "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest"
-        },
-        "moduleNameMapper": {
-            "^@/(.*)$": "<rootDir>/resources/assets/js/$1"
-        },
-        "collectCoverage": true,
-        "collectCoverageFrom": [
-            "resources/assets/js/**/*.{js,vue}",
-            "!**/node_modules/**"
-        ],
-        "coverageDirectory": "public/report/vue",
-        "coverageReporters": [
-            "html",
-            "text"
-        ],
-        "setupFiles": [
-            "<rootDir>/tests/Vue/setup.js"
-        ]
     }
 }

@@ -27,7 +27,7 @@
     Component,
     Prop,
   } from 'vue-property-decorator';
-  import {IGame} from '../models/types';
+  import {IGame} from '../models/interfaces';
 
   @Component
   export default class GameListItem extends Vue {

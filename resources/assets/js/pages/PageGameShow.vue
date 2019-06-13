@@ -22,7 +22,7 @@
   import {
     IFrame,
     IGame,
-  } from '../models/types';
+  } from '../models/interfaces';
 
   @Component({
     components: {

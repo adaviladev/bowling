@@ -37,7 +37,7 @@
     public created(): void {
       axios.get(`/api/games/${this.id}`)
         .then(({data}: AxiosResponse) => {
-          this.game = new Game(data.game as IGame);
+          this.game = Game.make(data.game as IGame);
           this.game.calculateScore();
 
         });

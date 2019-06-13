@@ -32,7 +32,7 @@
     public created(): void {
       axios.get('/api/games')
         .then((response: AxiosResponse) => {
-          this.games = response.data.games.map((game: object) => new Game(game as IGame));
+          this.games = response.data.games.map((game: object) => Game.make(game as IGame));
         })
         .catch((error: AxiosResponse) => {
           console.error(error);

@@ -5,7 +5,6 @@ import {
   IRoll,
 } from './interfaces';
 import Model from './Model';
-import Roll from './Roll';
 
 export default class Game extends Model implements IGame {
   private get rolls(): IRoll[] {
@@ -33,13 +32,17 @@ export default class Game extends Model implements IGame {
 
   private MAX_FRAMES: number = 10;
 
-  public constructor(params: IGame = Game.defaults) {
+  private constructor(params: IGame = Game.defaults) {
     super();
     this.id = params.id;
     this.score = params.score;
-    this.frames = params.frames.map((frame) => new Frame(frame as IFrame));
+    this.frames = (params.frames || []).map((frame) => Frame.make(frame as IFrame));
     this.complete = params.complete;
     this.created_at = params.created_at;
+  }
+
+  public static make(params: IGame): Game {
+    return new Game(params);
   }
 
   public calculateScore() {
@@ -66,19 +69,19 @@ export default class Game extends Model implements IGame {
     this.score = total;
   }
 
-  private static isStrike(rolls: Roll[], index: number): boolean {
+  private static isStrike(rolls: IRoll[], index: number): boolean {
     return rolls[index].pins === 10;
   }
 
-  private static strikeBonus(rolls: Roll[], index: number): number {
+  private static strikeBonus(rolls: IRoll[], index: number): number {
     return 10 + rolls[index + 1].pins + rolls[index + 2].pins;
   }
 
-  private static isSpare(rolls: Roll[], index: number): boolean {
+  private static isSpare(rolls: IRoll[], index: number): boolean {
     return rolls[index].pins + rolls[index + 1].pins === 10;
   }
 
-  private static spareBonus(rolls: Roll[], index: number): number {
+  private static spareBonus(rolls: IRoll[], index: number): number {
     return 10 + rolls[index + 2].pins;
   }
 }

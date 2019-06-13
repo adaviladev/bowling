@@ -14,6 +14,6 @@ export default class FrameFactory implements BuilderInterface {
       rolls: Factory.make('Roll', {}, 2),
       created_at: faker.date.past()
     };
-    return new Frame(attributes);
+    return Frame.make(attributes);
   }
 }

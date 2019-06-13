@@ -6,6 +6,8 @@ import Model from './Model';
 import Roll from './Roll';
 
 export default class Frame extends Model implements IFrame {
+  [key: string]: any;
+
   public static defaults: IFrame = {
     created_at: null,
     game_id: null,
@@ -31,4 +33,9 @@ export default class Frame extends Model implements IFrame {
     this.rolls = params.rolls.map((roll) => new Roll(roll as IRoll));
     this.created_at = params.created_at;
   }
+
+  public static make(params: IFrame): IFrame {
+    return new Frame(params);
+  }
+
 }

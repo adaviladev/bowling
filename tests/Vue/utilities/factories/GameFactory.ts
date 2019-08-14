@@ -1,7 +1,7 @@
 import * as faker from 'faker';
 import BuilderInterface from './BuilderInterface';
 import Game from '../../../../resources/assets/js/models/Game';
-import {IGame} from '../../../../resources/assets/js/models/types';
+import {IGame} from '../../../../resources/assets/js/models/interfaces';
 import Factory from '../Factory';
 
 export default class GameFactory implements BuilderInterface {
@@ -9,12 +9,12 @@ export default class GameFactory implements BuilderInterface {
     const gameId = faker.random.number();
     const attributes: IGame = {
       id: gameId,
-      userId: faker.random.number(),
+      user_id: faker.random.number(),
       score: faker.random.number(300),
       complete: faker.random.boolean(),
-      frames: Factory.make('Frame', {gameId: gameId}, 10),
-      createdAt: faker.date.past()
+      frames: Factory.make('Frame', {game_id: gameId}, 10),
+      created_at: faker.date.past()
     };
-    return new Game(attributes);
+    return Game.make(attributes);
   }
 }

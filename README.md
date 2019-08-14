@@ -10,7 +10,10 @@
 ## Coding Standard
 - Your code must comply with the local `phpcs.xml` and `tslint.json` files.
 - All tests must pass before making a PR.
-- All method parameters must have type hints
+
+## Design
+[Color Interpolation](https://jsfiddle.net/002v98LL/)  
+[Coolers](https://coolors.co/dc3545-ee7b26-ffc107-94b426-28a745)
 
 # Troubleshooting
 ## TypeError: Super expression must either be null or a function

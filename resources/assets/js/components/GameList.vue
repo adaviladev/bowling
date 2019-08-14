@@ -18,6 +18,8 @@
   import {Component} from 'vue-property-decorator';
 
   import GameListItem from './GameListItem.vue';
+  import Game from "../models/Game"
+  import { IGame } from "../models/interfaces"
 
   @Component({
     components: {
@@ -25,12 +27,12 @@
     },
   })
   export default class GameList extends Vue {
-    public games: object[] = [];
+    public games: Game[] = [];
 
     public created(): void {
       axios.get('/api/games')
         .then((response: AxiosResponse) => {
-          this.games = response.data.games;
+          this.games = response.data.games.map((game: object) => Game.make(game as IGame));
         })
         .catch((error: AxiosResponse) => {
           console.error(error);

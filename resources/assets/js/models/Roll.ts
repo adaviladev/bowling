@@ -1,7 +1,7 @@
+import {IRoll} from './interfaces';
 import Model from './Model';
-import {IRoll} from './types';
 
-export default class Roll extends Model {
+export default class Roll extends Model implements IRoll {
   public pins: number = 0;
 
   public constructor(params: IRoll) {

@@ -1,35 +1,48 @@
-import Model from './Model';
+import Frame from './Frame';
 import {
   IFrame,
   IGame,
   IRoll,
-} from './types';
+} from './interfaces';
+import Model from './Model';
 
-export default class Game extends Model {
+export default class Game extends Model implements IGame {
+  private get rolls(): IRoll[] {
+    return this.frames.reduce((accumulator: IRoll[], frame: IFrame) => {
+      return accumulator.concat(frame.rolls);
+    }, [] as IRoll[]);
+  }
+
   public static defaults: IGame = {
     complete: false,
-    createdAt: null,
+    created_at: null,
     frames: [],
     id: null,
     score: 0,
-    userId: null,
+    user_id: null,
   };
 
-  public id: number|null = null;
+  public user_id!: number | null;
+
+  public id: number | null = null;
   public score: number = 0;
   public frames: IFrame[] = [];
   public complete: boolean = false;
-  public createdAt: any = null;
+  public created_at: any = null;
 
   private MAX_FRAMES: number = 10;
 
-  public constructor(params: IGame = Game.defaults) {
+  private constructor(params: IGame = Game.defaults) {
     super();
     this.id = params.id;
     this.score = params.score;
-    this.frames = params.frames as IFrame[];
+    this.frames = (params.frames || []).map((frame) => Frame.make(frame as IFrame));
     this.complete = params.complete;
-    this.createdAt = params.createdAt;
+    this.created_at = params.created_at;
+  }
+
+  public static make(params: IGame): Game {
+    return new Game(params);
   }
 
   public calculateScore() {
@@ -41,11 +54,11 @@ export default class Game extends Model {
     let total = 0;
     let roll = 0;
     for (let i = 0; i < this.MAX_FRAMES; i++) {
-      if (rolls[roll].pins === 10) {
-        total += 10 + rolls[roll + 1].pins + rolls[roll + 2].pins;
+      if (Game.isStrike(rolls, roll)) {
+        total += Game.strikeBonus(rolls, roll);
         roll++;
-      } else if (rolls[roll].pins + rolls[roll + 1].pins === 10) {
-        total += 10 + rolls[roll + 2].pins;
+      } else if (Game.isSpare(rolls, roll)) {
+        total += Game.spareBonus(rolls, roll);
         roll += 2;
       } else {
         total += rolls[roll].pins + rolls[roll + 1].pins;
@@ -56,9 +69,19 @@ export default class Game extends Model {
     this.score = total;
   }
 
-  private get rolls(): IRoll[] {
-    return this.frames.reduce((accumulator: IRoll[], frame: IFrame) => {
-      return accumulator.concat(frame.rolls);
-    }, [] as IRoll[]);
+  private static isStrike(rolls: IRoll[], index: number): boolean {
+    return rolls[index].pins === 10;
+  }
+
+  private static strikeBonus(rolls: IRoll[], index: number): number {
+    return 10 + rolls[index + 1].pins + rolls[index + 2].pins;
+  }
+
+  private static isSpare(rolls: IRoll[], index: number): boolean {
+    return rolls[index].pins + rolls[index + 1].pins === 10;
+  }
+
+  private static spareBonus(rolls: IRoll[], index: number): number {
+    return 10 + rolls[index + 2].pins;
   }
 }

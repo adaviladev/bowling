@@ -40,7 +40,8 @@
 			"severity": "error",
 			"options": ["debug", "info", "log", "table", "time", "timeEnd", "trace"]
 		},
-		"quotemark": [true, "single", "avoid-escape", "avoid-template"]
+		"quotemark": [true, "single", "avoid-escape", "avoid-template"],
+		"variable-name" : false
 	},
 	"jsRules": true
 }

@@ -27,11 +27,11 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: sudo dpkg --configure -a
-      - run: sudo apt-get clean && sudo apt-get update
-      - run: sudo apt-get upgrade -y
+#      - run: sudo dpkg --configure -a
+#      - run: sudo apt-get clean && sudo apt-get update
+#      - run: sudo apt-get upgrade -y
 
-      - run: curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+      - run: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
       - run: sudo apt-get install -y nodejs && node -v
       - run: sudo apt-get install -y npm
 

@@ -47,6 +47,8 @@ jobs:
       # Lint the code
       - run: composer run-script lint
       - run: composer run-script style
+
+      - run: cd frontend
       - run: npm run lint
 
       # run tests!

@@ -29,7 +29,7 @@ jobs:
 
       - run: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
       - run: sudo apt-get install -y nodejs && node -v
-      - run: sudo apt-get install -y npm@latest -g && npm -v
+      - run: sudo apt-get install -y npm@latest && npm -v
 
       - run: composer install -n --prefer-dist
       - run: npm install

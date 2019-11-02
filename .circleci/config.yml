@@ -37,7 +37,7 @@ jobs:
       - run: sudo apt-get install -y npm
 
       - run: composer install -n --prefer-dist
-      - run: npm install
+      - run: cd frontend && npm install
 
       - save_cache:
           paths:

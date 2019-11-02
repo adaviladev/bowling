@@ -27,7 +27,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+      - run: curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
       - run: sudo apt-get install -y nodejs && node -v
       - run: sudo apt-get install -y npm
       - run: sudo npm uninstall -g npm

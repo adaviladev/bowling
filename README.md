@@ -18,4 +18,4 @@
 # Troubleshooting
 ## TypeError: Super expression must either be null or a function
 - Error when running `npm run test`  
-  - Comment out the line that is indicated: Most likely `node_modules/@vue/component-compiler-utils/node_modules/prettier/index.ts:40358`
+  - Comment out the line that is indicated: Most likely `node_modules/@vue/component-compiler-utils/node_modules/prettier/router.ts:40358`

@@ -1,5 +1,5 @@
-import {IRoll} from './interfaces';
-import Model from './Model';
+import { IRoll } from "./interfaces";
+import Model from "./Model";
 
 export default class Roll extends Model implements IRoll {
   public pins: number = 0;

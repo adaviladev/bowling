@@ -1,5 +1,3 @@
-import {IEntity} from './interfaces';
+import { IEntity } from "./interfaces";
 
-export default abstract class Model implements IEntity {
-}
-
+export default abstract class Model implements IEntity {}

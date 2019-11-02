@@ -1,8 +1,8 @@
-import * as faker from 'faker';
-import BuilderInterface from './BuilderInterface';
-import Game from '../../../src/models/Game';
-import {IGame} from '../../../src/models/interfaces';
-import Factory from '../Factory';
+import * as faker from "faker";
+import BuilderInterface from "./BuilderInterface";
+import Game from "../../../src/models/Game";
+import { IGame } from "../../../src/models/interfaces";
+import Factory from "../Factory";
 
 export default class GameFactory implements BuilderInterface {
   generate(): Game {
@@ -12,7 +12,7 @@ export default class GameFactory implements BuilderInterface {
       user_id: faker.random.number(),
       score: faker.random.number(300),
       complete: faker.random.boolean(),
-      frames: Factory.make('Frame', {game_id: gameId}, 10),
+      frames: Factory.make("Frame", { game_id: gameId }, 10),
       created_at: faker.date.past()
     };
     return Game.make(attributes);

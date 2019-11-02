@@ -1,16 +1,15 @@
-import Frame from './Frame';
-import {
-  IFrame,
-  IGame,
-  IRoll,
-} from './interfaces';
-import Model from './Model';
+import Frame from "./Frame";
+import { IFrame, IGame, IRoll } from "./interfaces";
+import Model from "./Model";
 
 export default class Game extends Model implements IGame {
   private get rolls(): IRoll[] {
-    return this.frames.reduce((accumulator: IRoll[], frame: IFrame) => {
-      return accumulator.concat(frame.rolls);
-    }, [] as IRoll[]);
+    return this.frames.reduce(
+      (accumulator: IRoll[], frame: IFrame) => {
+        return accumulator.concat(frame.rolls);
+      },
+      [] as IRoll[]
+    );
   }
 
   public static defaults: IGame = {
@@ -19,7 +18,7 @@ export default class Game extends Model implements IGame {
     frames: [],
     id: null,
     score: 0,
-    user_id: null,
+    user_id: null
   };
 
   public user_id!: number | null;
@@ -36,7 +35,7 @@ export default class Game extends Model implements IGame {
     super();
     this.id = params.id;
     this.score = params.score;
-    this.frames = (params.frames || []).map((frame) => Frame.make(frame as IFrame));
+    this.frames = (params.frames || []).map(frame => Frame.make(frame as IFrame));
     this.complete = params.complete;
     this.created_at = params.created_at;
   }

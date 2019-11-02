@@ -1,25 +1,20 @@
 <template>
-    <div>
-        <h1>Create a Game</h1>
-        <GameEditor/>
-    </div>
+  <div>
+    <h1>Create a Game</h1>
+    <GameEditor />
+  </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import GameEditor from '@/components/GameEditor.vue';
+import { Component, Vue } from "vue-property-decorator";
+import GameEditor from "@/components/GameEditor.vue";
 
 @Component({
   components: {
-    GameEditor,
+    GameEditor
   }
 })
-export default class PageGameCreate extends Vue
-{
-
-}
+export default class PageGameCreate extends Vue {}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

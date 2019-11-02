@@ -1,5 +1,3 @@
-type Score = number|string;
+type Score = number | string;
 
-export {
-  Score,
-};
+export { Score };

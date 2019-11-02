@@ -1,9 +1,6 @@
-import {
-  IFrame,
-  IRoll,
-} from './interfaces';
-import Model from './Model';
-import Roll from './Roll';
+import { IFrame, IRoll } from "./interfaces";
+import Model from "./Model";
+import Roll from "./Roll";
 
 export default class Frame extends Model implements IFrame {
   [key: string]: any;
@@ -14,11 +11,11 @@ export default class Frame extends Model implements IFrame {
     id: null,
     index: 0,
     rolls: [],
-    score: 0,
+    score: 0
   };
 
-  public id: number|null = null;
-  public game_id: number|null = null;
+  public id: number | null = null;
+  public game_id: number | null = null;
   public rolls: IRoll[] = [];
   public score: number = 0;
   public index: number = -1;
@@ -30,12 +27,11 @@ export default class Frame extends Model implements IFrame {
     this.game_id = params.game_id;
     this.score = params.score;
     this.index = params.index;
-    this.rolls = params.rolls.map((roll) => new Roll(roll as IRoll));
+    this.rolls = params.rolls.map(roll => new Roll(roll as IRoll));
     this.created_at = params.created_at;
   }
 
   public static make(params: IFrame): IFrame {
     return new Frame(params);
   }
-
 }

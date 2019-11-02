@@ -3,8 +3,8 @@ interface IEntity {
 }
 
 interface IGame extends IEntity {
-  id: number|null;
-  user_id: number|null;
+  id: number | null;
+  user_id: number | null;
   score: number;
   frames: IFrame[];
   complete: boolean;
@@ -12,8 +12,8 @@ interface IGame extends IEntity {
 }
 
 interface IFrame extends IEntity {
-  id: number|null;
-  game_id: number|null;
+  id: number | null;
+  game_id: number | null;
   score: number;
   index: number;
   rolls: IRoll[];
@@ -24,9 +24,4 @@ interface IRoll extends IEntity {
   pins: number;
 }
 
-export {
-  IEntity,
-  IGame,
-  IFrame,
-  IRoll,
-};
+export { IEntity, IGame, IFrame, IRoll };

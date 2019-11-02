@@ -28,8 +28,8 @@ jobs:
           - v1-dependencies-
 
       - run: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-      - run: sudo apt-get install -y nodejs
-      - run: sudo apt-get install -y npm
+      - run: sudo apt-get install -y nodejs && node -v
+      - run: sudo apt-get install -y npm && npm -v
 
       - run: composer install -n --prefer-dist
       - run: npm install

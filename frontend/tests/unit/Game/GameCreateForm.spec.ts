@@ -1,9 +1,9 @@
-import { mount } from "@vue/test-utils/types";
+import { mount } from "@vue/test-utils";
 import expect from "expect/build/index";
 import moxios from "moxios";
-import PageGameCreate from "src/pages/PageGameCreate.vue";
-import GameEditor from "src/components/GameEditor.vue";
-import Factory from "../utilities/Factory";
+import PageGameCreate from "@/views/PageGameCreate.vue";
+import GameEditor from "../frontend/source-code/components/GameEditor.vue";
+import Factory from "../../utilities/Factory";
 
 describe("<PageGameCreate/>", () => {
   const GAME_SUBMIT_ID = "#game-store";

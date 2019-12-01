@@ -1,20 +1,20 @@
 <template>
-  <div>
-    <TheNavBar></TheNavBar>
-    <div class="container">
-      <router-view></router-view>
+    <div>
+        <TheNavBar></TheNavBar>
+        <div class="container">
+            <router-view></router-view>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import TheNavBar from "./components/TheNavBar";
+  import TheNavBar from "./components/TheNavBar";
 
-export default {
-  components: {
-    TheNavBar
-  }
-};
+  export default {
+    components: {
+      TheNavBar
+    }
+  };
 </script>
 
 <style></style>

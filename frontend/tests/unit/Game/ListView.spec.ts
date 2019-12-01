@@ -1,9 +1,9 @@
-import { mount, shallowMount } from "@vue/test-utils/types";
+import { mount, shallowMount } from "@vue/test-utils";
 import expect from "expect/build/index";
 import GameList from "@/components/GameList.vue";
 import Game from "@/models/Game";
 import GameListItem from "@/components/GameListItem.vue";
-import Factory from "../utilities/Factory";
+import Factory from "../../utilities/Factory";
 import moxios from "moxios";
 
 describe("View Game List Test", () => {

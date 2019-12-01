@@ -1,7 +1,7 @@
 import * as faker from "faker";
 import BuilderInterface from "./BuilderInterface";
-import Roll from "../../../src/models/Roll";
-import { IRoll } from "../../../src/models/interfaces";
+import Roll from "@/models/Roll";
+import { IRoll } from "@/models/interfaces";
 
 export default class RollFactory implements BuilderInterface {
   generate() {

@@ -31,7 +31,7 @@ export default class Game extends Model implements IGame {
 
   private MAX_FRAMES: number = 10;
 
-  private constructor(params: IGame = Game.defaults) {
+  private constructor(params: IGame) {
     super();
     this.id = params.id;
     this.score = params.score;
@@ -40,7 +40,7 @@ export default class Game extends Model implements IGame {
     this.created_at = params.created_at;
   }
 
-  public static make(params: IGame): Game {
+  public static make(params: IGame = Game.defaults): Game {
     return new Game(params);
   }
 

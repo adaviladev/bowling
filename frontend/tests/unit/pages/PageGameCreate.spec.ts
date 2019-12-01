@@ -1,7 +1,7 @@
-import { shallowMount } from "@vue/test-utils/types";
+import { shallowMount } from "@vue/test-utils";
 import expect from "expect/build/index";
 
-import PageGameCreate from "@/pages/PageGameCreate.vue";
+import PageGameCreate from "@/views/PageGameCreate.vue";
 
 describe("<PageGameCreate/>", () => {
   it("it should show the GameCreate component", () => {

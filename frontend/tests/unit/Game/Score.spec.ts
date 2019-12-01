@@ -1,6 +1,6 @@
 import Game from "@/models/Game";
 import expect from "expect/build/index";
-import Factory from "../utilities/Factory";
+import Factory from "../../utilities/Factory";
 
 describe("Game Scoring", () => {
   it("should_score_a_gutter_game_as_zero", () => {

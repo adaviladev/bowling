@@ -1,7 +1,7 @@
-import { mount, RouterLinkStub } from "@vue/test-utils/types";
+import { mount, RouterLinkStub } from "@vue/test-utils";
 import expect from "expect/build/index";
 import GameListItem from "@/components/GameListItem.vue";
-import Factory from "../utilities/Factory";
+import Factory from "../../utilities/Factory";
 
 describe("View Game List Item Test", () => {
   it("should_show_a_link_to_a_specific_game", function() {

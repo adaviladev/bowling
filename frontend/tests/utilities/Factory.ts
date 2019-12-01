@@ -2,7 +2,7 @@ import GameFactory from "./factories/GameFactory";
 import RollFactory from "./factories/RollFactory";
 import BuilderInterface from "./factories/BuilderInterface";
 import FrameFactory from "./factories/FrameFactory";
-import Model from "../../src/models/Model";
+import Model from "@/models/Model";
 
 type BuilderInterfaceObject = {
   [name: string]: BuilderInterface;

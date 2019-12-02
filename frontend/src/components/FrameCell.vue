@@ -22,29 +22,33 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import {
+  Component,
+  Prop,
+  Vue
+} from "vue-property-decorator";
 import Frame from "@/models/Frame";
 import { Score } from "@/models/types";
 
 @Component
 export default class FrameCell extends Vue {
-    @Prop(Frame) private frame!: Frame;
+  @Prop(Frame) private frame!: Frame;
 
-    @Prop(Number) private frameIndex!: number;
+  @Prop(Number) private frameIndex!: number;
 
-    get firstRoll(): Score {
-        if (this.frame.rolls[0]) {
-            return this.frame.rolls[0].pins;
-        }
-        return 0;
+  get firstRoll(): Score {
+    if (this.frame.rolls[0]) {
+      return this.frame.rolls[0].pins;
     }
+    return 0;
+  }
 
-    get secondRoll(): Score {
-        if (this.frame.rolls[1]) {
-            return this.frame.rolls[1].pins;
-        }
-        return "-";
+  get secondRoll(): Score {
+    if (this.frame.rolls[1]) {
+      return this.frame.rolls[1].pins;
     }
+    return "-";
+  }
 }
 </script>
 

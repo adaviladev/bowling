@@ -1,12 +1,15 @@
 <template>
-  <div>
-    <h1>Create a Game</h1>
-    <GameEditor />
-  </div>
+    <div>
+        <h1>Create a Game</h1>
+        <GameEditor/>
+    </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import {
+  Component,
+  Vue
+} from "vue-property-decorator";
 import GameEditor from "@/components/GameEditor.vue";
 
 @Component({

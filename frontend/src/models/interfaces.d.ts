@@ -24,4 +24,9 @@ interface IRoll extends IEntity {
   pins: number;
 }
 
-export { IEntity, IGame, IFrame, IRoll };
+export {
+  IEntity,
+  IGame,
+  IFrame,
+  IRoll
+};

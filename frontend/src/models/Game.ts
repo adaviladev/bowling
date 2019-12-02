@@ -1,5 +1,9 @@
 import Frame from "./Frame";
-import { IFrame, IGame, IRoll } from "./interfaces";
+import {
+  IFrame,
+  IGame,
+  IRoll
+} from "./interfaces";
 import Model from "./Model";
 
 export default class Game extends Model implements IGame {

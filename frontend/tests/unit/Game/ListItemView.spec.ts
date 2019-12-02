@@ -1,4 +1,7 @@
-import { mount, RouterLinkStub } from "@vue/test-utils";
+import {
+  mount,
+  RouterLinkStub
+} from "@vue/test-utils";
 import expect from "expect/build/index";
 import GameListItem from "@/components/GameListItem.vue";
 import Factory from "../../utilities/Factory";

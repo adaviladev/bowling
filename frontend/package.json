@@ -38,6 +38,7 @@
     "faker": "^4.1.0",
     "moxios": "^0.4.0",
     "prettier": "^1.19.1",
+    "tailwindcss": "^1.1.4",
     "typescript": "~3.5.3",
     "vue-template-compiler": "^2.6.10"
   }

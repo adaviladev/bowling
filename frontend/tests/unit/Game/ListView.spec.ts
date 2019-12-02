@@ -1,4 +1,7 @@
-import { mount, shallowMount } from "@vue/test-utils";
+import {
+  mount,
+  shallowMount
+} from "@vue/test-utils";
 import expect from "expect/build/index";
 import GameList from "@/components/GameList.vue";
 import Game from "@/models/Game";

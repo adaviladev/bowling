@@ -3,7 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
+/**
+ * Class Frame
+ * @package App
+ *
+ * @property Collection|Roll[] $rolls
+ */
 class Frame extends Model
 {
     protected $casts = [

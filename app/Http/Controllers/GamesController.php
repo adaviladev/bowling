@@ -60,21 +60,18 @@ class GamesController extends Controller
      *
      * @param GameRequest $request
      *
-     * @return RedirectResponse
+     * @return Response
      */
-    public function store(GameRequest $request): RedirectResponse
+    public function store(GameRequest $request): Response
     {
-        $game = Game::create(
-            [
-                'complete' => $request->get('complete'),
-                'score'    => $request->get('score') ?? 0,
-                'user_id'  => auth()->id(),
-            ]
-        );
-
-        $game->save();
-
-        return redirect($game->path());
+        return response([
+            'game' => Game::create(
+                [
+                    'complete' => $request->get('complete', false),
+                    'score'    => $request->get('score') ?? 0,
+                    'user_id'  => auth()->id(),
+                ])
+            ], Response::HTTP_CREATED);
     }
 
     /**

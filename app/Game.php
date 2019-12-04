@@ -5,6 +5,12 @@ namespace App;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Game
+ * @package App
+ *
+ * @property Collection|Frame[] $frames
+ */
 class Game extends Model
 {
     protected const FRAMES_PER_GAME = 10;
@@ -46,18 +52,22 @@ class Game extends Model
                 $roll += 2;
             } else {
                 $sum += $this->getDefaultFrameScore($rolls, $roll);
+                /** @var Frame $frame */
                 $frame = Frame::make([
                     'index' => $frameIndex,
                 ]);
-                $frame->rolls[] = Roll::make([
-                    'pins'  => $rolls[$roll],
-                    'index' => $index++,
-                ]);
-                $frame->rolls[] = Roll::make([
+                $frame->rolls->push(
+                    Roll::make([
+                        'pins'  => $rolls[$roll],
+                        'index' => $index++,
+                    ])
+                )->push(
+                    Roll::make([
                     'pins'  => $rolls[$roll + 1],
                     'index' => $index++,
-                ]);
-                $this->frames[] = $frame;
+                    ]
+                ));
+                $this->frames->push($frame);
                 $roll += 2;
             }
         }

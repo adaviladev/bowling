@@ -1,21 +1,23 @@
 <template>
-    <div class="max-w-sm shadow">
-        <div :class="performanceClass"
-            class="px-6 py-4">
-            <h5 class="text-center">{{ game.score }}</h5>
-        </div>
-        <div class="px-6 py-4">
-            <div class="font-bold py-4">
-                <p>
-                    Game #{{ game.id }} -
-                    <small>created on {{ game.created_at }}</small>
-                </p>
+    <div class="w-1/3 px-2 my-2">
+        <div class="shadow">
+            <div :class="performanceClass"
+                class="px-6 py-4">
+                <h5 class="text-center">{{ game.score }}</h5>
             </div>
-            <router-link class="btn btn-primary text-white"
-                tag="button"
-                :to="{ name: 'GameShow', params: { id: game.id } }">
-                View Game
-            </router-link>
+            <div class="px-6 py-4">
+                <div class="font-bold py-4">
+                    <p>
+                        Game #{{ game.id }} -
+                        <small>created on {{ game.created_at }}</small>
+                    </p>
+                </div>
+                <router-link class="btn btn-primary text-white"
+                    tag="button"
+                    :to="{ name: 'GameShow', params: { id: game.id } }">
+                    View Game
+                </router-link>
+            </div>
         </div>
     </div>
 </template>

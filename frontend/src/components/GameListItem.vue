@@ -1,17 +1,17 @@
 <template>
-    <div class="card">
+    <div class="max-w-sm shadow">
         <div :class="performanceClass"
-            class="card-header">
+            class="px-6 py-4">
             <h5 class="text-center">{{ game.score }}</h5>
         </div>
-        <div class="card-body clearfix">
-            <div class="card-text">
+        <div class="px-6 py-4">
+            <div class="font-bold py-4">
                 <p>
                     Game #{{ game.id }} -
                     <small>created on {{ game.created_at }}</small>
                 </p>
             </div>
-            <router-link class="btn btn-primary pull-right"
+            <router-link class="btn btn-primary text-white"
                 tag="button"
                 :to="{ name: 'GameShow', params: { id: game.id } }">
                 View Game
@@ -34,13 +34,13 @@ export default class GameListItem extends Vue {
 
   get performanceClass(): string {
     if (this.game.score >= 200) {
-      return "bg-success";
+      return "bg-green-300";
     }
     if (this.game.score >= 100) {
-      return "bg-warning";
+      return "bg-yellow-300";
     }
 
-    return "bg-danger";
+    return "bg-red-300";
   }
 }
 </script>

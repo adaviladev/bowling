@@ -13,6 +13,7 @@
                 <div>Total</div>
                 {{ score }}
             </td>
+            <td>{{ score }}</td>
         </tr>
         </tbody>
     </table>
@@ -38,4 +39,6 @@ export default class FramesTable extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

@@ -17,6 +17,7 @@ _ide_helper.php
 coverage
 public/build
 public/css
+public/img
 public/js
 public/mix-manifest.json
 public/report

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "vue-cli-service build",
+    "prod": "npm run build",
     "dev": "npm run serve",
     "development": "npm run dev",
     "lint": "vue-cli-service lint",

@@ -11,13 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'api'], function () {
     Route::resource('users', 'UsersController');
@@ -26,5 +22,5 @@ Route::group(['prefix' => 'api'], function () {
 });
 
 Route::get('{spa}', function () {
-    return view('welcome');
+    return view('index');
 })->where('spa', '^(?!api).*$')->name('vue');

@@ -1,7 +1,7 @@
 <template>
     <div>
         <TheNavBar/>
-        <div>
+        <div class="m-auto w-10/12">
             <router-view></router-view>
         </div>
     </div>

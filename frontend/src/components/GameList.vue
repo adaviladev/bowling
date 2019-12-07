@@ -1,6 +1,6 @@
 <template>
     <div class="mx-auto px-2">
-        <h1 class="text-3xl">Game List</h1>
+        <h1 class="text-3xl">Game List View</h1>
 
         <div class="flex flex-wrap -mx-2"
             v-if="games">

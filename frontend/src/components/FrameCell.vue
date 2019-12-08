@@ -6,15 +6,15 @@
         </div>
         <div class="flex">
             <div class="w-1/2">
-                {{ firstRoll }}
+                {{ rollScore(0) }}
             </div>
             <div class="w-1/2 border-l border-b border-purple-300">
-                {{ secondRoll }}
+                {{ rollScore(1) }}
             </div>
             <div class="w-1/2 border-l border-b border-purple-300"
                 v-if="frameIndex === 10"
                 >
-                {{ secondRoll }}
+                {{ rollScore(2) }}
             </div>
         </div>
         <div class="row text-right">
@@ -40,18 +40,12 @@ export default class FrameCell extends Vue {
 
   @Prop(Number) private frameIndex!: number;
 
-  get firstRoll(): Score {
-    if (this.frame.rolls[0]) {
-      return this.frame.rolls[0].pins;
+  public rollScore(index: number): Score {
+    if (this.frame.rolls[index]) {
+      return this.frame.rolls[index].pins;
     }
-    return 0;
-  }
 
-  get secondRoll(): Score {
-    if (this.frame.rolls[1]) {
-      return this.frame.rolls[1].pins;
-    }
-    return "-";
+    return '-';
   }
 
   public tenthFrameClass(index: number): string {

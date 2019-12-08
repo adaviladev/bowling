@@ -1,19 +1,17 @@
 <template>
-    <table data-vue=""
-        class="table">
-        <!--            <th scope="col">Total</th>-->
+    <table
+        class="table-auto w-full">
         <tbody>
-        <tr>
-            <FrameCell v-for="(frame, index) in frames"
+        <tr class="border border-purple-300">
+            <frame-cell v-for="(frame, index) in frames"
                 :key="index"
                 class="py-0"
                 :frame="frame"
                 :frameIndex="index + 1"/>
-            <td class="border">
+            <td class="border border-purple-300 text-center">
                 <div>Total</div>
                 {{ score }}
             </td>
-            <td>{{ score }}</td>
         </tr>
         </tbody>
     </table>

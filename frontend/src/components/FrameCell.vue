@@ -1,15 +1,19 @@
 <template>
-    <td class="text-center">
-        <div class="row border">
-            <div class="col">
-                {{ frameIndex }}
-            </div>
+    <td class="text-center border border-purple-300"
+        :class="tenthFrameClass(frameIndex)">
+        <div class="w-full border-b border-purple-300">
+            {{ frameIndex }}
         </div>
-        <div class="row scores">
-            <div class="col border">
+        <div class="flex">
+            <div class="w-1/2">
                 {{ firstRoll }}
             </div>
-            <div class="col border">
+            <div class="w-1/2 border-l border-b border-purple-300">
+                {{ secondRoll }}
+            </div>
+            <div class="w-1/2 border-l border-b border-purple-300"
+                v-if="frameIndex === 10"
+                >
                 {{ secondRoll }}
             </div>
         </div>
@@ -48,6 +52,13 @@ export default class FrameCell extends Vue {
       return this.frame.rolls[1].pins;
     }
     return "-";
+  }
+
+  public tenthFrameClass(index: number): string {
+    if (index === 10) {
+      return 'w-2/12';
+    }
+    return 'w-1/12';
   }
 }
 </script>

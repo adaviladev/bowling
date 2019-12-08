@@ -1,16 +1,20 @@
 <template>
-    <td class="text-center">
-        <div class="row border">
-            <div class="col">
-                {{ frameIndex }}
-            </div>
+    <td class="text-center border border-purple-300"
+        :class="tenthFrameClass(frameIndex)">
+        <div class="w-full border-b border-purple-300">
+            {{ frameIndex }}
         </div>
-        <div class="row scores">
-            <div class="col border">
-                {{ firstRoll }}
+        <div class="flex">
+            <div class="w-1/2">
+                {{ rollScore(0) }}
             </div>
-            <div class="col border">
-                {{ secondRoll }}
+            <div class="w-1/2 border-l border-b border-purple-300">
+                {{ rollScore(1) }}
+            </div>
+            <div class="w-1/2 border-l border-b border-purple-300"
+                v-if="frameIndex === 10"
+                >
+                {{ rollScore(2) }}
             </div>
         </div>
         <div class="row text-right">
@@ -36,18 +40,19 @@ export default class FrameCell extends Vue {
 
   @Prop(Number) private frameIndex!: number;
 
-  get firstRoll(): Score {
-    if (this.frame.rolls[0]) {
-      return this.frame.rolls[0].pins;
+  public rollScore(index: number): Score {
+    if (this.frame.rolls[index]) {
+      return this.frame.rolls[index].pins;
     }
-    return 0;
+
+    return '-';
   }
 
-  get secondRoll(): Score {
-    if (this.frame.rolls[1]) {
-      return this.frame.rolls[1].pins;
+  public tenthFrameClass(index: number): string {
+    if (index === 10) {
+      return 'w-2/12';
     }
-    return "-";
+    return 'w-1/12';
   }
 }
 </script>

@@ -28,7 +28,7 @@ class ProfileTest extends TestCase
         $this->signIn();
 
         $this->get(route('home'))
-             ->assertSee($this->user->fullName);
+             ->assertSee(e($this->user->fullName));
     }
 
     /** @test */

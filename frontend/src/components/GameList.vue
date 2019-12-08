@@ -1,8 +1,8 @@
 <template>
-    <div class="container">
-        <h1>Game List</h1>
+    <div class="mx-auto px-2">
+        <h1 class="text-3xl">Game List View</h1>
 
-        <div class="card-columns"
+        <div class="flex flex-wrap -mx-2"
             v-if="games">
             <game-list-item :game="game"
                 :key="game.id"

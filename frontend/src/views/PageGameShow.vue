@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="m-auto w-10/12">
         Game #{{ id }}
-        <FramesTable v-if="game"
+        <frames-table v-if="game"
             :data-vue="`game-${id}-frames`"
             :frames="game.frames"
-            :score="game.score"></FramesTable>
+            :score="game.score"/>
     </div>
 </template>
 

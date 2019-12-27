@@ -11,13 +11,6 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        \Artisan::call('passport:install');
-    }
-
     /** @test */
     public function a_login_request_returns_a_jwt_token()
     {

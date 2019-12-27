@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use App\Game;
 use App\Policies\GamePolicy;
 use Laravel\Passport\Passport;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -31,5 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes(static function (\Laravel\Passport\RouteRegistrar $router) {
             $router->forAccessTokens();
         });
+
+        Passport::personalAccessClientId(1);
     }
 }

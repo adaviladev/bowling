@@ -16,12 +16,12 @@ describe("Showing a game", () => {
   let axiosInstance: AxiosInstance;
 
   beforeEach(() => {
-    axiosInstance = axios.create();
-    moxios.install(axiosInstance);
+    // axiosInstance = axios.create();
+    moxios.install();
   });
 
   afterEach(() => {
-    moxios.uninstall(axiosInstance);
+    moxios.uninstall();
   });
 
   it("should_fetch_a_game_by_id", done => {
@@ -39,14 +39,12 @@ describe("Showing a game", () => {
         game
       }
     });
+    moxios.wait(() => {
+      expect(wrapper.vm.$data.game.id).toEqual(game.id);
+      expect(wrapper.vm.$data.game.score).toEqual(game.score);
+      done();
+    });
 
-    axiosInstance
-      .get("/api/games/1")
-      .then((response: AxiosResponse) => {
-        expect(wrapper.vm.$data.game).toEqual(response.data.game);
-        done();
-      })
-      .catch(done);
   });
 
   it("should_render_the_FramesTable_component", () => {

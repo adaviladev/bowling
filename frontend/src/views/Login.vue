@@ -11,7 +11,7 @@
                                 <label for="email" class="col-sm-4 col-form-label text-md-right">Email Address</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" :value="email" required autofocus>
+                                    <input id="email" type="email" class="form-control" name="email" v-model="email" required autofocus>
 <!--                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="" required autofocus>-->
 
 <!--
@@ -28,7 +28,7 @@
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" :value="password" required>
+                                    <input id="password" type="password" class="form-control" name="password" v-model="password" required>
 <!--                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>-->
 
 <!--
@@ -68,27 +68,25 @@
 </template>
 
 <script lang="ts">
-import axios, { AxiosResponse } from "axios";
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import axios, { AxiosResponse } from 'axios';
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 
 @Component
 export default class Login extends Vue {
   public email: string = 'adrian@bowling.test';
-  public password: string = 'secret';
+  public password: string = '';
 
   public login(): void {
-    axios.post('/oauth/token',
+    console.log(this.email, this.password);
+    axios.post('/api/login',
       {
-        grant_type: 'password',
-        client_id: 2,
-        client_secret: 'DZmxnqgmZHpsm7RndfCQoqYiifHetA6YSbxU8fZz',
-        username: this.email,
+        email: this.email,
         password: this.password,
-        scope: '*',
       })
-      .then((response: AxiosResponse) => {
-        console.log(response);
+      .then(({data}: AxiosResponse) => {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
+        axios.get('/api/user');
       })
       .catch((error: AxiosResponse) => {
         console.error(error);

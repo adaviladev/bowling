@@ -4,14 +4,14 @@
         <div class="w-full border-b border-purple-300">
             {{ frameIndex }}
         </div>
-        <div class="flex">
-            <div class="w-1/2">
+        <div class="flex rolls">
+            <div class="roll w-1/2">
                 {{ rollScore(0) }}
             </div>
-            <div class="w-1/2 border-l border-b border-purple-300">
+            <div class="roll w-1/2 border-l border-b border-purple-300">
                 {{ rollScore(1) }}
             </div>
-            <div class="w-1/2 border-l border-b border-purple-300"
+            <div class="roll w-1/2 border-l border-b border-purple-300"
                 v-if="frameIndex === 10"
                 >
                 {{ rollScore(2) }}

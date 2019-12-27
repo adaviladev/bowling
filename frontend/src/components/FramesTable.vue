@@ -10,7 +10,7 @@
                 :frameIndex="index + 1"/>
             <td class="border border-purple-300 text-center">
                 <div>Total</div>
-                {{ score }}
+                {{ game.score }}
             </td>
         </tr>
         </tbody>
@@ -25,6 +25,7 @@ import {
 } from "vue-property-decorator";
 import Frame from "../models/Frame";
 import FrameCell from "./FrameCell.vue";
+import Game from '@/models/Game';
 
 @Component({
   components: {
@@ -33,7 +34,7 @@ import FrameCell from "./FrameCell.vue";
 })
 export default class FramesTable extends Vue {
   @Prop(Array) private frames!: Frame[];
-  @Prop(Number) private score!: number;
+  @Prop() private game!: Game;
 }
 </script>
 

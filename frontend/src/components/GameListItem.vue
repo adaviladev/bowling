@@ -1,5 +1,5 @@
 <template>
-    <div class="w-1/3 px-2 my-2">
+    <div class="card w-1/3 px-2 my-2">
         <div class="shadow">
             <div :class="performanceClass"
                 class="px-6 py-4">

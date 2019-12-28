@@ -16,12 +16,13 @@ if [[ "$STAGED_PHP_FILES" != "" ]]; then
       PASS=false
     fi
   done
+
+  if ! vendor/bin/phpunit
+  then
+    PASS=false
+  fi
 fi
 
-if ! vendor/bin/phpunit
-then
-  PASS=false
-fi
 
 STAGED_JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep "^resources" | grep ".ts$")
 
@@ -34,12 +35,12 @@ if [[ "$STAGED_JS_FILES" != "" ]]; then
       PASS=false
     fi
   done
+  if ! npm run test
+  then
+    PASS=false
+  fi
 fi
 
-#if ! npm run test
-#then
-#  PASS=false
-#fi
 
 if ! ${PASS}; then
   exit 1

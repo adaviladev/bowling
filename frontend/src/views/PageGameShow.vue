@@ -3,8 +3,8 @@
         Game #{{ id }}
         <frames-table v-if="game"
             :data-vue="`game-${id}-frames`"
-            :frames="game.frames"
-            :score="game.score"/>
+            :game="game"
+            :frames="game.frames"/>
     </div>
 </template>
 

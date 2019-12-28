@@ -9,6 +9,7 @@ use App\Game;
 use App\User;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Laravel\Passport\Passport;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -29,6 +30,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        \Artisan::call('passport:install');
+
         $this->disableExceptionHandling();
 
         $this->game = make(Game::class);
@@ -36,12 +39,12 @@ abstract class TestCase extends BaseTestCase
         $this->rolls = collect();
     }
 
-    protected function signIn($user = null)
+    protected function signIn($user = null, $scopes = [])
     {
         $user = $user ? : create(User::class);
 
         $this->user = $user;
-        $this->actingAs($user);
+        Passport::actingAs($user, $scopes);
 
         return $this;
     }

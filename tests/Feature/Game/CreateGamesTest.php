@@ -5,6 +5,7 @@ namespace Tests\Feature\Game;
 use App\Frame;
 use App\Game;
 use App\Roll;
+use Illuminate\Auth\AuthenticationException;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,37 +14,13 @@ class CreateGamesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @testdox A guest may not view the create game form.
-     * @test
-     */
-    public function guests_may_not_view_the_create_game_form()
-    {
-        $this->withExceptionHandling();
-
-        $this->get(route('games.create'))
-             ->assertRedirect('/login');
-    }
-
-    /** @test */
-    public function it_should_show_authenticated_users_the_game_creation_form()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('games.create'));
-
-        $response->assertSee('<form');
-        $response->assertSee('id="game-create-form"');
-    }
-
     /** @test */
     public function guests_may_not_create_games()
     {
-        $this->withExceptionHandling();
+        $this->expectException(AuthenticationException::class);
 
-        $response = $this->post(route('games.store'));
+        $this->post(route('games.store'));
 
-        $response->assertRedirect('/login');
         $this->assertEquals(0, Game::count());
     }
 

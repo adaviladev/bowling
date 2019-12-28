@@ -1,12 +1,13 @@
-import { shallowMount } from "@vue/test-utils";
-import expect from "expect/build/index";
+import { mount } from "@vue/test-utils";
+import expect from "expect";
 
-import PageGameCreate from "@/views/PageGameCreate.vue";
+import Login from '@/views/Login.vue';
 
-describe("<PageGameCreate/>", () => {
-  it("it should show the GameCreate component", () => {
-    let wrapper = shallowMount(PageGameCreate);
+describe("<Login/>", () => {
+  it('should show the login form', () => {
+    let wrapper = mount(Login);
 
-    expect(wrapper.find(PageGameCreate).exists()).toBe(true);
+    expect(wrapper.find(Login).exists()).toBe(true);
+    expect(wrapper.find('form').exists()).toBe(true);
   });
 });

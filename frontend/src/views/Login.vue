@@ -54,7 +54,7 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">Login</button>
+                                    <button id="login-button" type="submit" class="btn btn-primary">Login</button>
 
                                     <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
                                 </div>
@@ -74,7 +74,7 @@ import { Component } from 'vue-property-decorator';
 
 @Component
 export default class Login extends Vue {
-  public email: string = 'adrian@bowling.test';
+  public email: string = '';
   public password: string = '';
 
   public login(): void {

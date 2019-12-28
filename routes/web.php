@@ -13,14 +13,6 @@
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::group(['prefix' => 'api'], static function () {
-    Route::resource('users', 'UsersController');
-    Route::resource('games', 'GamesController');
-    Route::resource('games/{game}/rolls', 'RollsController');
-});
-
 Route::get('{spa}', static function () {
     return view('index');
 })->where('spa', '^(?!api).*$')->name('vue');

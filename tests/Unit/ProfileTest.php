@@ -48,12 +48,4 @@ class ProfileTest extends TestCase
         $this->get(route('login'))
              ->assertRedirect(route('home'));
     }
-
-    /** @test */
-    public function it_should_allow_guests_to_view_the_login_screen()
-    {
-        $this->get(route('login'))
-             ->assertViewIs('auth.login');
-
-    }
 }

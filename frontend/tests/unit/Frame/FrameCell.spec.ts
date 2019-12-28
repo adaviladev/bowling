@@ -20,17 +20,17 @@ describe.only("<FrameCell/>", () => {
       }
     });
 
-    let scoreElement = wrapper.find(".scores");
+    let scoreElement = wrapper.find(".rolls");
 
     expect(
       scoreElement
-        .findAll(".col")
+        .findAll(".roll")
         .at(0)
         .text()
     ).toEqual(`${frame.rolls[0].pins}`);
     expect(
       scoreElement
-        .findAll(".col")
+        .findAll(".roll")
         .at(1)
         .text()
     ).toEqual(`${frame.rolls[1].pins}`);

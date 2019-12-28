@@ -20,15 +20,6 @@ class GameTest extends TestCase
     }
 
     /** @test */
-    public function it_should_show_authenticated_users_the_edit_form_for_a_game()
-    {
-        $this->signIn();
-        $game = create(Game::class);
-
-        $this->get(route('games.edit', $game->id))->assertSee('Edit Game ' . $game->id);
-    }
-
-    /** @test */
     public function a_game_should_have_a_score()
     {
         $game = create(Game::class);

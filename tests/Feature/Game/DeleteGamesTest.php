@@ -4,6 +4,7 @@ namespace Tests\Feature\Game;
 
 use App\Frame;
 use App\Game;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -44,11 +45,10 @@ class DeleteGamesTest extends TestCase
     /** @test */
     public function an_unauthenticated_user_may_not_delete_a_game()
     {
-        $this->withExceptionHandling();
+        $this->expectException(AuthenticationException::class);
         $game = create(Game::class);
 
-        $this->delete(route('games.destroy', ['game' => $game]))
-             ->assertRedirect('/login');
+        $this->delete(route('games.destroy', ['game' => $game]));
 
         $this->signIn();
         $this->delete(route('games.destroy', ['game' => $game]))

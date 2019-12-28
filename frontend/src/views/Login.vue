@@ -76,9 +76,11 @@ import { Component } from 'vue-property-decorator';
 export default class Login extends Vue {
   public email: string = '';
   public password: string = '';
+  public token: string = '';
+  public message?: string;
+  public errors: Object[] = [];
 
   public login(): void {
-    console.log(this.email, this.password);
     axios.post('/api/login',
       {
         email: this.email,
@@ -86,19 +88,16 @@ export default class Login extends Vue {
       })
       .then(({data}: AxiosResponse) => {
         axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
-        axios.get('/api/user');
+        this.$store.dispatch('login', data);
+        this.$router.push({name: 'Games'})
       })
       .catch((error: AxiosResponse) => {
         console.error(error);
+        this.errors = error.errors;
+        this.message = error.message;
       });
-    // axios.post('/login')
-    //   .then((response: AxiosResponse) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error: AxiosResponse) => {
-    //     console.error(error);
-    //   });
   }
 }
 </script>
+
 <style></style>

@@ -16,20 +16,33 @@
                     Games
                 </router-link>
             </div>
-            <div>
-                <a href="/login" class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600 mr-4">
+            <div v-if="authCheck">
+                <router-link class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600 mr-4"
+                    :to="{ name: 'Login' }">
                     Login
-                </a>
+                </router-link>
                 <a href="/register" class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600">
                     Register
+                </a>
+            </div>
+            <div v-else>
+                <a href="/logout" class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600">
+                    Log Out
                 </a>
             </div>
         </div>
     </nav>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import Vue from 'vue';
+
+export default class TheNavBar extends Vue {
+  authCheck(): boolean {
+    console.log(this.$store.state.user);
+    return this.$store.state.user;
+  }
+}
 </script>
 
 <style scoped></style>

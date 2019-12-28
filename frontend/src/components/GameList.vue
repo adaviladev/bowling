@@ -32,7 +32,6 @@ export default class GameList extends Vue {
           this.games = response.data.games;
         })
         .catch((error: AxiosResponse) => {
-          console.error(error);
         });
     }
 }

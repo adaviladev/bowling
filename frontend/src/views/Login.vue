@@ -92,9 +92,8 @@ export default class Login extends Vue {
         this.$router.push({name: 'Games'})
       })
       .catch((error: AxiosResponse) => {
-        console.error(error);
-        this.errors = error.errors;
-        this.message = error.message;
+        // this.errors = error.errors;
+        // this.message = error.message;
       });
   }
 }

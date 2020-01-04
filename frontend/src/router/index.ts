@@ -1,10 +1,12 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import VueRouter, { Route } from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import GameList from '@/components/GameList.vue';
 import GameShow from '@/views/PageGameShow.vue';
 import GameCreate from '@/views/PageGameCreate.vue';
+import store from '@/store';
+import { Auth } from '@/utils/Auth';
 
 Vue.use(VueRouter);
 
@@ -27,7 +29,15 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: GameList,
-    props: true
+    props: true,
+    beforeEnter: (to: Route, from: Route, next: Function): Function => {
+      if (Auth.guest()) {
+        return next({
+          name: 'Login',
+        });
+      }
+      return next();
+    }
   },
   {
     path: '/games/create',

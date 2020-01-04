@@ -14,6 +14,12 @@ export default new Vuex.Store({
     },
     setToken(state, token) {
       state.token = token;
+    },
+    unsetUser(state) {
+      state.user = null;
+    },
+    unsetToken(state) {
+      state.token = null;
     }
   },
   actions: {
@@ -21,6 +27,13 @@ export default new Vuex.Store({
       if (!state.user) {
         commit('setUser', payload.user);
         commit('setToken', payload.token);
+      }
+    },
+
+    logout({ state, commit }) {
+      if (state.user) {
+        commit('unsetUser');
+        commit('unsetToken');
       }
     }
   },

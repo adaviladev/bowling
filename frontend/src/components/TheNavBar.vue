@@ -16,7 +16,7 @@
                     Games
                 </router-link>
             </div>
-            <div v-if="authCheck">
+            <div v-if="guest">
                 <router-link class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600 mr-4"
                     :to="{ name: 'Login' }">
                     Login
@@ -26,9 +26,9 @@
                 </a>
             </div>
             <div v-else>
-                <a href="/logout" class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600">
-                    Log Out
-                </a>
+                <form @submit.prevent="logout">
+                    <button type="submit">Logout</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -36,10 +36,25 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { Component, Watch } from 'vue-property-decorator';
+import { mapState } from 'vuex';
 
+@Component({
+  computed: mapState(['user'])
+})
 export default class TheNavBar extends Vue {
-  authCheck(): boolean {
+  @Watch('user')
+  onAuthCheckChange(value?: object, oldValue?: object): boolean {
     return this.$store.state.user;
+  }
+
+  public logout(): void {
+    this.$store.dispatch('logout');
+    this.$router.push({ name: 'Home' })
+  }
+
+  get guest(): boolean {
+    return this.$store.state.user === null;
   }
 }
 </script>

@@ -16,11 +16,11 @@ import {
   Vue
 } from "vue-property-decorator";
 import FramesTable from "@/components/FramesTable.vue";
-import Game from "../models/Game";
+import Game from "../Models/Game";
 import {
   IFrame,
   IGame
-} from "@/models/interfaces";
+} from "@/Interfaces/interfaces";
 
 @Component({
   components: {

@@ -4,7 +4,7 @@ import {
 } from "@vue/test-utils";
 import expect from "expect/build/index";
 import GameList from "@/components/GameList.vue";
-import Game from "@/models/Game";
+import Game from "@/Models/Game";
 import GameListItem from "@/components/GameListItem.vue";
 import Factory from "../../utilities/Factory";
 import moxios from "moxios";

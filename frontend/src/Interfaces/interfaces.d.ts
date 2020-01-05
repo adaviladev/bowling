@@ -24,9 +24,17 @@ interface IRoll extends IEntity {
   pins: number;
 }
 
+interface IUser {
+  id?: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 export {
   IEntity,
   IGame,
   IFrame,
-  IRoll
+  IRoll,
+  IUser,
 };

@@ -23,9 +23,9 @@ import {
   Prop,
   Vue
 } from "vue-property-decorator";
-import Frame from "../models/Frame";
+import Frame from "../Models/Frame";
 import FrameCell from "./FrameCell.vue";
-import Game from '@/models/Game';
+import Game from '@/Models/Game';
 
 @Component({
   components: {

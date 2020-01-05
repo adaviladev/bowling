@@ -37,19 +37,21 @@ const routes = [
         });
       }
       return next();
-    }
+    },
+    children: [
+      {
+        path: '/games/:id',
+        name: 'GameShow',
+        component: GameShow,
+        props: true
+      }
+    ]
   },
   {
     path: '/games/create',
     name: 'GameCreate',
     component: GameCreate
   },
-  {
-    path: '/games/:id',
-    name: 'GameShow',
-    component: GameShow,
-    props: true
-  }
 ];
 
 const router = new VueRouter({

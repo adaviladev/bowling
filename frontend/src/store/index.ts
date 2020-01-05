@@ -1,13 +1,21 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { IUser } from '@/Interfaces/interfaces';
 
 Vue.use(Vuex);
 
+interface StateInterface {
+  user: IUser | null,
+  token: number|null;
+}
+
+const state: StateInterface = {
+  user: null,
+  token: null,
+};
+
 export default new Vuex.Store({
-  state: {
-    user: null,
-    token: null,
-  },
+  state,
   mutations: {
     setUser(state, user) {
       state.user = user;

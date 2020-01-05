@@ -3,7 +3,7 @@ import {
   IFrame,
   IGame,
   IRoll
-} from "./interfaces";
+} from "@/Interfaces/interfaces";
 import Model from "./Model";
 
 export default class Game extends Model implements IGame {
@@ -38,6 +38,7 @@ export default class Game extends Model implements IGame {
   private constructor(params: IGame) {
     super();
     this.id = params.id;
+    this.user_id = params.user_id;
     this.score = params.score;
     this.frames = (params.frames || []).map(frame => Frame.make(frame as IFrame));
     this.complete = params.complete;

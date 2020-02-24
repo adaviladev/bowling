@@ -23,9 +23,9 @@ export default {
     }
 
     .btn-primary {
-        @apply bg-blue-300;
+        @apply bg-purple-300;
     }
     .btn-primary:hover {
-        @apply bg-blue-400;
+        @apply bg-purple-400;
     }
 </style>

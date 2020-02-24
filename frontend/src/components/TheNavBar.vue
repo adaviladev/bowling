@@ -37,6 +37,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Watch } from 'vue-property-decorator';
+import axios from 'axios';
 import { mapState } from 'vuex';
 
 @Component({
@@ -49,6 +50,7 @@ export default class TheNavBar extends Vue {
   }
 
   public logout(): void {
+    axios.post('/logout');
     this.$store.dispatch('logout');
     this.$router.push({ name: 'Home' })
   }

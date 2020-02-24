@@ -81,7 +81,7 @@ export default class Login extends Vue {
   public errors: Object[] = [];
 
   public login(): void {
-    axios.post('/api/login',
+    axios.post('/login',
       {
         email: this.email,
         password: this.password,

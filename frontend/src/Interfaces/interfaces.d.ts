@@ -25,7 +25,7 @@ interface IRoll extends IEntity {
 }
 
 interface IUser {
-  id?: number;
+  id: number | null;
   first_name: string;
   last_name: string;
   email: string;

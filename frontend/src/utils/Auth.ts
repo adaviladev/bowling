@@ -19,7 +19,7 @@ export class Auth {
   }
 
   public static id(): number | null {
-    const user = this.user();
+    const user: IUser | null = Auth.user();
     if (user) {
       return user.id;
     }

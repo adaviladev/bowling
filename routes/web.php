@@ -11,8 +11,10 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('{spa}', static function () {
     return view('index');
-})->where('spa', '^(?!api).*$')->name('vue');
+})->where('spa', '.*$')->name('vue');

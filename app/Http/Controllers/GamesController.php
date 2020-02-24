@@ -45,16 +45,6 @@ class GamesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return View
-     */
-    public function create(): View
-    {
-        return view('games.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param GameRequest $request
@@ -87,23 +77,6 @@ class GamesController extends Controller
                 'game' => $game->load('frames.rolls'),
             ],
             Response::HTTP_OK
-        );
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Game $game
-     *
-     * @return View
-     */
-    public function edit(Game $game): View
-    {
-        return view(
-            'games.edit',
-            [
-                'game' => $game,
-            ]
         );
     }
 

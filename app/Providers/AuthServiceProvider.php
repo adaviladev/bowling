@@ -31,6 +31,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes(static function (\Laravel\Passport\RouteRegistrar $router) {
             $router->forAccessTokens();
+            $router->forTransientTokens();
         });
 
         Passport::personalAccessClientId(1);

@@ -17,7 +17,7 @@ class LoginTest extends TestCase
         $this->disableExceptionHandling();
         $user = create(User::class);
 
-        $response = $this->post(route('login'), [
+        $response = $this->post('login', [
             'email' => $user->email,
             'password' => 'secret',
         ]);

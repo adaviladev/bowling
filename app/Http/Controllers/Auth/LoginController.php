@@ -29,27 +29,20 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('auth:api')->except('login');
     }
 
     /**
      * Handle a login request to the application.
      *
      * @param Request $request
-     * @return RedirectResponse|Response|JsonResponse
+     * @return RedirectResponse|Response|JsonResponse|void
      *
      * @throws ValidationException
      */
@@ -68,9 +61,9 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if ($this->attemptLogin($request)) {
+        if (Auth::guard('web')->attempt($request->all())) {
             /** @var User $user */
-            $user = Auth::user();
+            $user = Auth::guard('web')->user();
             return response([
                 'token' => $user->createToken('JWT')->accessToken,
                 'user' => $user,
@@ -83,5 +76,24 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function logout(Request $request)
+    {
+        /** @var User $user */
+        Auth::user()
+            ->token()
+            ->revoke();
+
+        return response([
+            'message' => 'Successfully logged out'
+        ], Response::HTTP_OK);
     }
 }

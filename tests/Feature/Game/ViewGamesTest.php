@@ -25,6 +25,7 @@ class ViewGamesTest extends TestCase
     /** @test */
     public function it_should_return_a_single_game(): void
     {
+        $this->signIn();
         $game = create(Game::class);
 
         $this->getJson(route('games.show', ['game' => $game]))

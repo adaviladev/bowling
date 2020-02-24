@@ -1,4 +1,4 @@
-import Game from "@/models/Game";
+import Game from "@/Models/Game";
 import {
   mount,
   shallowMount

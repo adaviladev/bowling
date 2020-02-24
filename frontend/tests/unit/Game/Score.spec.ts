@@ -1,4 +1,4 @@
-import Game from "@/models/Game";
+import Game from "@/Models/Game";
 import expect from "expect/build/index";
 import Factory from "../../utilities/Factory";
 

@@ -6,7 +6,7 @@
             v-if="games">
             <game-list-item :game="game"
                 :key="game.id"
-                v-for="game in games"></game-list-item>
+                v-for="game in games"/>
         </div>
     </div>
 </template>
@@ -18,11 +18,11 @@ import { Component } from "vue-property-decorator";
 
 import GameListItem from './GameListItem.vue';
 
-  @Component({
-    components: {
-      GameListItem,
-    },
-  })
+@Component({
+  components: {
+    GameListItem,
+  },
+})
 export default class GameList extends Vue {
     public games: object[] = [];
 
@@ -32,7 +32,6 @@ export default class GameList extends Vue {
           this.games = response.data.games;
         })
         .catch((error: AxiosResponse) => {
-          console.error(error);
         });
     }
 }

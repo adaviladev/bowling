@@ -1,8 +1,9 @@
 import GameFactory from "./factories/GameFactory";
 import RollFactory from "./factories/RollFactory";
+import UserFactory from "./factories/UserFactory";
 import BuilderInterface from "./factories/BuilderInterface";
 import FrameFactory from "./factories/FrameFactory";
-import Model from "@/models/Model";
+import Model from "@/Models/Model";
 
 type BuilderInterfaceObject = {
   [name: string]: BuilderInterface;
@@ -12,7 +13,8 @@ export default class Factory {
   static models: BuilderInterfaceObject = {
     Game: new GameFactory(),
     Frame: new FrameFactory(),
-    Roll: new RollFactory()
+    Roll: new RollFactory(),
+    User: new UserFactory(),
   };
 
   public static make(modelName: string, attributes: object = {}, times: number = 1): any | any[] {

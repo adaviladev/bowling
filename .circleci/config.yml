@@ -21,20 +21,11 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-#      - restore_cache:
-#          keys:
-#          - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-#          - v1-dependencies-
-
-#      - run: sudo dpkg --configure -a
-#      - run: sudo apt-get install -f
-#      - run: sudo apt-get clean && sudo apt-get update
-#      - run: sudo apt-get upgrade -y
-#
-#      - run: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-#      - run: sudo apt-get install -y nodejs && node -v
-#      - run: sudo apt-get install -y npm
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ arch }}-{{ checksum "composer.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run: composer install -n --prefer-dist
       - run: cd frontend && npm install

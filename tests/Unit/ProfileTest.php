@@ -39,13 +39,4 @@ class ProfileTest extends TestCase
         $this->getJson($user->path())
              ->assertJsonFragment($user->toArray());
     }
-
-    /** @test */
-    public function it_should_redirect_authenticated_users_away_from_the_login_screen()
-    {
-        $this->signIn();
-
-        $this->get(route('login'))
-             ->assertRedirect(route('home'));
-    }
 }

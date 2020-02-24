@@ -16,20 +16,49 @@
                     Games
                 </router-link>
             </div>
-            <div>
-                <a href="/login" class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600 mr-4">
+            <div v-if="guest">
+                <router-link class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600 mr-4"
+                    :to="{ name: 'Login' }">
                     Login
-                </a>
+                </router-link>
                 <a href="/register" class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600">
                     Register
                 </a>
+            </div>
+            <div v-else>
+                <form @submit.prevent="logout">
+                    <button type="submit">Logout</button>
+                </form>
             </div>
         </div>
     </nav>
 </template>
 
-<script>
-export default {}
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Watch } from 'vue-property-decorator';
+import axios from 'axios';
+import { mapState } from 'vuex';
+
+@Component({
+  computed: mapState(['user'])
+})
+export default class TheNavBar extends Vue {
+  @Watch('user')
+  onAuthCheckChange(value?: object, oldValue?: object): boolean {
+    return this.$store.state.user;
+  }
+
+  public logout(): void {
+    axios.post('/logout');
+    this.$store.dispatch('logout');
+    this.$router.push({ name: 'Home' })
+  }
+
+  get guest(): boolean {
+    return this.$store.state.user === null;
+  }
+}
 </script>
 
 <style scoped></style>

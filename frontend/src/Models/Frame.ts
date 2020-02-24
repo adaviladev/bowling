@@ -1,7 +1,7 @@
 import {
   IFrame,
   IRoll
-} from "./interfaces";
+} from "@/Interfaces/interfaces";
 import Model from "./Model";
 import Roll from "./Roll";
 

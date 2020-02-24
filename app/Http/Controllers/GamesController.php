@@ -19,11 +19,10 @@ class GamesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])
+        $this->middleware(['auth:api'])
              ->except(
                  [
                      'index',
-                     'show',
                  ]
              );
     }
@@ -43,16 +42,6 @@ class GamesController extends Controller
             ],
             Response::HTTP_OK
         );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return View
-     */
-    public function create(): View
-    {
-        return view('games.create');
     }
 
     /**
@@ -88,23 +77,6 @@ class GamesController extends Controller
                 'game' => $game->load('frames.rolls'),
             ],
             Response::HTTP_OK
-        );
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Game $game
-     *
-     * @return View
-     */
-    public function edit(Game $game): View
-    {
-        return view(
-            'games.edit',
-            [
-                'game' => $game,
-            ]
         );
     }
 

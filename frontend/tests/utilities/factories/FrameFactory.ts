@@ -1,8 +1,8 @@
 import * as faker from "faker";
 import BuilderInterface from "./BuilderInterface";
-import Frame from "@/models/Frame";
+import Frame from "@/Models/Frame";
 import Factory from "../Factory";
-import { IFrame } from "@/models/interfaces";
+import { IFrame } from "@/Interfaces/interfaces";
 
 export default class FrameFactory implements BuilderInterface {
   generate() {

@@ -1,7 +1,7 @@
 import * as faker from "faker";
 import BuilderInterface from "./BuilderInterface";
-import Game from "@/models/Game";
-import { IGame } from "@/models/interfaces";
+import Game from "@/Models/Game";
+import { IGame } from "@/Interfaces/interfaces";
 import Factory from "../Factory";
 
 export default class GameFactory implements BuilderInterface {

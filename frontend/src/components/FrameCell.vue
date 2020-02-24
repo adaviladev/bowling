@@ -31,8 +31,8 @@ import {
   Prop,
   Vue
 } from "vue-property-decorator";
-import Frame from "@/models/Frame";
-import { Score } from "@/models/types";
+import Frame from "@/Models/Frame";
+import { Score } from "@/types/Score";
 
 @Component
 export default class FrameCell extends Vue {

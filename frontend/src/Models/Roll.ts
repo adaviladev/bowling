@@ -1,4 +1,4 @@
-import { IRoll } from "./interfaces";
+import { IRoll } from "@/Interfaces/interfaces";
 import Model from "./Model";
 
 export default class Roll extends Model implements IRoll {

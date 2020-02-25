@@ -3,8 +3,6 @@
         <div class="row justify-content-center">
             <div class="w-1/2 mx-auto">
                 <div class="card">
-                    <div class="card-header">Login</div>
-
                     <div class="card-body">
                         <form @submit.prevent="login">
                             <div class="form-group row md:flex md:items-center mb-6">

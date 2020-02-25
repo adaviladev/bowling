@@ -43,7 +43,6 @@ describe("<Login/>", () => {
       }
     });
     moxios.wait(() => {
-      console.log(store.state.user);
       expect(store.state.user).toEqual(user);
       expect(store.state.token).toEqual('api_token');
       done();

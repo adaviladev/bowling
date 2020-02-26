@@ -50,7 +50,7 @@ export default class TheNavBar extends Vue {
   }
 
   public logout(): void {
-    axios.post('/logout');
+    axios.post('/api/logout');
     this.$store.dispatch('logout');
     this.$router.push({ name: 'Home' })
   }

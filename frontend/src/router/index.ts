@@ -25,9 +25,6 @@ const routes = [
   {
     path: '/games',
     name: 'Games',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: GameList,
     props: true,
     beforeEnter: (to: Route, from: Route, next: Function): Function => {
@@ -38,14 +35,11 @@ const routes = [
       }
       return next();
     },
-    children: [
-      {
-        path: '/games/:id',
-        name: 'GameShow',
-        component: GameShow,
-        props: true
-      }
-    ]
+  },
+  {
+    path: '/games/:id',
+    name: 'GameShow',
+    component: GameShow,
   },
   {
     path: '/games/create',

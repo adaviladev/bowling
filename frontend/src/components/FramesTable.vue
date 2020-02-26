@@ -34,7 +34,7 @@ import Game from '@/Models/Game';
 })
 export default class FramesTable extends Vue {
   @Prop(Array) private frames!: Frame[];
-  @Prop() private game!: Game;
+  @Prop() public game!: Game;
 }
 </script>
 

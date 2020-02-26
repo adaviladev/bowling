@@ -28,12 +28,10 @@ import {
   }
 })
 export default class PageGameShow extends Vue {
-  @Prop([Number, String]) public readonly id!: number;
-
   public game: Game = {} as Game;
 
   public created(): void {
-    axios.get(`/api/games/${this.id}`).then(({ data }: AxiosResponse) => {
+    axios.get(`/api/games/${this.$route.params.id}`).then(({ data }: AxiosResponse) => {
       this.game = Game.make(data.game as IGame);
       this.game.calculateScore();
     });

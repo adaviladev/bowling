@@ -42,7 +42,7 @@ class RegisterTest extends TestCase
             'password' => self::PASSWORD,
         ]);
 
-        return $this->post('register', [
+        return $this->post('api/register', [
             'first_name' => $this->user->first_name,
             'last_name' => $this->user->last_name,
             'password' => self::PASSWORD,

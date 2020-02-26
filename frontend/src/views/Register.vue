@@ -127,7 +127,7 @@ export default class Register extends Vue {
   public errors: Object[] = [];
 
   public register(): void {
-    axios.post('/register',
+    axios.post('/api/register',
       {
         first_name: this.firstName,
         last_name: this.lastName,

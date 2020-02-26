@@ -20,7 +20,7 @@ class LogoutTest extends TestCase
         ]);
         $token = $user->createToken(__CLASS__);
 
-        $this->post('/logout', $data = [], [
+        $this->post('api/logout', $data = [], [
             'Authorization' => "Bearer {$token->accessToken}",
         ]);
 

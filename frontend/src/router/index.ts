@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter, { Route } from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
+import Register from '../views/Register.vue';
 import GameList from '@/components/GameList.vue';
 import GameShow from '@/views/PageGameShow.vue';
 import GameCreate from '@/views/PageGameCreate.vue';
@@ -21,6 +22,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
   },
   {
     path: '/games',

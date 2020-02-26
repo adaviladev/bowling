@@ -4,7 +4,38 @@
             <div class="w-1/2 mx-auto">
                 <div class="card">
                     <div class="card-body">
-                        <form @submit.prevent="login">
+                        <form @submit.prevent="register">
+
+                            <div class="form-group row md:flex md:items-center mb-6">
+                                <div class="md:w-1/3">
+                                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                        for="first_name">First Name</label>
+                                </div>
+                                <div class="md:w-2/3">
+                                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                        id="first_name"
+                                        type="text"
+                                        v-model="firstName"
+                                        required
+                                        autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row md:flex md:items-center mb-6">
+                                <div class="md:w-1/3">
+                                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                        for="last_name">Last Name</label>
+                                </div>
+                                <div class="md:w-2/3">
+                                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                        id="last_name"
+                                        type="text"
+                                        v-model="lastName"
+                                        required
+                                        autofocus>
+                                </div>
+                            </div>
+
                             <div class="form-group row md:flex md:items-center mb-6">
                                 <div class="md:w-1/3">
                                     <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
@@ -30,6 +61,19 @@
                                         id="password"
                                         type="password"
                                         v-model="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group row md:flex md:items-center mb-6">
+                                <div class="md:w-1/3">
+                                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                        for="password">Confirm Password</label>
+                                </div>
+                                <div class="md:w-2/3">
+                                    <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                        id="password_confirmation"
+                                        type="password"
+                                        v-model="passwordConfirmation">
                                 </div>
                             </div>
 
@@ -72,27 +116,29 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
 @Component
-export default class Login extends Vue {
+export default class Register extends Vue {
+  public firstName: string = '';
+  public lastName: string = '';
   public email: string = '';
   public password: string = '';
+  public passwordConfirmation: string = '';
   public token: string = '';
   public message?: string;
   public errors: Object[] = [];
 
-  public login(): void {
-    axios.post('/api/login',
+  public register(): void {
+    axios.post('/api/register',
       {
+        first_name: this.firstName,
+        last_name: this.lastName,
         email: this.email,
         password: this.password,
+        password_confirmation: this.passwordConfirmation,
       })
       .then(({ data }: AxiosResponse) => {
         axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
         this.$store.dispatch('login', data);
         this.$router.push({ name: 'Games' })
-      })
-      .catch((error: AxiosResponse) => {
-        // this.errors = error.errors;
-        // this.message = error.message;
       });
   }
 }

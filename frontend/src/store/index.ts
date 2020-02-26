@@ -14,31 +14,31 @@ const state: StateInterface = {
   token: null,
 };
 
-export default new Vuex.Store({
+export const storeConfig = {
   state,
   mutations: {
-    setUser(state, user) {
+    setUser(state: any, user: IUser) {
       state.user = user;
     },
-    setToken(state, token) {
+    setToken(state: any, token: string) {
       state.token = token;
     },
-    unsetUser(state) {
+    unsetUser(state: any) {
       state.user = null;
     },
-    unsetToken(state) {
+    unsetToken(state: any) {
       state.token = null;
     }
   },
   actions: {
-    login({ state, commit }, payload) {
+    login({ state, commit }: any, payload: any) {
       if (!state.user) {
         commit('setUser', payload.user);
         commit('setToken', payload.token);
       }
     },
 
-    logout({ state, commit }) {
+    logout({ state, commit }: any) {
       if (state.user) {
         commit('unsetUser');
         commit('unsetToken');
@@ -46,4 +46,6 @@ export default new Vuex.Store({
     }
   },
   modules: {}
-});
+};
+
+export default new Vuex.Store(storeConfig);

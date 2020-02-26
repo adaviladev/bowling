@@ -21,3 +21,5 @@ public/img
 public/js
 public/mix-manifest.json
 public/report
+
+resources/views/index.blade.php

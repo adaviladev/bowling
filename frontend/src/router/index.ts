@@ -1,13 +1,12 @@
 import Vue from 'vue';
-import VueRouter, { Route } from 'vue-router';
+import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import GameList from '@/components/GameList.vue';
 import GameShow from '@/views/PageGameShow.vue';
 import GameCreate from '@/views/PageGameCreate.vue';
-import store from '@/store';
-import { Auth } from '@/utils/Auth';
+import { isAuthenticated } from '@/utils/Middleware/Guard';
 
 Vue.use(VueRouter);
 
@@ -31,27 +30,16 @@ const routes = [
   {
     path: '/games',
     name: 'Games',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: GameList,
     props: true,
-    beforeEnter: (to: Route, from: Route, next: Function): Function => {
-      if (Auth.guest()) {
-        return next({
-          name: 'Login',
-        });
-      }
-      return next();
-    },
-    children: [
-      {
-        path: '/games/:id',
-        name: 'GameShow',
-        component: GameShow,
-        props: true
-      }
-    ]
+    beforeEnter: isAuthenticated,
+  },
+  {
+    path: '/games/:id',
+    name: 'GameShow',
+    component: GameShow,
+    props: true,
+    beforeEnter: isAuthenticated,
   },
   {
     path: '/games/create',

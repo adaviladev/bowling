@@ -1,10 +1,8 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from 'vuex';
 import expect from "expect";
-import moxios from 'moxios';
 
 import Login from '@/views/Login.vue';
-import Factory from '../../utilities/Factory';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -17,35 +15,23 @@ describe("<Login/>", () => {
     expect(wrapper.find('form').exists()).toBe(true);
   });
 
-  it('should update the store with the user and token upon sign in', function(done) {
-    const state = {
-      user: null,
-      token: null,
-    };
+  it.skip('calls the login action', async (done) => {
+    const loginMock = jest.fn(() => Promise.resolve());
     const store = new Vuex.Store({
-      state
+      actions: {
+        login: loginMock,
+      }
     });
-    let wrapper = mount(Login, { store });
-    const user = Factory.make('User');
+    let wrapper = mount(Login, { store, localVue });
 
     wrapper.find('#email')
       .setValue('test@example.test');
     wrapper.find('#password')
       .setValue('secret');
-    wrapper.find('button[type="submit"]')
+    wrapper.find('button')
       .trigger('click');
+    await wrapper.vm.$nextTick();
 
-
-    moxios.stubRequest(/api\/login/, {
-      response: {
-        user,
-        token: 'api_token',
-      }
-    });
-    moxios.wait(() => {
-      expect(store.state.user).toEqual(user);
-      expect(store.state.token).toEqual('api_token');
-      done();
-    });
+    expect(loginMock).toHaveBeenCalled();
   });
 });

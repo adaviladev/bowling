@@ -11,7 +11,7 @@ class LogoutTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_should_revoke_a_users_access_token_upon_logging_out()
+    public function it_should_delete_a_users_access_token_upon_logging_out()
     {
         /** @var User $user */
         $user = create(User::class, [
@@ -20,10 +20,10 @@ class LogoutTest extends TestCase
         ]);
         $token = $user->createToken(__CLASS__);
 
-        $this->post('/logout', $data = [], [
+        $this->post('api/logout', $data = [], [
             'Authorization' => "Bearer {$token->accessToken}",
         ]);
 
-        $this->assertTrue($token->token->fresh()->revoked);
+        $this->assertDatabaseMissing('oauth_access_tokens', $token->toArray());
     }
 }

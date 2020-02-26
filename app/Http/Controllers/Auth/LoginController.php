@@ -90,7 +90,7 @@ class LoginController extends Controller
         /** @var User $user */
         Auth::user()
             ->token()
-            ->revoke();
+            ->delete();
 
         return response([
             'message' => 'Successfully logged out'

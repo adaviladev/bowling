@@ -1,6 +1,6 @@
 <template>
     <div class="m-auto w-10/12">
-        Game #{{ id }}
+        Game #{{ game.id }}
         <frames-table v-if="game"
             :data-vue="`game-${id}-frames`"
             :game="game"

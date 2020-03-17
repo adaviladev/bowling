@@ -35,16 +35,16 @@ const routes = [
     beforeEnter: isAuthenticated,
   },
   {
+    path: '/games/create',
+    name: 'GameCreate',
+    component: GameCreate
+  },
+  {
     path: '/games/:id',
     name: 'GameShow',
     component: GameShow,
     props: true,
     beforeEnter: isAuthenticated,
-  },
-  {
-    path: '/games/create',
-    name: 'GameCreate',
-    component: GameCreate
   },
 ];
 

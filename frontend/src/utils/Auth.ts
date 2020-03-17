@@ -7,7 +7,7 @@ export class Auth {
   }
 
   public static check(): boolean {
-    return store.state.user !== null;
+    return localStorage.token || store.state.user !== null;
   }
 
   public static user(): IUser | null {

@@ -7,13 +7,19 @@
     </div>
 </template>
 
-<script>
-import TheNavBar from './components/TheNavBar'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import TheNavBar from './components/TheNavBar.vue';
 
-export default {
+@Component({
   components: {
-    TheNavBar,
+    TheNavBar
   },
+})
+export default class App extends Vue {
+  public created () {
+    this.$store.dispatch('checkLocalStorage');
+  }
 }
 </script>
 
@@ -25,6 +31,7 @@ export default {
     .btn-primary {
         @apply bg-purple-300;
     }
+
     .btn-primary:hover {
         @apply bg-purple-400;
     }

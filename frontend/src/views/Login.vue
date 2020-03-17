@@ -86,7 +86,6 @@ export default class Login extends Vue {
         password: this.password,
       })
       .then(({ data }: AxiosResponse) => {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
         this.$store.dispatch('login', data);
         this.$router.push({ name: 'Games' })
       })

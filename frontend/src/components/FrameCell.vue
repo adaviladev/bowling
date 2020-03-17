@@ -6,15 +6,39 @@
         </div>
         <div class="flex rolls">
             <div class="roll w-1/2">
-                {{ rollScore(0) }}
+                <input
+                    v-if="editing"
+                    type="text"
+                    v-model="frame.rolls[0]"
+                    class="appearance-none block border-2 px-2 w-full"
+                />
+                <span v-else>
+                    {{ rollScore(0) }}
+                </span>
             </div>
             <div class="roll w-1/2 border-l border-b border-purple-300">
-                {{ rollScore(1) }}
+                <input
+                    v-if="editing"
+                    type="text"
+                    v-model="frame.rolls[1]"
+                    class="appearance-none block border-2 px-2 w-full"
+                />
+                <span v-else>
+                    {{ rollScore(1) }}
+                </span>
             </div>
             <div class="roll w-1/2 border-l border-b border-purple-300"
                 v-if="frameIndex === 10"
-                >
-                {{ rollScore(2) }}
+            >
+                <input
+                    v-if="editing"
+                    type="text"
+                    v-model="frame.rolls[2]"
+                    class="appearance-none block border-2 px-2 w-full"
+                />
+                <span v-else>
+                    {{ rollScore(2) }}
+                </span>
             </div>
         </div>
         <div class="row text-right">
@@ -39,6 +63,8 @@ export default class FrameCell extends Vue {
   @Prop(Frame) private frame!: Frame;
 
   @Prop(Number) private frameIndex!: number;
+
+  @Prop(Boolean) private editing!: boolean;
 
   public rollScore(index: number): Score {
     if (this.frame.rolls[index]) {

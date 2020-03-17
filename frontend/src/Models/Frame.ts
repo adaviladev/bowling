@@ -24,7 +24,7 @@ export default class Frame extends Model implements IFrame {
   public index: number = -1;
   public created_at: any = null;
 
-  public constructor(params: IFrame = Frame.defaults) {
+  public constructor(params: IFrame) {
     super();
     this.id = params.id;
     this.game_id = params.game_id;
@@ -34,7 +34,7 @@ export default class Frame extends Model implements IFrame {
     this.created_at = params.created_at;
   }
 
-  public static make(params: IFrame): IFrame {
+  public static make(params: IFrame = Frame.defaults): IFrame {
     return new Frame(params);
   }
 }

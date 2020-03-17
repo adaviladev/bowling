@@ -16,15 +16,6 @@ class GameRequest extends FormRequest
         return auth()->check();
     }
 
-    public function messages(): array
-    {
-        return [
-            'score.integer' => 'Score must be an integer.',
-            'score.min' => 'Score cannot be less than zero.',
-            'score.max' => 'Score cannot be greater than 300',
-        ];
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

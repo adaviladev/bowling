@@ -1,11 +1,10 @@
 <?php
 
-use App\Frame;
 use App\Game;
 use App\Roll;
 use Illuminate\Database\Seeder;
 
-class FramesTableSeeder extends Seeder
+class RollsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,25 +17,22 @@ class FramesTableSeeder extends Seeder
 
         $game->each(function (Game $game, $index) {
             for ($i = 1; $i <= 10; $i++) {
-                $frame = factory(Frame::class)->create([
-                    'game_id' => $game->id,
-                ]);
                 $roll1 = factory(Roll::class)->create([
-                    'frame_id' => $frame->id,
+                    'game_id' => $game->id,
                 ]);
                 $availablePins = 10 - $roll1->pins;
 
                 $roll2 = null;
                 if ($roll1->pins !== 10) {
                     $roll2 = factory(Roll::class)->create([
-                        'frame_id' => $frame->id,
+                        'game_id' => $game->id,
                         'pins'     => random_int(0, $availablePins),
                     ]);
                 }
 
                 if ($i === 10 && $this->earnedThirdRoll($roll1, $roll2)) {
                     factory(Roll::class)->create([
-                        'frame_id' => $frame->id,
+                        'game_id' => $game->id,
                     ]);
                 }
             }

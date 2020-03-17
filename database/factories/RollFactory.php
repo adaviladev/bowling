@@ -1,14 +1,14 @@
 <?php
 
-use App\Frame;
+use App\Game;
 use Faker\Generator as Faker;
 
 $factory->define(App\Roll::class, function (Faker $faker) {
     return [
         'pins' => $faker->numberBetween(0, 10),
-        'frame_id' => function () {
-            $frame = Frame::inRandomOrder()->first();
-            return optional($frame)->id ?? factory(Frame::class)->create();
+        'game_id' => function () {
+            $game = Game::inRandomOrder()->first();
+            return optional($game)->id ?? factory(Game::class)->create();
         },
         'pin_1' => 0,
         'pin_2' => 0,

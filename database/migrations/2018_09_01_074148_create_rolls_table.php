@@ -15,7 +15,7 @@ class CreateRollsTable extends Migration
     {
         Schema::create('rolls', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('frame_id');
+            $table->unsignedInteger('game_id');
             $table->unsignedInteger('pins');
             $table->boolean('pin_1')->default(false);
             $table->boolean('pin_2')->default(false);
@@ -29,9 +29,9 @@ class CreateRollsTable extends Migration
             $table->boolean('pin_10')->default(false);
             $table->timestamps();
 
-            $table->foreign('frame_id')
+            $table->foreign('game_id')
                   ->references('id')
-                  ->on('frames');
+                  ->on('games');
         });
     }
 
@@ -43,7 +43,7 @@ class CreateRollsTable extends Migration
     public function down()
     {
         Schema::table('rolls', function (Blueprint $table) {
-            $table->dropForeign(['frame_id']);
+            $table->dropForeign(['game_id']);
         });
         Schema::dropIfExists('rolls');
     }

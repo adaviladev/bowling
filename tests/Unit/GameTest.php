@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Frame;
 use App\Game;
+use App\Roll;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -31,20 +31,20 @@ class GameTest extends TestCase
     public function it_should_return_a_games_rolls()
     {
         $game = create(Game::class);
-        create(Frame::class, ['game_id' => $game->id], 10);
+        create(Roll::class, ['game_id' => $game->id], 12);
 
-        $queriedFrames = $game->frames()->get();
+        $queriedRolls = $game->rolls()->get();
 
-        $this->assertNotNull($queriedFrames);
-        $this->assertNotNull($game->frames);
+        $this->assertNotNull($queriedRolls);
+        $this->assertNotNull($game->rolls);
     }
 
     /** @test */
-    public function it_should_return_ten_frames_for_completed_games()
+    public function it_should_return_twelve_rolls_for_a_completed_perfect_game()
     {
         $game = create(Game::class, ['complete' => true]);
-        create(Frame::class, ['game_id' => $game->id], 10);
+        create(Roll::class, ['game_id' => $game->id], 12);
 
-        $this->assertCount(10, $game->frames);
+        $this->assertCount(12, $game->rolls);
     }
 }

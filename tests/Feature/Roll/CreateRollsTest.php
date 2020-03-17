@@ -25,7 +25,7 @@ class CreateRollsTest extends TestCase
     }
 
     /** @test */
-    public function when_rolls_are_submitted_ten_frames_should_be_generated_for_the_submitted_game()
+    public function when_rolls_are_submitted_twenty_rolls_should_be_generated_for_the_submitted_game()
     {
         $this->signIn();
         $game = create(Game::class);
@@ -33,13 +33,11 @@ class CreateRollsTest extends TestCase
 
         $this->post(route('rolls.store', ['game' => $game]), $this->getRolls());
 
-        $this->assertCount(10, $game->frames);
+        $this->assertCount(20, $game->rolls);
     }
 
-
-
     /** @test */
-    public function a_gutter_game_should_create_twenty_rolls_across_ten_frames()
+    public function a_gutter_game_should_create_twenty_rolls()
     {
         $this->signIn();
         $game  = create(Game::class);
@@ -49,7 +47,7 @@ class CreateRollsTest extends TestCase
             'rolls' => $rolls->toArray(),
         ]);
 
-        $this->assertEquals(10, $game->frames()->count());
+        $this->assertEquals(20, $game->rolls()->count());
         $this->assertEquals(20, Roll::count());
     }
 }

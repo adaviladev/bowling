@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Frame;
 use App\Game;
 use App\Http\Requests\GameRequest;
 use App\Http\Requests\GameUpdateRequest;
@@ -13,7 +12,6 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
 
 class GamesController extends Controller
 {
@@ -74,7 +72,7 @@ class GamesController extends Controller
     {
         return response(
             [
-                'game' => $game->load('frames.rolls'),
+                'game' => $game->load('rolls'),
             ],
             Response::HTTP_OK
         );
@@ -96,17 +94,8 @@ class GamesController extends Controller
                 'pins' => $roll,
             ]);
         });
-        /** @var Frame $frame */
-        $frame = Frame::make([
-            'game_id' => $game->id,
-            'score'   => 8,
-            'index'   => 1,
-        ]);
-        $game->frames()
-            ->save($frame);
-
-        $frame->rolls()
-             ->saveMany($rolls);
+        $game->rolls()
+            ->saveMany($rolls);
 
         return response([
             'message' => "Game {$game->id} has been successfully updated.",

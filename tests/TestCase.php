@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use App\Frame;
 use App\Roll;
 use App\Exceptions\Handler;
 use App\Game;
@@ -112,7 +111,7 @@ abstract class TestCase extends BaseTestCase
     {
         $bowler = $user ?? $this->user;
         $game = create(Game::class, ['user_id' => $bowler->id]);
-        $this->buildFrames($game);
+        $this->buildRolls($game);
 
         return $game;
     }
@@ -123,26 +122,24 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @param Game  $game
-     * @param array $attributes
+     * @param Game $game
+     *
+     * @throws \Exception
      */
-    protected function buildFrames(Game $game, array $attributes = []): void
+    protected function buildRolls(Game $game): void
     {
         for ($i = 1; $i <= 10; $i++) {
-            $frame = factory(Frame::class)->create([
-                'game_id' => $game->id,
-            ]);
             $roll1 = factory(Roll::class)->create([
-                'frame_id' => $frame->id,
+                'game_id' => $game->id,
             ]);
             $availablePins = 10 - $roll1->pins;
             $roll2 = factory(Roll::class)->create([
-                'frame_id' => $frame->id,
+                'game_id' => $game->id,
                 'pins'     => random_int(0, $availablePins),
             ]);
             if ($i === 10 && ($roll1->pins === 10 || $roll1->pins + $roll2->pins === 10)) {
                 factory(Roll::class)->create([
-                    'frame_id' => $frame->id,
+                    'game_id' => $game->id,
                 ]);
             }
         }

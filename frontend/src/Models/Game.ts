@@ -19,7 +19,7 @@ export default class Game extends Model implements IGame {
   public static defaults: IGame = {
     complete: false,
     created_at: null,
-    frames: [],
+    frames: new Array(10).fill(Frame.make()),
     id: null,
     score: 0,
     user_id: null

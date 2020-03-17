@@ -15,6 +15,10 @@
                     :to="{ name: 'Games' }">
                     Games
                 </router-link>
+                <router-link class="block mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-purple-600"
+                    :to="{ name: 'GameCreate' }">
+                    Create a Game
+                </router-link>
             </div>
             <div v-if="guest">
                 <router-link class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600 mr-4"

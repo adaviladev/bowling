@@ -13,7 +13,7 @@
             </div>
             <div class="roll w-1/2 border-l border-b border-purple-300"
                 v-if="frameIndex === 10"
-                >
+            >
                 {{ rollScore(2) }}
             </div>
         </div>

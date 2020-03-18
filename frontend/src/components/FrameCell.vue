@@ -31,18 +31,18 @@ import {
   Prop,
   Vue
 } from "vue-property-decorator";
-import Frame from "@/Models/Frame";
 import { Score } from "@/types/Score";
+import { IRoll } from '@/Interfaces/interfaces';
 
 @Component
 export default class FrameCell extends Vue {
-  @Prop(Frame) private frame!: Frame;
+  @Prop(Array) private rolls!: IRoll[];
 
   @Prop(Number) private frameIndex!: number;
 
   public rollScore(index: number): Score {
-    if (this.frame.rolls[index]) {
-      return this.frame.rolls[index].pins;
+    if (this.rolls[index]) {
+      return this.rolls[index].pins;
     }
 
     return '-';

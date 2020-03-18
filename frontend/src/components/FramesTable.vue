@@ -23,9 +23,9 @@ import {
   Prop,
   Vue
 } from "vue-property-decorator";
-import Frame from "../Models/Frame";
 import FrameCell from "./FrameCell.vue";
 import Game from '@/Models/Game';
+import { IRoll } from '@/Interfaces/interfaces';
 
 @Component({
   components: {
@@ -33,7 +33,7 @@ import Game from '@/Models/Game';
   }
 })
 export default class FramesTable extends Vue {
-  @Prop(Array) private frames!: Frame[];
+  @Prop(Array) private rolls!: IRoll[];
   @Prop() public game!: Game;
 }
 </script>

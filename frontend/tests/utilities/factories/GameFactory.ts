@@ -12,7 +12,7 @@ export default class GameFactory implements BuilderInterface {
       user_id: faker.random.number(),
       score: faker.random.number(300),
       complete: faker.random.boolean(),
-      frames: Factory.make("Frame", { game_id: gameId }, 10),
+      rolls: Factory.make("Roll", { game_id: gameId }, 20),
       created_at: faker.date.past()
     };
     return Game.make(attributes);

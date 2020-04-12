@@ -2,12 +2,12 @@ import { IRoll } from "@/Interfaces/interfaces";
 import Model from "./Model";
 
 export default class Roll extends Model implements IRoll {
-  public pins: number;
-  public game_id: number | null;
+  public pins: number = 0;
+  public game_id: number | null = null;
 
   private static defaults: IRoll = {
-    pins: 0,
     game_id: null,
+    pins: 0
   };
 
   private constructor(params: IRoll) {
@@ -17,7 +17,7 @@ export default class Roll extends Model implements IRoll {
     this.game_id = attributes.game_id;
   }
 
-  public static make(params: IRoll = Roll.defaults) {
+  public static make(params: IRoll = Roll.defaults): Roll {
     return new Roll(params);
   }
 }

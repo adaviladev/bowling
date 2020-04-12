@@ -1,14 +1,17 @@
 import {
   IGame,
+  IFrame,
   IRoll
 } from "@/Interfaces/interfaces";
 import Model from "./Model";
+import Frame from '@/Models/Frame';
 import Roll from '@/Models/Roll';
 
 export default class Game extends Model implements IGame {
   public static defaults: IGame = {
     complete: false,
     created_at: null,
+    frames: [],
     rolls: [],
     id: null,
     score: 0,
@@ -19,6 +22,7 @@ export default class Game extends Model implements IGame {
 
   public id: number | null = null;
   public score: number = 0;
+  public frames: IFrame[] = [];
   public rolls: IRoll[] = [];
   public complete: boolean = false;
   public created_at: any = null;
@@ -30,7 +34,8 @@ export default class Game extends Model implements IGame {
     this.id = params.id;
     this.user_id = params.user_id;
     this.score = params.score;
-    this.rolls = (params.rolls || []).map(roll => Roll.make(roll));
+    this.frames = (params.frames || []).map(frame => Frame.make(frame as IFrame));
+    this.rolls = (params.rolls || []).map(roll => Roll.make(roll as IRoll));
     this.complete = params.complete;
     this.created_at = params.created_at;
   }

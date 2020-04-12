@@ -2,9 +2,9 @@
     <div class="m-auto w-10/12">
         Game #{{ game.id }}
         <frames-table v-if="game"
-            :data-vue="`game-${id}-frames`"
+            :data-vue="`game-${game.id}-frames`"
             :game="game"
-            :frames="game.frames"/>
+            :rolls="game.rolls"/>
     </div>
 </template>
 

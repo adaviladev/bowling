@@ -1,9 +1,7 @@
 <template>
     <td class="text-center border border-purple-300"
         :class="tenthFrameClass(frameIndex)">
-        <div class="w-full border-b border-purple-300">
-            {{ frameIndex }}
-        </div>
+<!--
         <div class="flex rolls">
             <div class="roll w-1/2">
                 {{ rollScore(0) }}
@@ -17,9 +15,13 @@
                 {{ rollScore(2) }}
             </div>
         </div>
+-->
+        {{ roll.pins }}
         <div class="row text-right">
             <div class="col">
+<!--
                 {{ frame.score }}
+-->
             </div>
         </div>
     </td>
@@ -32,21 +34,21 @@ import {
   Vue
 } from "vue-property-decorator";
 import { Score } from "@/types/Score";
-import { IRoll } from '@/Interfaces/interfaces';
+import Roll from '@/Models/Roll';
 
 @Component
 export default class FrameCell extends Vue {
-  @Prop(Array) private rolls!: IRoll[];
+  @Prop() private roll!: Roll;
 
   @Prop(Number) private frameIndex!: number;
 
-  public rollScore(index: number): Score {
-    if (this.rolls[index]) {
-      return this.rolls[index].pins;
-    }
-
-    return '-';
-  }
+  // public rollScore(index: number): Score {
+  //   if (this.roll.pins === 0) {
+  //     return '-';
+  //   }
+  //
+  //   return this.roll.pins;
+  // }
 
   public tenthFrameClass(index: number): string {
     if (index === 10) {

@@ -27,34 +27,32 @@
     </td>
 </template>
 
-<script lang="ts">
-import {
-  Component,
-  Prop,
-  Vue
-} from "vue-property-decorator";
+<script>
 import { Score } from "@/types/Score";
 import Roll from '@/Models/Roll';
 
-@Component
-export default class FrameCell extends Vue {
-  @Prop() private roll!: Roll;
+export default {
+  props: {
+    roll: {
+      type: Object,
+    },
 
-  @Prop(Number) private frameIndex!: number;
-
-  // public rollScore(index: number): Score {
-  //   if (this.roll.pins === 0) {
-  //     return '-';
-  //   }
-  //
-  //   return this.roll.pins;
-  // }
-
-  public tenthFrameClass(index: number): string {
-    if (index === 10) {
-      return 'w-2/12';
+    frameIndex: {
+      type: Number,
     }
-    return 'w-1/12';
+  },
+
+  data() {
+    return {};
+  },
+
+  methods: {
+    tenthFrameClass (index) {
+      if (index === 10) {
+        return 'w-2/12';
+      }
+      return 'w-1/12';
+    }
   }
 }
 </script>

@@ -1,13 +1,11 @@
-import * as faker from "faker";
-import BuilderInterface from "./BuilderInterface";
+import faker from "faker";
 import Game from "@/Models/Game";
-import { IGame } from "@/Interfaces/interfaces";
 import Factory from "../Factory";
 
-export default class GameFactory implements BuilderInterface {
-  generate(): Game {
+export default class GameFactory {
+  generate() {
     const gameId = faker.random.number();
-    const attributes: IGame = {
+    const attributes = {
       id: gameId,
       user_id: faker.random.number(),
       score: faker.random.number(300),

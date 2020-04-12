@@ -1,11 +1,9 @@
 import * as faker from "faker";
-import BuilderInterface from "./BuilderInterface";
 import User from "@/Models/User";
-import { IUser } from "@/Interfaces/interfaces";
 
-export default class RollFactory implements BuilderInterface {
+export default class RollFactory {
   generate() {
-    const attributes: IUser = {
+    const attributes = {
       id: faker.random.number(),
       first_name: faker.name.firstName(),
       last_name: faker.name.lastName(),

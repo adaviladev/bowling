@@ -1,16 +1,24 @@
 import store from '@/store';
-import { IUser } from '@/Interfaces/interfaces';
 
 export class Auth {
-  public static guest(): boolean {
+  /**
+   * @returns {boolean}
+   */
+  static guest() {
     return !this.check();
   }
 
-  public static check(): boolean {
+  /**
+   * @returns {boolean}
+   */
+  static check() {
     return store.state.user !== null;
   }
 
-  public static user(): IUser | null {
+  /**
+   * @returns {IUser | null}
+   */
+  static user() {
     if (store.state.user !== null) {
       return store.state.user;
     }
@@ -18,8 +26,11 @@ export class Auth {
     return null;
   }
 
-  public static id(): number | null {
-    const user: IUser | null = Auth.user();
+  /**
+   * @returns {number | null}
+   */
+  static id() {
+    const user = Auth.user();
     if (user) {
       return user.id;
     }

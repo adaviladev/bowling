@@ -1,11 +1,9 @@
 import * as faker from "faker";
-import BuilderInterface from "./BuilderInterface";
 import Roll from "@/Models/Roll";
-import { IRoll } from "@/Interfaces/interfaces";
 
-export default class RollFactory implements BuilderInterface {
+export default class RollFactory {
   generate() {
-    const attributes: IRoll = {
+    const attributes = {
       id: faker.random.number(),
       game_id: faker.random.number(),
       pins: faker.random.number(10),

@@ -12,7 +12,7 @@ describe("Game Scoring", () => {
   });
 
   it("should_score_a_game_of_all_ones_as_twenty", () => {
-    const rolls = Factory.make("Roll", { pins: 0 }, 20);
+    const rolls = Factory.make("Roll", { pins: 1 }, 20);
     const game = Game.make();
     game.rolls = rolls;
     game.calculateScore();

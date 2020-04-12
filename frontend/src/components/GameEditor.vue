@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import Game from "@/Models/Game";
 
 export default {

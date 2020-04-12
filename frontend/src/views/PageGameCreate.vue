@@ -5,13 +5,13 @@
     </div>
 </template>
 
-<script lang="ts">
+<script>
 import GameEditor from "@/components/GameEditor.vue";
 
 export default {
-  component: {
+  components: {
     GameEditor,
-  }
+  },
 }
 </script>
 

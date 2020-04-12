@@ -28,9 +28,6 @@
 </template>
 
 <script>
-import { Score } from "@/types/Score";
-import Roll from '@/Models/Roll';
-
 export default {
   props: {
     roll: {

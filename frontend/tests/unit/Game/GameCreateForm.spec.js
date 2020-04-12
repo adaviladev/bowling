@@ -1,8 +1,8 @@
-import { mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 import expect from "expect/build/index";
 import moxios from "moxios";
 import PageGameCreate from "@/views/PageGameCreate.vue";
-import GameEditor from "../frontend/source-code/components/GameEditor.vue";
+import GameEditor from "@/components/GameEditor.vue";
 import Factory from "../../utilities/Factory";
 
 describe("<PageGameCreate/>", () => {
@@ -17,7 +17,7 @@ describe("<PageGameCreate/>", () => {
   });
 
   it("should show the game create form", () => {
-    let wrapper = mount(PageGameCreate);
+    let wrapper = shallowMount(PageGameCreate);
 
     expect(wrapper.find("form#game-create").exists()).toBe(true);
     expect(wrapper.find(GAME_SUBMIT_ID).exists()).toBe(true);

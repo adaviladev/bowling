@@ -24,13 +24,13 @@ export default class Frame extends Model implements IFrame {
   public index: number = -1;
   public created_at: any = null;
 
-  public constructor(params: IFrame = Frame.defaults) {
+  private constructor(params: IFrame = Frame.defaults) {
     super();
     this.id = params.id;
     this.game_id = params.game_id;
     this.score = params.score;
     this.index = params.index;
-    this.rolls = params.rolls.map(roll => new Roll(roll as IRoll));
+    this.rolls = params.rolls.map(roll => Roll.make(roll as IRoll));
     this.created_at = params.created_at;
   }
 

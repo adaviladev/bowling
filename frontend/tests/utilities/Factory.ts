@@ -2,7 +2,6 @@ import GameFactory from "./factories/GameFactory";
 import RollFactory from "./factories/RollFactory";
 import UserFactory from "./factories/UserFactory";
 import BuilderInterface from "./factories/BuilderInterface";
-import FrameFactory from "./factories/FrameFactory";
 import Model from "@/Models/Model";
 
 type BuilderInterfaceObject = {
@@ -12,7 +11,6 @@ type BuilderInterfaceObject = {
 export default class Factory {
   static models: BuilderInterfaceObject = {
     Game: new GameFactory(),
-    Frame: new FrameFactory(),
     Roll: new RollFactory(),
     User: new UserFactory(),
   };

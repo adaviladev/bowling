@@ -7,6 +7,7 @@ interface IGame extends IEntity {
   user_id: number | null;
   score: number;
   frames: IFrame[];
+  rolls: IRoll[];
   complete: boolean;
   created_at: any;
 }
@@ -22,6 +23,7 @@ interface IFrame extends IEntity {
 
 interface IRoll extends IEntity {
   pins: number;
+  game_id: number | null;
 }
 
 interface IUser {

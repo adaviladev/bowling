@@ -2,9 +2,9 @@
     <div class="m-auto w-10/12">
         Game #{{ game.id }}
         <frames-table v-if="game"
-            :data-vue="`game-${id}-frames`"
+            :data-vue="`game-${game.id}-frames`"
             :game="game"
-            :frames="game.frames"/>
+            :rolls="game.rolls"/>
     </div>
 </template>
 
@@ -18,9 +18,9 @@ import {
 import FramesTable from "@/components/FramesTable.vue";
 import Game from "../Models/Game";
 import {
-  IFrame,
-  IGame
-} from "@/Interfaces/interfaces";
+  IGame,
+  IRoll
+} from '@/Interfaces/interfaces';
 
 @Component({
   components: {
@@ -37,8 +37,8 @@ export default class PageGameShow extends Vue {
     });
   }
 
-  get frames(): IFrame[] {
-    return this.game.frames;
+  get rolls(): IRoll[] {
+    return this.game.rolls;
   }
 }
 </script>

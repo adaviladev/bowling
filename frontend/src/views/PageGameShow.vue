@@ -1,7 +1,7 @@
 <template>
     <div class="m-auto w-10/12">
         Game #{{ game.id }}
-        <frames-table v-if="game"
+        <FramesTable v-if="game"
             :data-vue="`game-${game.id}-frames`"
             :game="game"
             :rolls="game.rolls"/>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import FramesTable from "@/components/FramesTable.vue";
 import Game from "@/Models/Game";
 

@@ -1,7 +1,7 @@
 <template>
     <form id="game-create"
         @submit.prevent="saveGame">
-        <button class="btn btn-info"
+        <button class="btn btn-info btn-primary"
             id="game-store"
             type="submit">
             Create
@@ -9,27 +9,29 @@
     </form>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+<script>
 import axios, { AxiosResponse } from "axios";
-import Game from "../Models/Game";
-import { IGame } from "@/Interfaces/interfaces";
+import Game from "@/Models/Game";
 
-@Component
-export default class GameEditor extends Vue {
-  public game: Game = Game.make({} as IGame);
+export default {
+  data () {
+    return {
+      game: Game.make(),
+    };
+  },
 
-  public saveGame(): void {
-    axios
-      .post("/api/games/", {
-        game: this.game
-      })
-      .then((response: AxiosResponse) => {
-        // console.log("response:", response);
-        // this.game = Game.make(response.data.game as IGame);
-        // console.log(this.game);
-      });
+  methods: {
+    saveGame () {
+      axios
+        .post('/api/games/', {
+          game: this.game,
+        })
+        .then((response) => {
+          // console.log("response:", response);
+          // this.game = Game.make(response.data.game as IGame);
+          // console.log(this.game);
+        });
+    }
   }
 }
 </script>

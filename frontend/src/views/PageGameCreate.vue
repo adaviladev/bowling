@@ -6,18 +6,13 @@
 </template>
 
 <script lang="ts">
-import {
-  Component,
-  Vue
-} from "vue-property-decorator";
 import GameEditor from "@/components/GameEditor.vue";
 
-@Component({
-  components: {
-    GameEditor
+export default {
+  component: {
+    GameEditor,
   }
-})
-export default class PageGameCreate extends Vue {}
+}
 </script>
 
 <style scoped></style>

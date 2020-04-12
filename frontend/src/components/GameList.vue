@@ -11,29 +11,30 @@
     </div>
 </template>
 
-<script lang="ts">
-import axios, { AxiosResponse } from "axios";
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+<script>
+import axios from 'axios';
 
 import GameListItem from './GameListItem.vue';
 
-@Component({
+export default {
   components: {
     GameListItem,
   },
-})
-export default class GameList extends Vue {
-    public games: object[] = [];
 
-    public created(): void {
-      axios.get('/api/games')
-        .then((response: AxiosResponse) => {
-          this.games = response.data.games;
-        })
-        .catch((error: AxiosResponse) => {
-        });
+  data () {
+    return {
+      games: [],
     }
+  },
+
+  created () {
+    axios.get('/api/games')
+      .then((response) => {
+        this.games = response.data.games;
+      })
+      .catch((error) => {
+      });
+  }
 }
 </script>
 

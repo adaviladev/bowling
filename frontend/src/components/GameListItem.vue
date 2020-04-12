@@ -22,28 +22,27 @@
     </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import {
-  Component,
-  Prop
-} from "vue-property-decorator";
-import { IGame } from "@/Interfaces/interfaces";
-
-@Component
-export default class GameListItem extends Vue {
-  @Prop(Object) public readonly game!: IGame;
-
-  get performanceClass(): string {
-    if (this.game.score >= 200) {
-      return "bg-green-300";
+<script>
+export default {
+  props: {
+    game: {
+      required: true,
+      type: Object,
     }
-    if (this.game.score >= 100) {
-      return "bg-yellow-300";
-    }
+  },
 
-    return "bg-red-300";
-  }
+  computed: {
+    performanceClass () {
+      if (this.game.score >= 200) {
+        return "bg-green-300";
+      }
+      if (this.game.score >= 100) {
+        return "bg-yellow-300";
+      }
+
+      return "bg-red-300";
+    }
+  },
 }
 </script>
 

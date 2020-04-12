@@ -1,15 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { IUser } from '@/Interfaces/interfaces';
 
 Vue.use(Vuex);
 
-interface StateInterface {
-  user: IUser | null,
-  token: number|null;
-}
-
-const state: StateInterface = {
+const state = {
   user: null,
   token: null,
 };
@@ -17,28 +11,28 @@ const state: StateInterface = {
 export const storeConfig = {
   state,
   mutations: {
-    setUser(state: any, user: IUser) {
+    setUser(state, user) {
       state.user = user;
     },
-    setToken(state: any, token: string) {
+    setToken(state, token) {
       state.token = token;
     },
-    unsetUser(state: any) {
+    unsetUser(state) {
       state.user = null;
     },
-    unsetToken(state: any) {
+    unsetToken(state) {
       state.token = null;
     }
   },
   actions: {
-    login({ state, commit }: any, payload: any) {
+    login({ state, commit }, payload) {
       if (!state.user) {
         commit('setUser', payload.user);
         commit('setToken', payload.token);
       }
     },
 
-    logout({ state, commit }: any) {
+    logout({ state, commit }) {
       if (state.user) {
         commit('unsetUser');
         commit('unsetToken');

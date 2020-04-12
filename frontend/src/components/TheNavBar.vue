@@ -15,6 +15,10 @@
                     :to="{ name: 'Games' }">
                     Games
                 </router-link>
+                <router-link class="block mt-4 lg:inline-block lg:mt-0 mr-4 hover:text-purple-600"
+                    :to="{ name: 'GameCreate' }">
+                    Create
+                </router-link>
             </div>
             <div v-if="guest">
                 <router-link class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600 mr-4"
@@ -34,30 +38,31 @@
     </nav>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import { Component, Watch } from 'vue-property-decorator';
+<script>
 import axios from 'axios';
 import { mapState } from 'vuex';
 
-@Component({
-  computed: mapState(['user'])
-})
-export default class TheNavBar extends Vue {
-  @Watch('user')
-  onAuthCheckChange(value?: object, oldValue?: object): boolean {
-    return this.$store.state.user;
-  }
+export default {
+  computed: {
+    ...mapState(['user']),
+    guest () {
+      return this.$store.state.user === null;
+    }
+  },
 
-  public logout(): void {
-    axios.post('/api/logout');
-    this.$store.dispatch('logout');
-    this.$router.push({ name: 'Home' })
-  }
+  methods: {
+    logout () {
+      axios.post('/api/logout');
+      this.$store.dispatch('logout');
+      this.$router.push({ name: 'Home' })
+    }
+  },
 
-  get guest(): boolean {
-    return this.$store.state.user === null;
-  }
+  watch: {
+    user (value, oldValue) {
+      return this.$store.state.user;
+    }
+  },
 }
 </script>
 

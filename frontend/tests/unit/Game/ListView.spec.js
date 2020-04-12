@@ -1,6 +1,5 @@
 import {
   mount,
-  shallowMount
 } from "@vue/test-utils";
 import expect from "expect/build/index";
 import GameList from "@/components/GameList.vue";

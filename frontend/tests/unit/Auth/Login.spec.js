@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from 'vuex';
-import expect from "expect";
+import expect from 'expect';
 
 import Login from '@/views/Login.vue';
 

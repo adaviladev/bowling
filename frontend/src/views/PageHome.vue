@@ -4,12 +4,9 @@
     </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+<script>
 
-@Component
-export default class PageHome extends Vue {}
+export default {}
 </script>
 
 <style scoped></style>

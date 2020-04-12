@@ -1,24 +1,26 @@
-<script lang="ts">
-import {
-  Component,
-  Prop,
-  Vue
-} from "vue-property-decorator";
-import Roll from "../Models/Roll";
+<script>
 import FrameCell from "./FrameCell.vue";
-import Game from '@/Models/Game';
-import { IRoll } from '@/Interfaces/interfaces';
 
-@Component({
+export default {
   components: {
-    FrameCell
-  }
-})
-export default class FramesTable extends Vue {
-  @Prop(Array) private rolls!: IRoll[];
-  @Prop() public game!: Game;
+    FrameCell,
+  },
 
-  private MAX_FRAMES = 10;
+  props: {
+    rolls: {
+      type: Array,
+    },
+
+    game: {
+      type: Object,
+    }
+  },
+
+  data: () => {
+    return {
+      maxFrames: 10,
+    };
+  },
 }
 </script>
 
@@ -27,7 +29,7 @@ export default class FramesTable extends Vue {
         class="table-auto w-full">
         <thead>
             <tr>
-                <td :key="`frames-${index}`" v-for="index in MAX_FRAMES">
+                <td :key="`frames-${index}`" v-for="index in maxFrames">
                     {{ index }}
                 </td>
             </tr>

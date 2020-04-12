@@ -5,19 +5,14 @@
     </div>
 </template>
 
-<script lang="ts">
-import {
-  Component,
-  Vue
-} from "vue-property-decorator";
+<script>
 import GameEditor from "@/components/GameEditor.vue";
 
-@Component({
+export default {
   components: {
-    GameEditor
-  }
-})
-export default class PageGameCreate extends Vue {}
+    GameEditor,
+  },
+}
 </script>
 
 <style scoped></style>

@@ -1,44 +1,40 @@
 <template>
     <div class="m-auto w-10/12">
         Game #{{ game.id }}
-        <frames-table v-if="game"
+        <FramesTable v-if="game"
             :data-vue="`game-${game.id}-frames`"
             :game="game"
             :rolls="game.rolls"/>
     </div>
 </template>
 
-<script lang="ts">
-import axios, { AxiosResponse } from "axios";
-import {
-  Component,
-  Prop,
-  Vue
-} from "vue-property-decorator";
+<script>
+import axios from "axios";
 import FramesTable from "@/components/FramesTable.vue";
-import Game from "../Models/Game";
-import {
-  IGame,
-  IRoll
-} from '@/Interfaces/interfaces';
+import Game from "@/Models/Game";
 
-@Component({
+export default {
   components: {
-    FramesTable
-  }
-})
-export default class PageGameShow extends Vue {
-  public game: Game = {} as Game;
+    FramesTable,
+  },
 
-  public created(): void {
-    axios.get(`/api/games/${this.$route.params.id}`).then(({ data }: AxiosResponse) => {
-      this.game = Game.make(data.game as IGame);
+  data () {
+    return {
+      game: Game.make(),
+    };
+  },
+
+  created () {
+    axios.get(`/api/games/${this.$attrs.id}`).then(({ data }) => {
+      this.game = Game.make(data.game);
       this.game.calculateScore();
     });
-  }
+  },
 
-  get rolls(): IRoll[] {
-    return this.game.rolls;
+  computed: {
+    rolls () {
+      return this.game.rolls;
+    }
   }
 }
 </script>

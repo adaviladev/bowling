@@ -110,36 +110,39 @@
     </div>
 </template>
 
-<script lang="ts">
-import axios, { AxiosResponse } from 'axios';
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+<script>
+import axios from 'axios';
 
-@Component
-export default class Register extends Vue {
-  public firstName: string = '';
-  public lastName: string = '';
-  public email: string = '';
-  public password: string = '';
-  public passwordConfirmation: string = '';
-  public token: string = '';
-  public message?: string;
-  public errors: Object[] = [];
+export default {
+  data () {
+    return {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      token: '',
+      message: '',
+      errors: [],
+    };
+  },
 
-  public register(): void {
-    axios.post('/api/register',
-      {
-        first_name: this.firstName,
-        last_name: this.lastName,
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.passwordConfirmation,
-      })
-      .then(({ data }: AxiosResponse) => {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
-        this.$store.dispatch('login', data);
-        this.$router.push({ name: 'Games' })
-      });
+  methods: {
+    register () {
+      axios.post('/api/register',
+        {
+          first_name: this.firstName,
+          last_name: this.lastName,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.passwordConfirmation,
+        })
+        .then(({ data }) => {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
+          this.$store.dispatch('login', data);
+          this.$router.push({ name: 'Games' })
+        });
+    }
   }
 }
 </script>

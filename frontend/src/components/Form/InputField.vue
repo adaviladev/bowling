@@ -16,23 +16,29 @@
     </label>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
+<script>
+export default {
+  props: {
+    label: {
+      required: true,
+      type: String,
+    },
 
-@Component
-export default class InputField extends Vue {
-  @Prop(String)
-  public label!: string;
+    forField: {
+      required: true,
+      type: String,
+    },
 
-  @Prop(String)
-  public forField!: string;
+    value: {
+      required: true,
+      type: String,
+    },
+  },
 
-  @Prop(String)
-  public value!: string;
-
-  public updateValue(value: string) {
-    this.$emit('input', value)
+  methods: {
+    updateValue (value: string) {
+      this.$emit('input', value)
+    }
   }
 }
 </script>

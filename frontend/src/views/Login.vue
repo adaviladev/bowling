@@ -66,35 +66,39 @@
     </div>
 </template>
 
-<script lang="ts">
-import axios, { AxiosResponse } from 'axios';
+<script>
+import axios from 'axios';
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
 
-@Component
-export default class Login extends Vue {
-  public email: string = '';
-  public password: string = '';
-  public token: string = '';
-  public message?: string;
-  public errors: Object[] = [];
+export default {
+  data () {
+    return {
+      email: '',
+      password: '',
+      token: '',
+      message: '',
+      errors: [],
+    };
+  },
 
-  public login(): void {
-    axios.post('/api/login',
-      {
-        email: this.email,
-        password: this.password,
-      })
-      .then(({ data }: AxiosResponse) => {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
-        this.$store.dispatch('login', data);
-        this.$router.push({ name: 'Games' })
-      })
-      .catch((error: AxiosResponse) => {
-        // this.errors = error.errors;
-        // this.message = error.message;
-      });
-  }
+  methods: {
+    login () {
+      axios.post('/api/login',
+        {
+          email: this.email,
+          password: this.password,
+        })
+        .then(({ data }) => {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
+          this.$store.dispatch('login', data);
+          this.$router.push({ name: 'Games' })
+        })
+        .catch((error) => {
+          // this.errors = error.errors;
+          // this.message = error.message;
+        });
+    }
+  },
 }
 </script>
 

@@ -25,7 +25,7 @@ export default {
   },
 
   created () {
-    axios.get(`/api/games/${this.$route.params.id}`).then(({ data }) => {
+    axios.get(`/api/games/${this.$attrs.id}`).then(({ data }) => {
       this.game = Game.make(data.game);
       this.game.calculateScore();
     });

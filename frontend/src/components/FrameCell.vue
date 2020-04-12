@@ -1,22 +1,24 @@
 <template>
     <td class="text-center border border-purple-300"
         :class="tenthFrameClass(frameIndex)">
-<!--
-        <div class="flex rolls">
-            <div class="roll w-1/2">
-                {{ rollScore(0) }}
-            </div>
-            <div class="roll w-1/2 border-l border-b border-purple-300">
-                {{ rollScore(1) }}
-            </div>
-            <div class="roll w-1/2 border-l border-b border-purple-300"
-                v-if="frameIndex === 10"
-            >
-                {{ rollScore(2) }}
-            </div>
+        <div class="roll w-1/2">
+            {{ roll.pins }}
         </div>
--->
-        {{ roll.pins }}
+        <!--
+                <div class="flex rolls">
+                    <div class="roll w-1/2">
+                        {{ rollScore(0) }}
+                    </div>
+                    <div class="roll w-1/2 border-l border-b border-purple-300">
+                        {{ rollScore(1) }}
+                    </div>
+                    <div class="roll w-1/2 border-l border-b border-purple-300"
+                        v-if="frameIndex === 10"
+                    >
+                        {{ rollScore(2) }}
+                    </div>
+                </div>
+        -->
         <div class="row text-right">
             <div class="col">
 <!--

@@ -1,22 +1,20 @@
 import Game from "@/Models/Game";
 import {
   mount,
-  shallowMount
+  shallowMount,
+  createLocalVue
 } from "@vue/test-utils";
 import expect from "expect/build/index";
-import axios, {
-  AxiosInstance,
-  AxiosResponse
-} from "axios";
+import axios from "axios";
 import moxios from "moxios";
+import VueRouter from 'vue-router';
 import Factory from "../../utilities/Factory";
 import GameShow from "@/views/PageGameShow.vue";
 
 describe("Showing a game", () => {
-  let axiosInstance: AxiosInstance;
+  let axiosInstance;
 
   beforeEach(() => {
-    // axiosInstance = axios.create();
     moxios.install();
   });
 
@@ -29,15 +27,18 @@ describe("Showing a game", () => {
     let game = Factory.make("Game", { id: 1 });
     game.calculateScore();
 
-    const wrapper = shallowMount(GameShow, {
-      propsData: {
-        id: game.id
-      }
-    });
-    moxios.stubRequest(/api\/games\/.+/, {
+    const localVue = createLocalVue();
+    localVue.use(VueRouter);
+    moxios.stubRequest(/api\/games\/\d+/, {
       response: {
         game
       }
+    });
+    const wrapper = shallowMount(GameShow, {
+      localVue,
+      propsData: {
+        id: game.id
+      },
     });
     moxios.wait(() => {
       expect(wrapper.vm.$data.game.id).toEqual(game.id);
@@ -47,15 +48,26 @@ describe("Showing a game", () => {
 
   });
 
-  it("should_render_the_FramesTable_component", () => {
+  it("should_render_the_FramesTable_component", (done) => {
     let game = Factory.make("Game", { id: 42 });
     game.frames = Factory.make("Frame", { gameId: game.id }, 10);
-    const wrapper = mount(GameShow, {
-      propsData: {
-        id: game.id
+    moxios.stubRequest(/api\/games\/\d+/, {
+      response: {
+        game
       }
     });
+    const localVue = createLocalVue();
+    localVue.use(VueRouter);
+    const wrapper = mount(GameShow, {
+      localVue,
+      propsData: {
+        id: game.id
+      },
+    });
+    moxios.wait(() => {
+      expect(wrapper.html()).toContain("game-42-frames");
+      done();
+    });
 
-    expect(wrapper.html()).toContain("game-42-frames");
   });
 });

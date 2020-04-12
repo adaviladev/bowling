@@ -1,4 +1,4 @@
-import { shallowMount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import expect from "expect/build/index";
 import moxios from "moxios";
 import PageGameCreate from "@/views/PageGameCreate.vue";
@@ -17,9 +17,9 @@ describe("<PageGameCreate/>", () => {
   });
 
   it("should show the game create form", () => {
-    let wrapper = shallowMount(PageGameCreate);
+    let wrapper = mount(PageGameCreate);
 
-    expect(wrapper.find("form#game-create").exists()).toBe(true);
+    expect(wrapper.contains("form#game-create")).toBe(true);
     expect(wrapper.find(GAME_SUBMIT_ID).exists()).toBe(true);
   });
 

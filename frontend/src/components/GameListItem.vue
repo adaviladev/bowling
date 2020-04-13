@@ -8,8 +8,7 @@
             <div class="px-6 py-4">
                 <div class="font-bold py-4">
                     <p>
-                        Game #{{ game.id }} -
-                        <small>created on {{ game.created_at }}</small>
+                        Game #{{ game.id }} - <small>created on {{ game.created_at }}</small>
                     </p>
                 </div>
                 <router-link class="btn btn-primary text-white"
@@ -32,7 +31,7 @@ export default {
   },
 
   computed: {
-    performanceClass () {
+    performanceClass() {
       if (this.game.score >= 200) {
         return "bg-green-300";
       }

@@ -1,5 +1,5 @@
-import Model from "./Model";
-import Roll from "./Roll";
+import Model from './Model';
+import Roll from './Roll';
 
 export default class Frame extends Model {
   static defaults = {
@@ -8,7 +8,7 @@ export default class Frame extends Model {
     id: null,
     index: 0,
     rolls: [],
-    score: 0
+    score: 0,
   };
 
   id = null;

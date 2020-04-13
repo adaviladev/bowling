@@ -21,13 +21,13 @@ export default {
     GameListItem,
   },
 
-  data () {
+  data() {
     return {
       games: [],
     }
   },
 
-  created () {
+  created() {
     axios.get('/api/games')
       .then((response) => {
         this.games = response.data.games;

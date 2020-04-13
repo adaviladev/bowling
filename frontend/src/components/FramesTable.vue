@@ -25,14 +25,14 @@ export default {
 </script>
 
 <template>
-    <table
-        class="table-auto w-full">
+    <table class="table-auto w-full">
         <thead>
-            <tr>
-                <td :key="`frames-${index}`" v-for="index in maxFrames">
-                    {{ index }}
-                </td>
-            </tr>
+        <tr>
+            <td :key="`frames-${index}`"
+                v-for="index in maxFrames">
+                {{ index }}
+            </td>
+        </tr>
         </thead>
         <tbody>
         <tr class="border border-purple-300">

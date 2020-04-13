@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
@@ -22,7 +22,7 @@ export const storeConfig = {
     },
     unsetToken(state) {
       state.token = null;
-    }
+    },
   },
   actions: {
     login({ state, commit }, payload) {
@@ -37,9 +37,9 @@ export const storeConfig = {
         commit('unsetUser');
         commit('unsetToken');
       }
-    }
+    },
   },
-  modules: {}
+  modules: {},
 };
 
 export default new Vuex.Store(storeConfig);

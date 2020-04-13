@@ -18,13 +18,13 @@ export default {
     FramesTable,
   },
 
-  data () {
+  data() {
     return {
       game: Game.make(),
     };
   },
 
-  created () {
+  created() {
     axios.get(`/api/games/${this.$attrs.id}`).then(({ data }) => {
       this.game = Game.make(data.game);
       this.game.calculateScore();
@@ -32,7 +32,7 @@ export default {
   },
 
   computed: {
-    rolls () {
+    rolls() {
       return this.game.rolls;
     }
   }

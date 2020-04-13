@@ -14,14 +14,14 @@ import axios from "axios";
 import Game from "@/Models/Game";
 
 export default {
-  data () {
+  data() {
     return {
       game: Game.make(),
     };
   },
 
   methods: {
-    saveGame () {
+    saveGame() {
       axios
         .post('/api/games/', {
           game: this.game,

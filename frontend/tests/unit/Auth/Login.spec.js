@@ -1,4 +1,7 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import {
+  createLocalVue,
+  mount,
+} from '@vue/test-utils';
 import Vuex from 'vuex';
 import expect from 'expect';
 
@@ -7,7 +10,7 @@ import Login from '@/views/Login.vue';
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe("<Login/>", () => {
+describe('<Login/>', () => {
   it('should show the login form', () => {
     let wrapper = mount(Login);
 
@@ -20,9 +23,12 @@ describe("<Login/>", () => {
     const store = new Vuex.Store({
       actions: {
         login: loginMock,
-      }
+      },
     });
-    let wrapper = mount(Login, { store, localVue });
+    let wrapper = mount(Login, {
+      store,
+      localVue,
+    });
 
     wrapper.find('#email')
       .setValue('test@example.test');

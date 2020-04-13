@@ -1,4 +1,4 @@
-import Model from "./Model";
+import Model from './Model';
 import Frame from '@/Models/Frame';
 import Roll from '@/Models/Roll';
 
@@ -10,7 +10,7 @@ export default class Game extends Model {
     rolls: [],
     id: null,
     score: 0,
-    user_id: null
+    user_id: null,
   };
 
   user_id = null;

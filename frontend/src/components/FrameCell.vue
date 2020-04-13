@@ -21,9 +21,9 @@
         -->
         <div class="row text-right">
             <div class="col">
-<!--
-                {{ frame.score }}
--->
+                <!--
+                                {{ frame.score }}
+                -->
             </div>
         </div>
     </td>
@@ -46,7 +46,7 @@ export default {
   },
 
   methods: {
-    tenthFrameClass (index) {
+    tenthFrameClass(index) {
       if (index === 10) {
         return 'w-2/12';
       }

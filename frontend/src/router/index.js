@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   // Authentication
   {
@@ -44,14 +44,14 @@ const routes = [
   {
     path: '/games/create',
     name: 'GameCreate',
-    component: GameCreate
+    component: GameCreate,
   },
 ];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

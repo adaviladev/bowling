@@ -1,4 +1,4 @@
-import Model from "./Model";
+import Model from './Model';
 
 export default class Roll extends Model {
   pins = 0;
@@ -6,7 +6,7 @@ export default class Roll extends Model {
 
   static defaults = {
     game_id: null,
-    pins: 0
+    pins: 0,
   };
 
   constructor(params) {

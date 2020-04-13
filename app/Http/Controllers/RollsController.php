@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Frame;
 use App\Game;
 use App\Http\Requests\RollRequest;
 use Illuminate\Http\Request;
@@ -23,10 +22,8 @@ class RollsController extends Controller
 
         $game->calculateScore($rolls);
 
-        $game->frames()->saveMany($game->frames);
-        $game->frames->each(static function (Frame $frame) {
-            $frame->rolls()->saveMany($frame->rolls);
-        });
+        $game->rolls()
+            ->saveMany($game->rolls);
     }
 
     /**

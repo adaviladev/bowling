@@ -12,6 +12,7 @@
     "test": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "latest",
     "core-js": "^3.4.3",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
@@ -20,13 +21,9 @@
     "vuex": "^3.1.2"
   },
   "devDependencies": {
-    "@types/faker": "^4.1.8",
-    "@types/jest": "^24.0.19",
-    "@types/moxios": "^0.4.9",
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",
     "@vue/cli-plugin-router": "^4.1.0",
-    "@vue/cli-plugin-typescript": "^4.1.0",
     "@vue/cli-plugin-unit-jest": "^4.1.0",
     "@vue/cli-plugin-vuex": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
@@ -37,6 +34,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",
+    "expect": "^25.3.0",
     "faker": "^4.1.0",
     "moxios": "^0.4.0",
     "prettier": "^1.19.1",

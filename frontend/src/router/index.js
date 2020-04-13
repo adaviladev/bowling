@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import Login from '../views/Login.vue';
-import Register from '../views/Register.vue';
+import Home from '@/views/Home.vue';
+import Login from '@/views/Login.vue';
+import Register from '@/views/Register.vue';
 import GameList from '@/components/GameList.vue';
 import GameShow from '@/views/PageGameShow.vue';
 import GameCreate from '@/views/PageGameCreate.vue';
@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   // Authentication
   {
@@ -51,7 +51,7 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

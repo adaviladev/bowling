@@ -15,33 +15,35 @@
     </form>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import axios, { AxiosResponse } from "axios";
-import Game from "../Models/Game";
+<script>
+import axios from "axios";
 import FramesTable from "@/components/FramesTable.vue";
-import { IGame } from "@/Interfaces/interfaces";
+import Game from "@/Models/Game";
 import Frame from '@/Models/Frame';
 
-@Component({
+export default {
   components: {
     FramesTable,
-  }
-})
-export default class GameEditor extends Vue {
-  public game: Game = Game.make();
+  },
 
-  public saveGame(): void {
-    axios
-      .post("/api/games", {
-        game: this.game
-      })
-      .then((response: AxiosResponse) => {
-        // console.log("response:", response);
-        // this.game = Game.make(response.data.game as IGame);
-        // console.log(this.game);
-      });
+  data() {
+    return {
+      game: Game.make(),
+    };
+  },
+
+  methods: {
+    saveGame() {
+      axios
+        .post('/api/games', {
+          game: this.game,
+        })
+        .then((response) => {
+          // console.log("response:", response);
+          // this.game = Game.make(response.data.game as IGame);
+          // console.log(this.game);
+        });
+    }
   }
 }
 </script>

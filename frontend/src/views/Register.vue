@@ -79,22 +79,17 @@
 
                             <div class="md:flex md:items-center mb-6">
                                 <div class="md:w-1/3"></div>
-                                <label class="md:w-2/3 block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight"
-                                        type="checkbox"
-                                    >
-                                        <span class="text-sm">
+                                <label class="md:w-2/3 block text-gray-500 font-bold"> <input class="mr-2 leading-tight"
+                                    type="checkbox"> <span class="text-sm">
                                             Remember Me
-                                        </span>
-                                </label>
+                                        </span> </label>
                             </div>
 
                             <div class="md:flex md:items-center">
                                 <div class="md:w-1/3"></div>
                                 <div class="md:w-2/3">
                                     <button class="shadow btn btn-primary w-full focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                        type="submit"
-                                    >
+                                        type="submit">
                                         Login
                                     </button>
 
@@ -110,36 +105,39 @@
     </div>
 </template>
 
-<script lang="ts">
-import axios, { AxiosResponse } from 'axios';
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+<script>
+import axios from 'axios';
 
-@Component
-export default class Register extends Vue {
-  public firstName: string = '';
-  public lastName: string = '';
-  public email: string = '';
-  public password: string = '';
-  public passwordConfirmation: string = '';
-  public token: string = '';
-  public message?: string;
-  public errors: Object[] = [];
+export default {
+  data() {
+    return {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      token: '',
+      message: '',
+      errors: [],
+    };
+  },
 
-  public register(): void {
-    axios.post('/api/register',
-      {
-        first_name: this.firstName,
-        last_name: this.lastName,
-        email: this.email,
-        password: this.password,
-        password_confirmation: this.passwordConfirmation,
-      })
-      .then(({ data }: AxiosResponse) => {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
-        this.$store.dispatch('login', data);
-        this.$router.push({ name: 'Games' })
-      });
+  methods: {
+    register() {
+      axios.post('/api/register',
+        {
+          first_name: this.firstName,
+          last_name: this.lastName,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.passwordConfirmation,
+        })
+        .then(({ data }) => {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
+          this.$store.dispatch('login', data);
+          this.$router.push({ name: 'Games' })
+        });
+    }
   }
 }
 </script>

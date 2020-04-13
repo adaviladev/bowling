@@ -35,22 +35,17 @@
 
                             <div class="md:flex md:items-center mb-6">
                                 <div class="md:w-1/3"></div>
-                                <label class="md:w-2/3 block text-gray-500 font-bold">
-                                    <input class="mr-2 leading-tight"
-                                        type="checkbox"
-                                    >
-                                        <span class="text-sm">
+                                <label class="md:w-2/3 block text-gray-500 font-bold"> <input class="mr-2 leading-tight"
+                                    type="checkbox"> <span class="text-sm">
                                             Remember Me
-                                        </span>
-                                </label>
+                                        </span> </label>
                             </div>
 
                             <div class="md:flex md:items-center">
                                 <div class="md:w-1/3"></div>
                                 <div class="md:w-2/3">
                                     <button class="shadow btn btn-primary w-full focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                                        type="submit"
-                                    >
+                                        type="submit">
                                         Login
                                     </button>
 
@@ -66,34 +61,38 @@
     </div>
 </template>
 
-<script lang="ts">
-import axios, { AxiosResponse } from 'axios';
+<script>
+import axios from 'axios';
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
 
-@Component
-export default class Login extends Vue {
-  public email: string = '';
-  public password: string = '';
-  public token: string = '';
-  public message?: string;
-  public errors: Object[] = [];
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      token: '',
+      message: '',
+      errors: [],
+    };
+  },
 
-  public login(): void {
-    axios.post('/api/login',
-      {
-        email: this.email,
-        password: this.password,
-      })
-      .then(({ data }: AxiosResponse) => {
-        this.$store.dispatch('login', data);
-        this.$router.push({ name: 'Games' })
-      })
-      .catch((error: AxiosResponse) => {
-        // this.errors = error.errors;
-        // this.message = error.message;
-      });
-  }
+  methods: {
+    login() {
+      axios.post('/api/login',
+        {
+          email: this.email,
+          password: this.password,
+        })
+        .then(({ data }) => {
+          this.$store.dispatch('login', data);
+          this.$router.push({ name: 'Games' })
+        })
+        .catch((error) => {
+          // this.errors = error.errors;
+          // this.message = error.message;
+        });
+    }
+  },
 }
 </script>
 

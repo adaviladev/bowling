@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Game;
 
-use App\Frame;
 use App\Game;
 use App\Roll;
 use Illuminate\Auth\AuthenticationException;
@@ -49,7 +48,7 @@ class CreateGamesTest extends TestCase
     }
 
     /** @test */
-    public function it_should_create_one_frame_with_two_rolls()
+    public function it_should_create_one_game_with_two_rolls()
     {
         $this->signIn();
         $game = create(Game::class, ['user_id' => $this->user->id]);
@@ -60,20 +59,4 @@ class CreateGamesTest extends TestCase
 
         $this->assertCount(2, $game->rolls);
     }
-
-    ///** @test */
-    //public function a_game_should_be_loaded_with_its_related_frames_in_order(): void
-    //{
-    //    $game = create(Game::class);
-    //    $this->rollTimes(20, 0);
-    //
-    //    $this->post($game->path() . '/rolls', [
-    //        'rolls' => $this->rolls
-    //    ]);
-    //    /** @var Frame $frames */
-    //    $frames = $game->frames;
-    //    $frameIndices = $frames->pluck('index')->toArray();
-    //
-    //    $this->assertEquals([1,2,3,4,5,6,7,8,9,10], $frameIndices);
-    //}
 }

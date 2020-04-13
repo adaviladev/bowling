@@ -7,17 +7,15 @@
     </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+<script>
 import TheNavBar from './components/TheNavBar.vue';
 
-@Component({
+export default {
   components: {
     TheNavBar
   },
-})
-export default class App extends Vue {
-  public created () {
+
+  created () {
     this.$store.dispatch('checkLocalStorage');
   }
 }

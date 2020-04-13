@@ -1,9 +1,10 @@
 <template>
     <td class="text-center border border-purple-300"
         :class="tenthFrameClass(frameIndex)">
-        <div class="w-full border-b border-purple-300">
-            {{ frameIndex }}
+        <div class="roll w-1/2">
+            {{ roll.pins }}
         </div>
+<!--
         <div class="flex rolls">
             <div class="roll w-1/2">
                 <input
@@ -41,44 +42,44 @@
                 </span>
             </div>
         </div>
+-->
         <div class="row text-right">
             <div class="col">
-                {{ frame.score }}
+                <!--
+                                {{ frame.score }}
+                -->
             </div>
         </div>
     </td>
 </template>
 
-<script lang="ts">
-import {
-  Component,
-  Prop,
-  Vue
-} from "vue-property-decorator";
-import Frame from "@/Models/Frame";
-import { Score } from "@/types/Score";
+<script>
+export default {
+  props: {
+    roll: {
+      type: Object,
+    },
 
-@Component
-export default class FrameCell extends Vue {
-  @Prop(Frame) private frame!: Frame;
+    frameIndex: {
+      type: Number,
+    },
 
-  @Prop(Number) private frameIndex!: number;
-
-  @Prop(Boolean) private editing!: boolean;
-
-  public rollScore(index: number): Score {
-    if (this.frame.rolls[index]) {
-      return this.frame.rolls[index].pins;
+    editing: {
+      type: Boolean,
     }
+  },
 
-    return '-';
-  }
+  data() {
+    return {};
+  },
 
-  public tenthFrameClass(index: number): string {
-    if (index === 10) {
-      return 'w-2/12';
+  methods: {
+    tenthFrameClass(index) {
+      if (index === 10) {
+        return 'w-2/12';
+      }
+      return 'w-1/12';
     }
-    return 'w-1/12';
   }
 }
 </script>

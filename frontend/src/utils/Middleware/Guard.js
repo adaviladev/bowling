@@ -1,7 +1,14 @@
 import { Auth } from '@/utils/Auth';
 import { Route } from 'vue-router';
 
-export const isAuthenticated = (to: Route, from: Route, next: Function): Function => {
+/**
+ *
+ * @param {Route} to
+ * @param {Route} from
+ * @param {Function} next
+ * @returns {Function}
+ */
+export const isAuthenticated = (to, from, next) => {
   if (Auth.guest()) {
     return next({
       name: 'Login',

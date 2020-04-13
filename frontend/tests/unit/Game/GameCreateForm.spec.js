@@ -1,12 +1,12 @@
-import { mount } from "@vue/test-utils";
-import expect from "expect/build/index";
-import moxios from "moxios";
-import PageGameCreate from "@/views/PageGameCreate.vue";
-import GameEditor from "../frontend/source-code/components/GameEditor.vue";
-import Factory from "../../utilities/Factory";
+import { mount } from '@vue/test-utils';
+import expect from 'expect';
+import moxios from 'moxios';
+import PageGameCreate from '@/views/PageGameCreate.vue';
+import GameEditor from '@/components/GameEditor.vue';
+import Factory from '../../utilities/Factory';
 
-describe("<PageGameCreate/>", () => {
-  const GAME_SUBMIT_ID = "#game-store";
+describe('<PageGameCreate/>', () => {
+  const GAME_SUBMIT_ID = '#game-store';
 
   beforeEach(() => {
     moxios.install();
@@ -16,10 +16,10 @@ describe("<PageGameCreate/>", () => {
     moxios.uninstall();
   });
 
-  it("should show the game create form", () => {
+  it('should show the game create form', () => {
     let wrapper = mount(PageGameCreate);
 
-    expect(wrapper.find("form#game-create").exists()).toBe(true);
+    expect(wrapper.contains('form#game-create')).toBe(true);
     expect(wrapper.find(GAME_SUBMIT_ID).exists()).toBe(true);
   });
 

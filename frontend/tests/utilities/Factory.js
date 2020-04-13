@@ -1,30 +1,22 @@
 import GameFactory from "./factories/GameFactory";
 import RollFactory from "./factories/RollFactory";
 import UserFactory from "./factories/UserFactory";
-import BuilderInterface from "./factories/BuilderInterface";
-import FrameFactory from "./factories/FrameFactory";
-import Model from "@/Models/Model";
-
-type BuilderInterfaceObject = {
-  [name: string]: BuilderInterface;
-};
 
 export default class Factory {
-  static models: BuilderInterfaceObject = {
+  static models = {
     Game: new GameFactory(),
-    Frame: new FrameFactory(),
     Roll: new RollFactory(),
     User: new UserFactory(),
   };
 
-  public static make(modelName: string, attributes: object = {}, times: number = 1): any | any[] {
+  static make(modelName, attributes = {}, times = 1) {
     let builder = Factory.getBuilder(modelName);
     if (builder) {
       if (times === 1) {
         return Object.assign(builder.generate(), attributes);
       }
 
-      const models: Model[] = [];
+      const models = [];
       for (let i = 0; i < times; i++) {
         models.push(Object.assign(builder.generate(), attributes));
       }
@@ -33,7 +25,7 @@ export default class Factory {
     }
   }
 
-  static getBuilder(modelName: string): BuilderInterface {
+  static getBuilder(modelName) {
     return Factory.models[modelName] || false;
   }
 }

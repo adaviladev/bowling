@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Game
  * @package App
  *
- * @property Collection|Frame[] $frames
+ * @property Collection|Roll[] $rolls
  */
 class Game extends Model
 {
@@ -32,7 +32,7 @@ class Game extends Model
         parent::boot();
 
         self::deleting(function ($game) {
-            $game->frames->each->delete();
+            $game->rolls->each->delete();
         });
     }
 
@@ -42,32 +42,24 @@ class Game extends Model
         $roll = 0;
 
         for ($frameIndex = 1; $frameIndex <= self::FRAMES_PER_GAME; $frameIndex++) {
-            $index = 1;
             if ($this->isStrike($rolls, $roll)) {
                 $sum += 10 + $this->getStrikeBonus($rolls, $roll);
-
                 $roll++;
             } else if ($this->isSpare($rolls, $roll)) {
                 $sum += 10 + $this->getSpareBonus($rolls, $roll);
                 $roll += 2;
             } else {
                 $sum += $this->getDefaultFrameScore($rolls, $roll);
-                /** @var Frame $frame */
-                $frame = Frame::make([
-                    'index' => $frameIndex,
-                ]);
-                $frame->rolls->push(
-                    Roll::make([
-                        'pins'  => $rolls[$roll],
-                        'index' => $index++,
-                    ])
-                )->push(
-                    Roll::make([
-                    'pins'  => $rolls[$roll + 1],
-                    'index' => $index++,
-                    ]
-                ));
-                $this->frames->push($frame);
+                $this->rolls->push(
+                        Roll::make([
+                            'pins'  => $rolls[$roll],
+                        ])
+                    )
+                    ->push(
+                        Roll::make([
+                            'pins'  => $rolls[$roll + 1],
+                        ])
+                    );
                 $roll += 2;
             }
         }
@@ -77,11 +69,6 @@ class Game extends Model
         return $this;
     }
 
-    public function frames()
-    {
-        return $this->hasMany(Frame::class);
-    }
-
     public function path(): string
     {
         return '/api/games/' . $this->id;
@@ -89,7 +76,7 @@ class Game extends Model
 
     public function rolls()
     {
-        return $this->hasManyThrough(Roll::class, Frame::class);
+        return $this->hasMany(Roll::class);
     }
 
     private function isStrike(Collection $rolls, int $roll): bool

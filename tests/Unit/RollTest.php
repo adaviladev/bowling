@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Frame;
+use App\Game;
 use App\Roll;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -12,16 +12,16 @@ class RollTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_roll_should_be_associated_to_a_frame(): void
+    public function a_roll_should_be_associated_to_a_game(): void
     {
-        $frame = create(Frame::class);
+        $game = create(Game::class);
         $roll  = make(Roll::class);
 
-        $frame->rolls()
+        $game->rolls()
               ->save($roll);
 
-        $this->assertDatabaseHas('rolls', ['frame_id' => $roll->frame_id]);
-        $this->assertTrue($roll->frame->is($frame));
+        $this->assertDatabaseHas('rolls', ['game_id' => $roll->game_id]);
+        $this->assertTrue($roll->game->is($game));
     }
 
     /** @test */

@@ -2,11 +2,16 @@
     <nav class="flex items-center justify-between text-gray-700 flex-wrap p-6">
         <div class="flex items-center flex-shrink-0 mr-6">
             <router-link class="font-semibold text-xl hover:text-purple-600"
-                :to="{ name: 'Home' }">Bowling!</router-link>
+                :to="{ name: 'Home' }">Bowling!
+            </router-link>
         </div>
         <div class="block lg:hidden">
             <button class="flex items-center px-3 py-2 border rounded border-purple-600 hover:text-purple hover:border-purple">
-                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                <svg class="fill-current h-3 w-3"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"><title>Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
             </button>
         </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
@@ -38,30 +43,31 @@
     </nav>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import { Component, Watch } from 'vue-property-decorator';
+<script>
 import axios from 'axios';
 import { mapState } from 'vuex';
 
-@Component({
-  computed: mapState(['user'])
-})
-export default class TheNavBar extends Vue {
-  @Watch('user')
-  onAuthCheckChange(value?: object, oldValue?: object): boolean {
-    return this.$store.state.user;
-  }
+export default {
+  computed: {
+    ...mapState(['user']),
+    guest() {
+      return this.$store.state.user === null;
+    }
+  },
 
-  public logout(): void {
-    axios.post('/api/logout');
-    this.$store.dispatch('logout');
-    this.$router.push({ name: 'Home' })
-  }
+  methods: {
+    logout() {
+      axios.post('/api/logout');
+      this.$store.dispatch('logout');
+      this.$router.push({ name: 'Home' })
+    }
+  },
 
-  get guest(): boolean {
-    return this.$store.state.user === null;
-  }
+  watch: {
+    user(value, oldValue) {
+      return this.$store.state.user;
+    }
+  },
 }
 </script>
 

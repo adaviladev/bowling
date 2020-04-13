@@ -1,16 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
-import { IUser } from '@/Interfaces/interfaces';
 
 Vue.use(Vuex);
 
-interface StateInterface {
-  user: IUser | null,
-  token: number|null;
-}
-
-const state: StateInterface = {
+const state = {
   user: null,
   token: null,
 };
@@ -18,21 +12,21 @@ const state: StateInterface = {
 export const storeConfig = {
   state,
   mutations: {
-    setUser(state: any, user: IUser) {
+    setUser(state, user) {
       state.user = user;
     },
-    setToken(state: any, token: string) {
+    setToken(state, token) {
       state.token = token;
     },
-    unsetUser(state: any) {
+    unsetUser(state) {
       state.user = null;
     },
-    unsetToken(state: any) {
+    unsetToken(state) {
       state.token = null;
-    }
+    },
   },
   actions: {
-    checkLocalStorage({ commit }: any) {
+    checkLocalStorage({ commit }) {
       commit('setUser', JSON.parse(localStorage.user));
       commit('setToken', localStorage.token);
 
@@ -41,7 +35,7 @@ export const storeConfig = {
       }
     },
 
-    login({ state, commit }: any, payload: any) {
+    login({ state, commit }, payload) {
       if (!state.user) {
         commit('setUser', payload.user);
         commit('setToken', payload.token);
@@ -50,7 +44,7 @@ export const storeConfig = {
       }
     },
 
-    logout({ state, commit }: any) {
+    logout({ state, commit }) {
       if (state.user) {
         commit('unsetUser');
         commit('unsetToken');
@@ -58,9 +52,9 @@ export const storeConfig = {
 
       delete localStorage.token;
       delete localStorage.user;
-    }
+    },
   },
-  modules: {}
+  modules: {},
 };
 
 export default new Vuex.Store(storeConfig);

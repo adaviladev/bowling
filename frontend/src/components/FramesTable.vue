@@ -44,7 +44,6 @@ export default {
                 :key="index"
                 class="py-0"
                 :editing="editing"
-                :frame="frame"
                 :roll="roll"
                 :frameIndex="index + 1"/>
             <td class="border border-purple-300 text-center">

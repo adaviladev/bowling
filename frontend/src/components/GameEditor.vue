@@ -4,7 +4,7 @@
         <frames-table
             :editing="true"
             :game="game"
-            :frames="game.frames"
+            :rolls="game.rolls"
         />
 
         <button class="btn btn-primary"

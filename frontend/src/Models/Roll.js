@@ -16,7 +16,7 @@ export default class Roll extends Model {
     this.game_id = attributes.game_id;
   }
 
-  static make(params = Roll.defaults) {
+  static make(params = {}) {
     return new Roll(params);
   }
 }

@@ -6,36 +6,30 @@ export default class Game extends Model {
   static defaults = {
     complete: false,
     created_at: null,
-    frames: [],
-    rolls: [],
     id: null,
     score: 0,
     user_id: null,
+
+    frames: [],
+    rolls: new Array(20).fill(Roll.make()),
   };
-
-  user_id = null;
-
-  id = null;
-  score = 0;
-  frames = [];
-  rolls = [];
-  complete = false;
-  created_at = null;
 
   MAX_FRAMES = 10;
 
   constructor(params) {
     super();
-    this.id = params.id;
-    this.user_id = params.user_id;
-    this.score = params.score;
-    this.frames = (params.frames || []).map(frame => Frame.make(frame));
-    this.rolls = (params.rolls || []).map(roll => Roll.make(roll));
-    this.complete = params.complete;
-    this.created_at = params.created_at;
+    const attributes = Object.assign(Game.defaults, params);
+    this.id = attributes.id;
+    this.user_id = attributes.user_id;
+    this.score = attributes.score;
+    this.complete = attributes.complete;
+    this.created_at = attributes.created_at;
+
+    this.frames = (attributes.frames || []).map(frame => Frame.make(frame));
+    this.rolls = attributes.rolls.map(roll => Roll.make(roll));
   }
 
-  static make(params = Game.defaults) {
+  static make(params = {}) {
     return new Game(params);
   }
 

@@ -2,7 +2,7 @@ import {
   mount,
   RouterLinkStub
 } from "@vue/test-utils";
-import expect from "expect/build/index";
+import expect from "expect";
 import GameListItem from "@/components/GameListItem.vue";
 import Factory from "../../utilities/Factory";
 

@@ -4,7 +4,7 @@ import {
   shallowMount,
   createLocalVue
 } from "@vue/test-utils";
-import expect from "expect/build/index";
+import expect from "expect";
 import axios from "axios";
 import moxios from "moxios";
 import VueRouter from 'vue-router';

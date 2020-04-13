@@ -1,7 +1,7 @@
 import {
   mount,
 } from "@vue/test-utils";
-import expect from "expect/build/index";
+import expect from "expect";
 import GameList from "@/components/GameList.vue";
 import Game from "@/Models/Game";
 import GameListItem from "@/components/GameListItem.vue";

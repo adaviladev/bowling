@@ -1,5 +1,5 @@
-import Game from "@/Models/Game";
-import expect from "expect/build/index";
+import Game from '@/Models/Game';
+import expect from 'expect';
 import Factory from "../../utilities/Factory";
 
 describe("Game Scoring", () => {

@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import expect from "expect/build/index";
+import expect from "expect";
 import PageHome from "@/views/PageHome.vue";
 
 describe("View Home Page Test", () => {

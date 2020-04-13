@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import expect from "expect/build/index";
+import expect from "expect";
 import moxios from "moxios";
 import PageGameCreate from "@/views/PageGameCreate.vue";
 import GameEditor from "@/components/GameEditor.vue";

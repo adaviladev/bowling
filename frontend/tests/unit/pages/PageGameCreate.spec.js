@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import expect from "expect/build/index";
+import expect from "expect";
 
 import PageGameCreate from "@/views/PageGameCreate.vue";
 

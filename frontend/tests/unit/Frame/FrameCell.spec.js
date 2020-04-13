@@ -2,7 +2,7 @@ import {
   shallowMount,
   Wrapper
 } from "@vue/test-utils";
-import expect from "expect/build/index";
+import expect from "expect";
 
 import Factory from "../../utilities/Factory";
 import FrameCell from "@/components/FrameCell.vue";

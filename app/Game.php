@@ -91,10 +91,6 @@ class Game extends Model
 
     private function getStrikeBonus(Collection $rolls, int $roll)
     {
-        if (!isset($rolls[$roll]) || !isset($rolls[$roll + 1]) || !isset($rolls[$roll + 2])) {
-            dd(__METHOD__ . ':' . __LINE__, $rolls, $roll);
-        }
-
         return $rolls[$roll + 1] + $rolls[$roll + 2];
     }
 

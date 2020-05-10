@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import User from '@/Models/User';
 
 Vue.use(Vuex);
 
@@ -27,7 +28,7 @@ export const storeConfig = {
   actions: {
     login({ state, commit }, payload) {
       if (!state.user) {
-        commit('setUser', payload.user);
+        commit('setUser', User.make(payload.user));
         commit('setToken', payload.token);
       }
     },

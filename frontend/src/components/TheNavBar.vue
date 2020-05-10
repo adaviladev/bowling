@@ -30,8 +30,8 @@
                     :to="{ name: 'Login' }">
                     Login
                 </router-link>
-                <a href="/register"
-                    class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600"> Register </a>
+                <router-link :to="{ name: 'Register' }"
+                    class="block mt-4 lg:inline-block lg:mt-0 hover:text-purple-600"> Register </router-link>
             </div>
             <div v-else>
                 <form @submit.prevent="logout">

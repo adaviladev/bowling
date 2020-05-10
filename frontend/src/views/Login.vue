@@ -86,7 +86,7 @@ export default {
         .then(({ data }) => {
           axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
           this.$store.dispatch('login', data);
-          this.$router.push({ name: 'Games' })
+          this.$router.push({ name: 'Home' })
         })
         .catch((error) => {
           // this.errors = error.errors;

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
-/** @codeCoverageIgnore */
 class ResetPasswordController extends Controller
 {
     /*

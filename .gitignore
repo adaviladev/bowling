@@ -7,9 +7,10 @@ node_modules
 /.vscode
 /.vagrant
 Homestead.yaml
-npm-debug.lo
+npm-debug.log
 yarn-error.log
 .env
+.env.backup
 
 .nyc_output
 .phpstorm.meta.php
@@ -23,3 +24,4 @@ public/mix-manifest.json
 public/report
 
 resources/views/index.blade.php
+/.phpunit.result.cache

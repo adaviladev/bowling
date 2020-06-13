@@ -22,7 +22,12 @@ class UpdateGamesTest extends TestCase
             'score' => 300
         ]);
 
-        $this->assertDatabaseHas('games', $game->fresh()->toArray());
+        $this->assertDatabaseHas('games', [
+            'id' => $game->id,
+            'user_id' => $game->user_id,
+            'score' => $game->score,
+            'complete' => $game->complete,
+        ]);
     }
 
     /** @test */

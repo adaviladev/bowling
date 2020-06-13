@@ -23,15 +23,6 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
-    public function it_should_render_the_users_home_page()
-    {
-        $this->signIn();
-
-        $this->get(route('home'))
-             ->assertSee(e($this->user->fullName));
-    }
-
-    /** @test */
     public function it_should_return_a_users_profile_as_json()
     {
         $user = create(User::class);

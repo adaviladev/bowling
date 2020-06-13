@@ -1,6 +1,11 @@
 # Setup
 1. Install Vagrant/Homestead by following the [Laravel installation documentation](https://laravel.com/docs/5.6)
 2. `vagrant up`
+3. Run the following commands:
+```shell script
+art migrate --seed
+art passport:install
+```
 3. Checkout and branch form `staging` by running the following commands:
     ```
     git checkout staging

@@ -5,11 +5,8 @@ alias h='cd ~'
 alias c='clear'
 alias art=artisan
 
-alias ccp='composer create-project'
-alias cdh='cd ~/Homestead'
 alias cdo='composer dump-autoload --optimize-autoloader'
 alias cdu='composer dump-autoload'
-alias cget='curl -s https://getcomposer.org/installer | php'
 alias cgr='composer global require'
 alias cgrm='composer global remove'
 alias cgu='composer global update'
@@ -58,6 +55,14 @@ function php71() {
 
 function php72() {
     sudo update-alternatives --set php /usr/bin/php7.2
+}
+
+function php73() {
+    sudo update-alternatives --set php /usr/bin/php7.3
+}
+
+function php74() {
+    sudo update-alternatives --set php /usr/bin/php7.4
 }
 
 function serve-apache() {

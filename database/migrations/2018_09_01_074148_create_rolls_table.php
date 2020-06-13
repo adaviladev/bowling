@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRollsTable extends Migration
 {
@@ -14,9 +14,9 @@ class CreateRollsTable extends Migration
     public function up()
     {
         Schema::create('rolls', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('game_id');
-            $table->unsignedInteger('pins');
+            $table->id();
+            $table->foreignId('game_id')->constrained();
+            $table->unsignedBigInteger('pins');
             $table->boolean('pin_1')->default(false);
             $table->boolean('pin_2')->default(false);
             $table->boolean('pin_3')->default(false);
@@ -28,10 +28,6 @@ class CreateRollsTable extends Migration
             $table->boolean('pin_9')->default(false);
             $table->boolean('pin_10')->default(false);
             $table->timestamps();
-
-            $table->foreign('game_id')
-                  ->references('id')
-                  ->on('games');
         });
     }
 

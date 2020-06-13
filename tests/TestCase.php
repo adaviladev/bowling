@@ -2,9 +2,9 @@
 
 namespace Tests;
 
-use App\Roll;
 use App\Exceptions\Handler;
 use App\Game;
+use App\Roll;
 use App\User;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -60,11 +60,11 @@ abstract class TestCase extends BaseTestCase
                 {
                 }
 
-                public function report(\Exception $e): void
+                public function report(\Throwable $e): void
                 {
                 }
 
-                public function render($request, \Exception $e)
+                public function render($request, \Throwable $e)
                 {
                     throw $e;
                 }

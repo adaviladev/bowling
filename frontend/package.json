@@ -12,8 +12,9 @@
     "test": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "axios": "latest",
+    "axios": "^0.19",
     "core-js": "^3.4.3",
+    "moment": "^2.26.0",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.3.0",

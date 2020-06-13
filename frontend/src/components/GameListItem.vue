@@ -8,7 +8,7 @@
             <div class="px-6 py-4">
                 <div class="font-bold py-4">
                     <p>
-                        Game #{{ game.id }} - <small>created on {{ game.created_at }}</small>
+                        Game #{{ game.id }} - <small>created {{ createdAt }}</small>
                     </p>
                 </div>
                 <router-link class="btn btn-primary text-white"
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   props: {
     game: {
@@ -40,6 +42,10 @@ export default {
       }
 
       return "bg-red-300";
+    },
+
+    createdAt() {
+      return moment(this.game.created_at).fromNow();
     }
   },
 }

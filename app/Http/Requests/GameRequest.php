@@ -8,8 +8,6 @@ class GameRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -27,13 +25,11 @@ class GameRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
     public function rules(): array
     {
         return [
-            'score' => 'integer|min:0|max:300'
+            'score' => 'integer|min:0|max:300',
         ];
     }
 }

@@ -11,10 +11,6 @@ class RollsController extends Controller
 {
     /**
      * Store a newly created resource in storage.
-     *
-     * @param Game        $game
-     * @param RollRequest $request
-     * @return void
      */
     public function store(Game $game, RollRequest $request): void
     {

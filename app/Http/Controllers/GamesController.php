@@ -27,8 +27,6 @@ class GamesController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index(): Response
     {
@@ -44,10 +42,6 @@ class GamesController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param GameRequest $request
-     *
-     * @return Response
      */
     public function store(GameRequest $request): Response
     {
@@ -57,16 +51,12 @@ class GamesController extends Controller
                     'complete' => $request->get('complete', false),
                     'score'    => $request->get('score') ?? 0,
                     'user_id'  => auth()->id(),
-                ])
-            ], Response::HTTP_CREATED);
+                ]),
+        ], Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param Game $game
-     *
-     * @return Response
      */
     public function show(Game $game): Response
     {
@@ -81,8 +71,6 @@ class GamesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param GameUpdateRequest $request
-     * @param  Game             $game
      *
      * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -105,7 +93,6 @@ class GamesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Game $game
      *
      * @return RedirectResponse|Redirector
      * @throws AuthorizationException

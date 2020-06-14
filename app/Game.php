@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
- * Class Game
- * @package App
+ * Class Game.
  *
  * @property Collection|Roll[] $rolls
  */
@@ -45,7 +44,7 @@ class Game extends Model
             if ($this->isStrike($rolls, $roll)) {
                 $sum += 10 + $this->getStrikeBonus($rolls, $roll);
                 $roll++;
-            } else if ($this->isSpare($rolls, $roll)) {
+            } elseif ($this->isSpare($rolls, $roll)) {
                 $sum += 10 + $this->getSpareBonus($rolls, $roll);
                 $roll += 2;
             } else {
@@ -71,7 +70,7 @@ class Game extends Model
 
     public function path(): string
     {
-        return '/api/games/' . $this->id;
+        return '/api/games/'.$this->id;
     }
 
     public function rolls()

@@ -48,7 +48,6 @@ class LoginController extends Controller
     /**
      * Handle a login request to the application.
      *
-     * @param Request $request
      * @return RedirectResponse|Response|JsonResponse|void
      *
      * @throws ValidationException
@@ -71,6 +70,7 @@ class LoginController extends Controller
         if (Auth::guard('web')->attempt($request->all())) {
             /** @var User $user */
             $user = Auth::guard('web')->user();
+
             return response([
                 'token' => $user->createToken('JWT')->accessToken,
                 'user' => $user,
@@ -88,7 +88,6 @@ class LoginController extends Controller
     /**
      * Log the user out of the application.
      *
-     * @param Request $request
      *
      * @return Response
      */
@@ -100,7 +99,7 @@ class LoginController extends Controller
             ->delete();
 
         return response([
-            'message' => 'Successfully logged out'
+            'message' => 'Successfully logged out',
         ], Response::HTTP_OK);
     }
 }

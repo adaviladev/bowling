@@ -8,6 +8,7 @@ $factory->define(App\Roll::class, function (Faker $faker) {
         'pins' => $faker->numberBetween(0, 10),
         'game_id' => function () {
             $game = Game::inRandomOrder()->first();
+
             return optional($game)->id ?? factory(Game::class)->create();
         },
         'pin_1' => 0,

@@ -50,4 +50,35 @@ class CreateRollsTest extends TestCase
         $this->assertEquals(20, $game->rolls()->count());
         $this->assertEquals(20, Roll::count());
     }
-}
+
+    /** @test */
+    public function a_game_cannot_have_less_than_12_rolls()
+    {
+        $this->signIn();
+        $this->withExceptionHandling();
+        $game = create(Game::class);
+        $rolls = make(Roll::class, ['pins' => 0], 11)->pluck('pins');
+
+        $response = $this->postJson(route('rolls.store', ['game' => $game]), [
+            'rolls' => $rolls,
+        ]);
+        $content = json_decode($response->getContent());
+
+        $this->assertContains('The rolls must have at least 12 items.', $content->errors->rolls);
+    }
+
+    /** @test */
+    public function a_game_cannot_have_more_than_20_rolls()
+    {
+        $this->signIn();
+        $this->withExceptionHandling();
+        $game = create(Game::class);
+        $rolls = make(Roll::class, ['pins' => 0], 21)->pluck('pins');
+
+        $response = $this->postJson(route('rolls.store', ['game' => $game]), [
+            'rolls' => $rolls,
+        ]);
+        $content = json_decode($response->getContent());
+
+        $this->assertContains('The rolls may not have more than 20 items.', $content->errors->rolls);
+    }}

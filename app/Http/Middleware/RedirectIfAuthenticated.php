@@ -16,15 +16,12 @@ class RedirectIfAuthenticated
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next, $guard = 'api')
     {
         if (Auth::guard($guard)->check()) {
-            $user = Auth::user();
-
             return response([
-                'token' => $user->createToken('JWT')->accessToken,
-                'user' => $user,
-            ], Response::HTTP_OK);
+                'message' => 'Already signed in.'
+            ], Response::HTTP_FOUND);
         }
 
         return $next($request);

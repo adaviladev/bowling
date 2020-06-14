@@ -15,9 +15,9 @@ class UsersTableSeeder extends Seeder
         factory(User::class, 20)->create();
 
         User::where('id', 1)->update([
-            'first_name' => 'Adrian',
-            'last_name' => 'Davila',
-            'email' => 'adavila@bowling.test'
+            'first_name' => config('develop.first_name'),
+            'last_name' => config('develop.last_name'),
+            'email' => config('develop.email')
         ]);
     }
 }

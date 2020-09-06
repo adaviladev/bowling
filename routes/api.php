@@ -22,5 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResources([
     'users' => 'UsersController',
     'games' => 'GamesController',
-    'games/{game}/rolls' => 'RollsController'
+    'games/{game}/rolls' => 'RollsController',
 ]);

@@ -17,7 +17,7 @@ class DeleteGamesTest extends TestCase
     {
         $this->signIn();
         $game = create(Game::class, [
-            'user_id' => $this->user->id
+            'user_id' => $this->user->id,
         ]);
         $game->rolls()->saveMany(make(Roll::class, [], 10));
 
@@ -60,7 +60,7 @@ class DeleteGamesTest extends TestCase
     {
         $this->signIn();
         $game = create(Game::class, [
-            'user_id' => $this->user->id
+            'user_id' => $this->user->id,
         ]);
 
         $this->delete(route('games.destroy', ['game' => $game]));

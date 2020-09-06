@@ -6,9 +6,7 @@ use App\Game;
 use App\Http\Requests\GameRequest;
 use App\Http\Requests\GameUpdateRequest;
 use App\Roll;
-use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
@@ -18,75 +16,42 @@ class GamesController extends Controller
     public function __construct()
     {
         $this->middleware(['auth:api'])
-             ->except(
-                 [
-                     'index',
-                 ]
-             );
+            ->except([
+                'index',
+            ]);
     }
 
     /**
      * Display a listing of the resource.
-     *
-     * @return Response
      */
     public function index(): Response
     {
         $games = Game::all();
 
-        return response(
-            [
-                'games' => $games,
-            ],
-            Response::HTTP_OK
-        );
+        return response([
+            'games' => $games,
+        ], Response::HTTP_OK);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param GameRequest $request
-     *
-     * @return Response
-     */
     public function store(GameRequest $request): Response
     {
         return response([
-            'game' => Game::create(
-                [
-                    'complete' => $request->get('complete', false),
-                    'score'    => $request->get('score') ?? 0,
-                    'user_id'  => auth()->id(),
-                ])
-            ], Response::HTTP_CREATED);
+            'game' => Game::create([
+                'complete' => $request->get('complete', false),
+                'score' => $request->get('score') ?? 0,
+                'user_id' => auth()->id(),
+            ]),
+        ], Response::HTTP_CREATED);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Game $game
-     *
-     * @return Response
-     */
     public function show(Game $game): Response
     {
-        return response(
-            [
-                'game' => $game->load('rolls'),
-            ],
-            Response::HTTP_OK
-        );
+        return response([
+            'game' => $game->load('rolls'),
+        ], Response::HTTP_OK);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param GameUpdateRequest $request
-     * @param  Game             $game
-     *
-     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
-    public function update(GameUpdateRequest $request, Game $game)
+    public function update(GameUpdateRequest $request, Game $game): Response
     {
         $rolls = collect($request->get('rolls'));
         $rolls = $rolls->map(static function ($roll) {
@@ -105,11 +70,9 @@ class GamesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Game $game
-     *
      * @return RedirectResponse|Redirector
+     *
      * @throws AuthorizationException
-     * @throws Exception
      */
     public function destroy(Game $game)
     {

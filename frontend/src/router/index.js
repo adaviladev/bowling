@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Register from '@/views/Register.vue';
@@ -10,8 +9,6 @@ import { auth } from '@/router/Middleware/Authenticate';
 import { guest } from '@/router/Middleware/Guest';
 import { can } from '@/router/Middleware/Authorize';
 import middleware from './Middleware';
-
-Vue.use(VueRouter);
 
 const routes = [
   {
@@ -54,10 +51,9 @@ const routes = [
   },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
 });
 
 export default router;

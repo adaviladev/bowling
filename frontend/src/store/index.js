@@ -1,8 +1,5 @@
-import Vue from 'vue';
 import Vuex from 'vuex';
 import User from '@/Models/User';
-
-Vue.use(Vuex);
 
 const state = {
   user: null,
@@ -43,4 +40,4 @@ export const storeConfig = {
   modules: {},
 };
 
-export default new Vuex.Store(storeConfig);
+export default Vuex.createStore(storeConfig);

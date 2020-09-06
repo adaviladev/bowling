@@ -11,10 +11,6 @@ class RollsController extends Controller
 {
     /**
      * Store a newly created resource in storage.
-     *
-     * @param Game        $game
-     * @param RollRequest $request
-     * @return void
      */
     public function store(Game $game, RollRequest $request): void
     {
@@ -30,7 +26,8 @@ class RollsController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int    $id
+     * @param int     $id
+     *
      * @return Response
      */
     //public function update(Request $request, $id)
@@ -41,7 +38,8 @@ class RollsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     //public function destroy($id)

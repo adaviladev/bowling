@@ -4,15 +4,13 @@ namespace Tests\Feature\Auth;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Laravel\Passport\Token;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @var User $user */
+    /** @var User */
     protected $user;
 
     /** @test */

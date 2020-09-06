@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
- * Class Game
- * @package App
+ * Class Game.
  *
  * @property Collection|Roll[] $rolls
  */
@@ -16,9 +15,9 @@ class Game extends Model
     protected const FRAMES_PER_GAME = 10;
 
     protected $casts = [
-        'user_id'  => 'int',
+        'user_id' => 'int',
         'complete' => 'boolean',
-        'score'    => 'integer',
+        'score' => 'integer',
     ];
 
     protected $fillable = [
@@ -45,19 +44,19 @@ class Game extends Model
             if ($this->isStrike($rolls, $roll)) {
                 $sum += 10 + $this->getStrikeBonus($rolls, $roll);
                 $roll++;
-            } else if ($this->isSpare($rolls, $roll)) {
+            } elseif ($this->isSpare($rolls, $roll)) {
                 $sum += 10 + $this->getSpareBonus($rolls, $roll);
                 $roll += 2;
             } else {
                 $sum += $this->getDefaultFrameScore($rolls, $roll);
                 $this->rolls->push(
                         Roll::make([
-                            'pins'  => $rolls[$roll],
+                            'pins' => $rolls[$roll],
                         ])
                     )
                     ->push(
                         Roll::make([
-                            'pins'  => $rolls[$roll + 1],
+                            'pins' => $rolls[$roll + 1],
                         ])
                     );
                 $roll += 2;

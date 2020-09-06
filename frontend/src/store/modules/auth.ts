@@ -14,6 +14,7 @@ const state: AuthState = {
 
 export const auth: Module<AuthState, RootState> = {
   state,
+  namespaced: true,
   mutations: {
     setUser(state, user) {
       state.user = user;

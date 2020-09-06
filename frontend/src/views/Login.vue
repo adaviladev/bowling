@@ -61,37 +61,34 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios';
+import { ref, computed } from 'vue';
+import store from '@/store';
+import router from '@/router';
 
 export default {
-  data() {
-    return {
-      email: '',
-      password: '',
-      token: '',
-      message: '',
-      errors: [],
-    };
-  },
-
-  methods: {
-    login() {
+  setup () {
+    const email = ref('');
+    const password = ref('');
+    const login = () => {
       axios.post('/api/login',
         {
-          email: this.email,
-          password: this.password,
+          email: email.value,
+          password: password.value,
         })
         .then(({ data }) => {
           axios.defaults.headers.common['Authorization'] = `Bearer ${(data.token)}`;
-          this.$store.dispatch('login', data);
-          this.$router.push({ name: 'Home' })
-        })
-        .catch((error) => {
-          // this.errors = error.errors;
-          // this.message = error.message;
+          store.dispatch('auth/login', data);
+          router.push({ name: 'Home' })
         });
     }
+
+    return {
+      email,
+      login,
+      password,
+    };
   },
 }
 </script>

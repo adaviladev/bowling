@@ -6,7 +6,7 @@ import { StoreInterface } from "@/types/StoreInterface";
 declare module '@vue/runtime-core' {
 
   interface ComponentCustomProperties {
-    $store: Store<StoreInterface>
-    $route: Router
+    $store: Store<StoreInterface>;
+    $route: Router;
   }
 }

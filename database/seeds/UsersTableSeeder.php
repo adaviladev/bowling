@@ -7,8 +7,6 @@ class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -17,7 +15,7 @@ class UsersTableSeeder extends Seeder
         User::where('id', 1)->update([
             'first_name' => config('develop.first_name'),
             'last_name' => config('develop.last_name'),
-            'email' => config('develop.email')
+            'email' => config('develop.email'),
         ]);
     }
 }

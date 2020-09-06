@@ -26,7 +26,7 @@ class RollsTableSeeder extends Seeder
                 if ($roll1->pins !== 10) {
                     $roll2 = factory(Roll::class)->create([
                         'game_id' => $game->id,
-                        'pins'     => random_int(0, $availablePins),
+                        'pins' => random_int(0, $availablePins),
                     ]);
                 }
 

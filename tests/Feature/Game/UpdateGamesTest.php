@@ -15,11 +15,11 @@ class UpdateGamesTest extends TestCase
     {
         $this->signIn();
         $game = create(Game::class, [
-            'user_id' => $this->user->id
+            'user_id' => $this->user->id,
         ]);
 
         $this->put(route('games.update', ['game' => $game]), [
-            'score' => 300
+            'score' => 300,
         ]);
 
         $this->assertDatabaseHas('games', [
@@ -38,7 +38,7 @@ class UpdateGamesTest extends TestCase
         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
 
         $this->put(route('games.update', ['game' => $otherGame]), [
-            'score' => 0
+            'score' => 0,
         ]);
 
         $this->assertDatabaseHas('games', $otherGame->toArray());

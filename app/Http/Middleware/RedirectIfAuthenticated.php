@@ -11,16 +11,14 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
-     * @return mixed
+     * @param \Illuminate\Http\Request $request
+     * @param string|null              $guard
      */
     public function handle($request, Closure $next, $guard = 'api')
     {
         if (Auth::guard($guard)->check()) {
             return response([
-                'message' => 'Already signed in.'
+                'message' => 'Already signed in.',
             ], Response::HTTP_FOUND);
         }
 

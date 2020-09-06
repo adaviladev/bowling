@@ -59,7 +59,7 @@
     },
     "scripts": {
         "style": "./vendor/bin/php-cs-fixer fix",
-        "lint": "./vendor/bin/php-cs-fixer --dry-run fix",
+        "lint": "./vendor/bin/php-cs-fixer fix --dry-run",
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],

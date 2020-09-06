@@ -16,7 +16,7 @@ class LogoutTest extends TestCase
         /** @var User $user */
         $user = create(User::class, [
             'first_name' => 'Logout',
-            'last_name' => 'Tester'
+            'last_name' => 'Tester',
         ]);
         $token = $user->createToken(__CLASS__);
 

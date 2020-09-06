@@ -3,11 +3,9 @@
 namespace Tests\Feature\Game;
 
 use App\Game;
-use App\Roll;
 use Illuminate\Auth\AuthenticationException;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CreateGamesTest extends TestCase
 {
@@ -54,7 +52,7 @@ class CreateGamesTest extends TestCase
         $game = create(Game::class, ['user_id' => $this->user->id]);
 
         $this->put(route('games.update', ['game' => $game]), [
-            'rolls' => [1, 3]
+            'rolls' => [1, 3],
         ]);
 
         $this->assertCount(2, $game->rolls);

@@ -15,7 +15,7 @@ class RollTest extends TestCase
     public function a_roll_should_be_associated_to_a_game(): void
     {
         $game = create(Game::class);
-        $roll  = make(Roll::class);
+        $roll = make(Roll::class);
 
         $game->rolls()
               ->save($roll);
@@ -29,7 +29,7 @@ class RollTest extends TestCase
     {
         $roll = make(Roll::class);
 
-        for ($i = 1; $i <= self::MAX_PIN_COUNT; $i ++) {
+        for ($i = 1; $i <= self::MAX_PIN_COUNT; $i++) {
             $this->assertArrayHasKey("pin_{$i}", $roll);
         }
     }

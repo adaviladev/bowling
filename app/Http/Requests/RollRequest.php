@@ -16,14 +16,6 @@ class RollRequest extends FormRequest
         return auth()->check();
     }
 
-    public function messages(): array
-    {
-        return [
-            'rolls.required' => 'Variable $rolls is required.',
-            'rolls.array' => 'Variable $rolls must be an array.',
-        ];
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -32,7 +24,7 @@ class RollRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'rolls' => 'required|array',
+            'rolls' => 'required|array|min:12|max:20',
             'rolls.*' => 'required|integer|min:0|max:10',
         ];
     }

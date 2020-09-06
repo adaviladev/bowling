@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\ServiceProvider;
 
+/** @codeCoverageIgnore  */
 class BroadcastServiceProvider extends ServiceProvider
 {
     /**
@@ -12,10 +13,10 @@ class BroadcastServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    //public function boot()
-    //{
-        //Broadcast::routes();
-        //
-        //require base_path('routes/channels.php');
-    //}
+    public function boot()
+    {
+        Broadcast::routes();
+
+        require base_path('routes/channels.php');
+    }
 }

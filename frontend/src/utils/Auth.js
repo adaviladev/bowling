@@ -12,15 +12,12 @@ export class Auth {
    * @returns {boolean}
    */
   static check() {
-    return store.state.user !== null;
+    return store.state.auth.user !== null;
   }
 
-  /**
-   * @returns {IUser | null}
-   */
   static user() {
-    if (store.state.user !== null) {
-      return store.state.user;
+    if (store.state.auth.user !== null) {
+      return store.state.auth.user;
     }
 
     return null;

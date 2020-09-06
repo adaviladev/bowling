@@ -23,9 +23,11 @@
     "vuex": "^4.0.0-alpha.1"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.19",
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-plugin-eslint": "^4.1.0",
     "@vue/cli-plugin-router": "^4.1.0",
+    "@vue/cli-plugin-typescript": "^4.5.4",
     "@vue/cli-plugin-unit-jest": "^4.1.0",
     "@vue/cli-plugin-vuex": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
@@ -42,7 +44,7 @@
     "moxios": "^0.4.0",
     "prettier": "^1.19.1",
     "tailwindcss": "^1.1.4",
-    "typescript": "~3.5.3",
+    "typescript": "~3.9.3",
     "vue-cli-plugin-vue-next": "~0.1.3"
   }
 }

@@ -45,12 +45,13 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
+import { Auth } from '@/utils/Auth';
 
 export default {
   computed: {
     ...mapState(['user']),
     guest() {
-      return this.$store.state.user === null;
+      return Auth.guest();
     }
   },
 
@@ -64,7 +65,7 @@ export default {
 
   watch: {
     user(value, oldValue) {
-      return this.$store.state.user;
+      return Auth.check();
     }
   },
 }

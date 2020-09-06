@@ -32,4 +32,9 @@ module.exports = {
     // '@vue/prettier',
     '@vue/typescript',
   ],
+
+  'extends': [
+    'plugin:vue/vue3-essential',
+    '@vue/typescript'
+  ]
 }

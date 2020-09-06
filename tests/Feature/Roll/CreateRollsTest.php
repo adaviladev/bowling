@@ -40,7 +40,7 @@ class CreateRollsTest extends TestCase
     public function a_gutter_game_should_create_twenty_rolls()
     {
         $this->signIn();
-        $game  = create(Game::class);
+        $game = create(Game::class);
         $rolls = $this->rollTimes(20, 0);
 
         $this->post(route('rolls.store', ['game' => $game]), [
@@ -81,4 +81,5 @@ class CreateRollsTest extends TestCase
         $content = json_decode($response->getContent());
 
         $this->assertContains('The rolls may not have more than 20 items.', $content->errors->rolls);
-    }}
+    }
+}

@@ -41,7 +41,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function signIn($user = null, $scopes = [])
     {
-        $user = $user ? : create(User::class);
+        $user = $user ?: create(User::class);
 
         $this->user = $user;
         Passport::actingAs($user, $scopes);
@@ -54,8 +54,7 @@ abstract class TestCase extends BaseTestCase
         $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
 
         $this->app->instance(ExceptionHandler::class,
-            new class extends Handler
-            {
+            new class extends Handler {
                 public function __construct()
                 {
                 }
@@ -81,8 +80,6 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * @param string $relation
-     *
-     * @return mixed
      */
     protected function randomUser($relation = 'games')
     {
@@ -102,11 +99,6 @@ abstract class TestCase extends BaseTestCase
         return collect($games);
     }
 
-    /**
-     * @param User|null $user
-     *
-     * @return Game
-     */
     protected function createGame(User $user = null): Game
     {
         $bowler = $user ?? $this->user;
@@ -122,8 +114,6 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @param Game $game
-     *
      * @throws \Exception
      */
     protected function buildRolls(Game $game): void
@@ -135,7 +125,7 @@ abstract class TestCase extends BaseTestCase
             $availablePins = 10 - $roll1->pins;
             $roll2 = factory(Roll::class)->create([
                 'game_id' => $game->id,
-                'pins'     => random_int(0, $availablePins),
+                'pins' => random_int(0, $availablePins),
             ]);
             if ($i === 10 && ($roll1->pins === 10 || $roll1->pins + $roll2->pins === 10)) {
                 factory(Roll::class)->create([
@@ -172,9 +162,6 @@ abstract class TestCase extends BaseTestCase
         return $this->rolls;
     }
 
-    /**
-     * @return array
-     */
     protected function getRolls(): array
     {
         return [

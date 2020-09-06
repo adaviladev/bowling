@@ -10,7 +10,7 @@ module.exports = {
   runtimeCompiler: true,
   configureWebpack: {
     resolve: {
-      extensions: ['.js', '.vue', '.json'],
+      extensions: ['.js', '.ts', '.vue', '.json'],
       alias: {
         '@': path.resolve('src')
       }

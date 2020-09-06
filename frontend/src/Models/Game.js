@@ -33,6 +33,10 @@ export default class Game extends Model {
     this.rolls = (params.rolls || []).map(roll => Roll.make(roll));
     this.complete = params.complete;
     this.created_at = params.created_at;
+
+    if (this.rolls.length) {
+      this.calculateScore();
+    }
   }
 
   static make(params = Game.defaults) {

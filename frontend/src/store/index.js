@@ -7,4 +7,4 @@ export const storeConfig = {
   },
 };
 
-export default createStore(storeConfig);
+export const store = createStore(storeConfig);

@@ -34,14 +34,14 @@ const routes = [
     name: 'Games',
     component: GameList,
     props: true,
-    beforeEnter: middleware([auth]),
+    beforeEnter: middleware([/*auth*/]),
   },
   {
     path: '/games/:id',
     name: 'GameShow',
     component: GameShow,
     props: true,
-    beforeEnter: middleware([auth]),
+    beforeEnter: middleware([/*auth*/]),
   },
   {
     path: '/games/create',

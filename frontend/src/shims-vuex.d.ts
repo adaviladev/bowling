@@ -10,3 +10,7 @@ declare module '@vue/runtime-core' {
     $route: Router;
   }
 }
+
+declare module 'vuex' {
+  export function useStore (key?: string): StoreInterface<StoreInterface>;
+}

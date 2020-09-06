@@ -1,10 +1,6 @@
 import { Module } from 'vuex';
 import User from '@/Models/User';
-import { AuthState } from "@/types/StoreInterface";
-
-interface RootState {
-  auth: AuthState;
-}
+import { AuthState, StoreInterface } from "@/types/StoreInterface";
 
 const state: AuthState = {
   user: null,
@@ -12,7 +8,7 @@ const state: AuthState = {
   authenticated: false,
 };
 
-export const auth: Module<AuthState, RootState> = {
+export const auth: Module<AuthState, StoreInterface> = {
   state,
   namespaced: true,
   mutations: {

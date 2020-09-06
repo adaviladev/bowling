@@ -63,14 +63,17 @@
 
 <script lang="ts">
 import axios from 'axios';
-import { ref, computed } from 'vue';
-import store from '@/store';
+import { ref } from 'vue';
 import router from '@/router';
+import { useStore } from 'vuex';
 
 export default {
   setup () {
     const email = ref('');
     const password = ref('');
+
+    const store = useStore();
+
     const login = () => {
       axios.post('/api/login',
         {

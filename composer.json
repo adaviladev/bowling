@@ -58,8 +58,8 @@
         ]
     },
     "scripts": {
-        "style": "./vendor/bin/phpcs --standard=phpcs.xml",
-        "lint": "./vendor/bin/phpcbf --standard=phpcs.xml",
+        "style": "./vendor/bin/php-cs-fixer fix",
+        "lint": "./vendor/bin/php-cs-fixer --dry-run fix",
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],

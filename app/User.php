@@ -54,6 +54,6 @@ class User extends Authenticatable
 
     public function path()
     {
-        return "/api/users/{$this->id}";
+        return route('users.show', ['user' => $this->id]);
     }
 }

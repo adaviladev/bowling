@@ -15,7 +15,7 @@ class ProfileTest extends TestCase
     {
         $users = create(User::class, [], 3);
 
-        $response = $this->getJson('/api/users');
+        $response = $this->getJson(route('users.index'));
 
         $users->each(function (User $user) use ($response) {
             $response->assertJsonFragment($user->toArray());

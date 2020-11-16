@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('{spa}', static function () {
     return view('index');

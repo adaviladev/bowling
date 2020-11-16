@@ -17,10 +17,10 @@ if [[ "$STAGED_PHP_FILES" != "" ]]; then
     fi
   done
 
-  if ! vendor/bin/phpunit
-  then
-    PASS=false
-  fi
+#  if ! vendor/bin/phpunit
+#  then
+#    PASS=false
+#  fi
 fi
 
 

@@ -14,8 +14,11 @@ class TrustHosts extends Middleware
      */
     public function hosts()
     {
-        return [
-            $this->allSubdomainsOfApplicationUrl(),
-        ];
+        return tap(collect(), function ($hosts) {
+            if (app()->environment() === 'local') {
+                $hosts->push('localhost');
+            }
+            $hosts->push($this->allSubdomainsOfApplicationUrl());
+        })->all();
     }
 }
